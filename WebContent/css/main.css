@@ -50,7 +50,7 @@ dl, dt, dd, ol, ul, li{
 	background: url(../img/bg2.jpg) no-repeat top;
 } */
 .frontPage-top{
-	background: url(../img/img-mainbg.jpg) no-repeat top;
+	background: url(../imgs/img-mainbg.jpg) no-repeat top;
     text-align: center;
     height: 400px;
 }
