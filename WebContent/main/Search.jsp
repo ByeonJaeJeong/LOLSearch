@@ -90,13 +90,12 @@
     background-color: #f2f2f2;
     padding: 8px 0;
 }
-.tier_imagebox{
-	display: table;
-    width: 100%;
-    color: #879292;
-    position: relative;
-    background-color: #f2f2f2;
-    padding: 8px 0;
+.tier_imgbox{
+	display: table-cell;
+    vertical-align: middle;
+    width: 120px;
+    height: 124px;
+    text-align: center;
 }
 .image{
 	width: 104px;
@@ -240,7 +239,7 @@ $.ajax({
 	 		    	var tier=json[0].tier;
 	 		    	var rank=json[0].rank;
 	 		    	}
-	 		    	$('.tier_imgbox').append("<img class='image' src='/WebContent/img/"+tier+".png'>");
+	 		    	$('.tier_imgbox').append("<img class='image' src='https://raw.githubusercontent.com/ByeonJaeJeong/LOLSearch/master/WebContent/img/"+tier+".png'>");
 	 		 		$('.tier_Rank').append("<span>"+tier+""+rank+"</span>");
 	 		    	setTimeout(5);
 	 		    }
