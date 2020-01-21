@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+
+footer{
+	clear: both;
+    position: relative;
+    margin-top: 15px;
+    padding: 15px 0;
+    background-color: #f0f0f0;
+    bottom: 0;
+    width: 100%;
+	
+}
+.copyright{
+	font-size:14px;
+}
+.LOL{
+	font-size:12px;
+}

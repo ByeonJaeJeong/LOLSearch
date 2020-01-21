@@ -1,0 +1,142 @@
+@CHARSET "UTF-8";
+dl, dt, dd, ol, ul, li{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+ a:link { color: white; text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+ a:hover { color: black; text-decoration: none;}
+
+
+
+.Search{
+	padding-left: 8px;
+    padding-right: 8px;
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    background-color: #fff;
+    font-size: 14px;
+    color: #333;
+    border: 0;
+    outline: none;
+    box-shadow: none;
+}
+.Search-btn{
+	position: absolute;
+    top: 0;
+    right: 4px;
+    height: 48px;
+    line-height: 46px;
+    text-align: center;
+    border: none;
+    font-size: 20px;
+    color: #ca9372;
+    background-color: #fff;
+    outline: none;
+}
+.Search-box{
+	position: relative;
+    padding-left: 10px;
+    padding-right: 52px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    background-color: #fff;
+    width: 400px;
+    margin:0 auto;
+}
+/* .frontPage{
+	background: url(../img/bg2.jpg) no-repeat top;
+} */
+.frontPage-top{
+	background: url(../img/img-mainbg.jpg) no-repeat top;
+    text-align: center;
+    height: 400px;
+}
+.logo{
+	height:178px;
+}
+.community{
+	width:1080px;
+    margin: 0 auto;
+	margin-top: 30px;
+    min-height: 396px;
+    background: #fff;
+    border: solid 1px #e9eff4;
+}
+.community-best{
+	width:50%;
+	float:left;
+}
+.community_item{
+	border-top: 1px solid #f0f0f0;
+    cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.community-new{
+	width:50%;
+	float:left;
+}
+.coummunity li{
+	color: #c0daf1;
+    height: 100%;
+    font-size: 12px;
+    line-height: 44px;
+    padding: 0 16px;
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+}
+.community_item:hover{
+	background: #fbfbfb;
+}
+.community_item:hover .title{
+	color: blue; text-decoration: underline;
+}
+.rank{
+	float: left;
+    line-height: 68px;
+    width: 55px;
+    font-size: 18px;
+    font-weight: 300;
+    font-style: oblique;
+    color: #989898;
+    text-align: center;
+}
+.community-title{
+	display: block;
+    padding: 17px 0 16px 20px;
+    line-height: 17px;
+    font-size: 14px;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+}
+.title{
+	display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 14px;
+    line-height: 17px;
+    font-size: 14px;
+    color: #000;
+    font-weight: 300;
+}
+.title em{
+	color: #0475b8;
+    font-style: normal;
+	
+}
+.sub{
+display: block;	
+}
+.sub_item{
+float:left;
+margin-right: 20px;
+font-size: 12px;
+}
+
+
