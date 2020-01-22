@@ -240,6 +240,10 @@
 .Item {
     background-color: #99b9cf;
 }
+.Itemimg{
+width:22px;
+float:left;
+}
 .GameItem>.Content>.FollowPlayers {
     width: 170px;
     font-size: 0;
@@ -320,6 +324,13 @@ function textLengthOverCut(txt, len, lastTxt) {
     return txt;
 }
 
+	
+$.getJSON('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/en_US/summoner.json', function(data) {
+			//console.log(data.data.SummonerBarrier.key);
+		
+	
+	});
+
 
 var userName="<%=userName%>";
 var riot="https://kr.api.riotgames.com";
@@ -328,6 +339,7 @@ var accountId="";
 var id="";
 var participantId;
 var l=0;
+var item_num=0;
 /* var ItemJson=JSON.parse(URL('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/en_US/ item.json'));
 var spellJson=JSON.parse('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/en_US/ summoner.json');
 var championJson=JSON.parse('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/en_US/ champion.json'); */
@@ -443,7 +455,7 @@ $.ajax({
 	 			 		 			+"</div>"
 	 			 		 			+"<div class='Items'>"
 	 			 		 			+"<div class='ItemList'>"
-	 			 		 			+"<div class='Item'>"+"</div>"
+	 			 		 			
 	 			 		 			+"</div>"	//ItemList끝
 	 			 		 			+"</div>" 	//Items끝
 	 			 		 			+"<div class='FollowPlayers Names'>"
@@ -480,6 +492,30 @@ $.ajax({
 		 			 		 				);
 		 			 		 				}}//for 문[j] if문 끝
 		 			 		 				l++;
+		 			 		 				
+		 			 		 			var item0=json.participants[participantId].stats.item0;
+		 			 		 			var item1=json.participants[participantId].stats.item1;
+		 			 		 			var item2=json.participants[participantId].stats.item2;
+		 			 		 			var item3=json.participants[participantId].stats.item3;
+		 			 		 			var item4=json.participants[participantId].stats.item4;
+		 			 		 			var item5=json.participants[participantId].stats.item5;
+		 			 		 			var item6=json.participants[participantId].stats.item6;	
+		 			 		 			$.getJSON('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/en_US/item.json', function(data) {
+		 			 		 				console.log(data.data[item0].name);
+												
+		 			 		 				
+											
+		 			 		 			$('.ItemList:eq('+item_num+')').append(
+		 			 		 			"<div class='Item'><img class='Itemimg' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/item/"+item0+".png'/></div>"
+		 			 		 			+"<div class='Item'><img class='Itemimg' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/item/"+item1+".png'/></div>"
+		 			 		 			+"<div class='Item'><img class='Itemimg' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/item/"+item2+".png'/></div>"
+		 			 		 			+"<div class='Item'><img class='Itemimg' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/item/"+item6+".png'/></div>"
+		 			 		 			+"<div class='Item'><img class='Itemimg' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/item/"+item3+".png'/></div>"
+		 			 		 			+"<div class='Item'><img class='Itemimg' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/item/"+item4+".png'/></div>"
+		 			 		 			+"<div class='Item'><img class='Itemimg' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/item/"+item5+".png'/></div>"
+		 			 		 				);//item 추가
+		 			 		 				item_num++;
+		 			 		 			});//json-item
 	 			 		 	}//Matchlist success
 	 		 				
 	 		 			});//게임상세
