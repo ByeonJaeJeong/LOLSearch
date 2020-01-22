@@ -8,7 +8,10 @@ dl, dt, dd, ol, ul, li{
  a:visited { color: black; text-decoration: none;}
  a:hover { color: black; text-decoration: none;}
 
-
+body{
+	background-color: #4a73f7;
+	
+}
 
 .Search{
 	padding-left: 8px;
@@ -50,7 +53,7 @@ dl, dt, dd, ol, ul, li{
 	background: url(../img/bg2.jpg) no-repeat top;
 } */
 .frontPage-top{
-	background: url(../imgs/img-mainbg.jpg) no-repeat top;
+	background: url('https://github.com/ByeonJaeJeong/LOLSearch/blob/master/WebContent/img/img-mainbg.jpg?raw=true') no-repeat top;
     text-align: center;
     height: 400px;
 }

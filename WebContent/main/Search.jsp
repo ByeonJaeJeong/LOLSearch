@@ -2,15 +2,8 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<link href="../css/Search.css" rel="stylesheet">
 <style>
-#Ex{
-	background-image: url('//cdn.lolalytics.com/image/generated/tiled/emblems.png');
-	background-size: 576px 64px; */
-    display: inline-block;
-    width: 64px;
-    height: 64px;
-    background-position-x:64px;
-}
 
 .content-header{
 	position: relative;
@@ -178,8 +171,8 @@
     }
 .Spell>.Image {
     display: block;
-    width: 100%;
-    height: 100%;
+    width: 22px;
+    height: 22px;
 }
 .Runes {
     display: inline-block;
@@ -198,6 +191,35 @@
     overflow: hidden;
     text-overflow: ellipsis;
     }
+.Win>.Content>.GameStatus>.GameResult {
+    color: #1a78ae;
+}
+.Lose>.Content>.GameStatus>.GameResult {
+    color: #c6443e;
+}
+.KDABox{
+	font-size: 11px;
+    text-align: center;
+    display: table-cell;
+    height: 96px;
+    vertical-align: middle;
+    padding-left: 16px;
+}
+.KDA{
+	font-size: 15px;
+    font-weight: bold;
+    color: #555e5e;
+    white-space: nowrap;
+}
+.KDARaio{
+	color: #555e5e;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 6px;
+}
+.deaths{
+	color: #c6443e;
+}
 </style>
 <head>
 <script
@@ -215,10 +237,13 @@
 <script>
 var userName="<%=userName%>";
 var riot="https://kr.api.riotgames.com";
-var api_key="RGAPI-6c171014-b1bd-4256-9860-a3e5bad1cc61";
+var api_key="RGAPI-6fccafeb-ccf8-46f8-b12f-865b1edc7ed7";
 var accountId="";
 var id="";
 var participantId;
+/* var ItemJson=JSON.parse(URL('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/en_US/ item.json'));
+var spellJson=JSON.parse('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/en_US/ summoner.json');
+var championJson=JSON.parse('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/en_US/ champion.json'); */
 $.ajax({
 	    url:riot+"/lol/summoner/v4/summoners/by-name/"+userName+"?api_key="+api_key,
 	 	type:"GET",
@@ -249,52 +274,89 @@ $.ajax({
 	 			type:"GET",
 	 		 	dataType:"json",
 	 		 	success:function(json){
-	 		 		$('#Ex').html(json.matches[0].gameId);
 	 		 		for(var i=0;i<json.matches.length;i++){
 	 		 			$.ajax({
 	 		 				url:riot+"/lol/match/v4/matches/"+json.matches[i].gameId+"?api_key="+api_key,
 	 			 			type:"GET",
 	 			 		 	dataType:"json",
 	 			 		 	success:function(json){
-	 			 		 			for(var i=0;i<10;i++){
-	 			 		 			if(json.participantIdentities[i].player.accountId==accountId)
-	 			 		 				participantId=i;
+	 			 		 			for(var ii=0;ii<10;ii++){
+	 			 		 			if(json.participantIdentities[ii].player.accountId==accountId)
+	 			 		 				participantId=ii;
 	 			 		 			}
-	 			 		 		console.log(json.teams[((json.participants[participantId].teamId)/100)-1].win);
 	 			 		 		if(json.teams[((json.participants[participantId].teamId)/100)-1].win=="Win")
 	 			 		 		var win="Win";
 	 			 		 		else
 	 			 		 		var win="Lose";
 	 			 		 		
+	 			 		 		switch (json.queueId) {
+								case 420:
+								var RankType="솔랭";
+									break;
+								case 430:
+								var RankType="일반";	
+									break;
+								case 450:
+								var RankType="칼바람";		
+									break;
+								case 900:
+								var RankType="우르프";	
+									break;
+								default:
+									break;
+								}
+	 			 		 		var date1=new Date();//현재시간
+	 		 		 			var date2=new Date(json.gameCreation);//게임했던시간
+	 		 		 			var date=(date1.getDate()-date2.getDate())+"일전";
+	 		 		 			if((date1.getDate()==date2.getDate())){
+	 		 		 				 date=((date1.getHours()-date2.getHours())+"시간전")
+	 		 		 				if(date1.getHours()==date2.getHours()){
+	 		 		 					 date=(date1.getMinutes()-date2.getMinutes())+"분전";
+	 		 		 				}
+	 		 		 			}
+	 		 		 			console.log(json.participants[participantId].stats.kills);
+	 			 		 		var GameDuration_min=Math.floor(json.gameDuration/60)+"분";
+	 			 		 		var GameDuration_sec=Math.floor(json.gameDuration%60)+"초";
+	 			 		 		var KDA=Math.round((json.participants[participantId].stats.kills+json.participants[participantId].stats.assists)/json.participants[participantId].stats.deaths*100)/100;
+	 			 		 		console.log(KDA);
 	 			 		 		$('.main_content').append(
 	 			 		 			"<div class='GameItemWarp'>"+"<div class='GameItem "+win+"'>"  
 	 			 		 			+"<div class='Content'>"
 	 			 		 			+"<div class='GameStatus'>"
-	 			 		 			+"<div class='GameType'>"+"</div>"
-	 			 		 			+"<div class='TimeStamp'>"+"</div>"
+	 			 		 			+"<div class='GameType'>"+RankType+"</div>"
+	 			 		 			+"<div class='TimeStamp'>"+date+"</div>"
 	 			 		 			+"<div class='Bar'>"+"</div>"
-	 			 		 			+"<div class='GameResult'>"+"</div>"
-	 			 		 			+"<div class='GameLength'>"+"</div>"
+	 			 		 			+"<div class='GameResult'>"+((win=="Win")?"승리":"패배")+"</div>"
+	 			 		 			+"<div class='GameLength'>"+GameDuration_min+""+GameDuration_sec+"</div>"
 	 			 		 			+"</div>"		/*gameStatus 종료  */
 	 			 		 			+"<div class='GameSettingInfo'>"
-	 			 		 			+"<div class='ChampionImage'>"+"</div>"
+	 			 		 			+"<div class='ChampionImage'>"+"<img class='ChampionImage' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/champion/Aatrox.png'>"+"</div>"
 	 			 		 			+"<div class='SummonerSpell'>"
-	 			 		 			+"<div class='Spell'>"+"</div>"
-	 			 		 			+"<div class='Spell'>"+"</div>"
+	 			 		 			+"<div class='Spell'>"+"<img class='Image'  src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/spell/SummonerFlash.png'>"+"</div>"
+	 			 		 			+"<div class='Spell'>"+"<img class='Image'  src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/spell/SummonerFlash.png'>"+"</div>"
 	 			 		 			+"</div>"		//SummonerSpell 종료
 	 			 		 			+"<div class='Runes'>"
 	 			 		 			+"<div class='Rune'>"+"</div>"
 	 			 		 			+"<div class='Rune'>"+"</div>"
 	 			 		 			+"</div>"		//Runes 종료
-	 			 		 			+"<div class='ChampionName'>"+"</div>"
+	 			 		 			+"<div class='ChampionName'>"+'아트록스'+"</div>"
 	 			 		 			+"</div>"		/*GameSettingInfo 종료  */
+	 			 		 			+"<div class='KDABox'>"
+	 			 		 			+"<div class='KDA'>"+"<span class='kills'>"+json.participants[participantId].stats.kills+"</span>"
+	 			 		 			+"/"
+	 			 		 			+"<span class='deaths'>"+json.participants[participantId].stats.deaths+"</span>"
+	 			 		 			+"/"
+	 			 		 			+"<span class='assists'>"+json.participants[participantId].stats.assists+"</span>"
+	 			 		 			+"</div>"		/*KDA종료*/
+	 			 		 			+"<div class='KDARatio'>"+KDA+":1 평점</div>"
+	 			 		 			+"</div>"		/* KDABox종료 */
 	 			 		 				+"</div>"+"</div></div>"	/* Content GameItem GameItemWarp  */
 	 			 		 		);
 	 			 		 		
 	 			 		 	}
 	 		 				
 	 		 			});//게임상세
-	 		 			
+	 		 			setTimeout(5);
 	 		 		}//for문 끝 
 	 		 	}
 	 			
