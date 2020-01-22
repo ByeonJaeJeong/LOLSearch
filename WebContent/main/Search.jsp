@@ -220,6 +220,78 @@
 .deaths{
 	color: #c6443e;
 }
+.Stats {
+    width: 90px;
+    font-size: 11px;
+    text-align: center;
+    line-height: 18px;
+    color: #555e5e;
+    }
+.CKRate {
+    color: #c6443e;
+}
+.Items {
+    font-size: 0;
+}
+.ItemList {
+    width: 96px;
+    margin: 0 auto;
+}
+.Item {
+    background-color: #99b9cf;
+}
+.GameItem>.Content>.FollowPlayers {
+    width: 170px;
+    font-size: 0;
+}
+.FollowPlayers.Names>.Team {
+    float: left;
+    width: 50%;
+}
+.Summoner {
+    display: block;
+    width: 80px;
+    height: 18px;
+    margin-left: 3px;
+    text-align: left;
+    white-space: nowrap;
+}
+.ChampionImage {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+.SummonerName {
+    display: inline-block;
+    max-width: 60px;
+    vertical-align: middle;
+    font-size: 11px;
+    color: #555;
+}
+.SummonerName a:link { color: black; text-decoration: none;}
+.SummonerName a:visited { color: black; text-decoration: none;}
+.SummonerName a:hover { color: black; text-decoration: none;}
+.Win>.Content>.StatsButton  {
+    width: 30px;
+    border: 1px solid #000;
+    border-color: #4aa1d2;
+    background: #64b1e4;
+   
+}
+
+.Lose>.Content>.StatsButton {
+    width: 30px;
+    border: 1px solid #000;
+    border-color: #d67b77;
+    background: #e89d99;
+}
+.GameItem>.Content {
+    display: table;
+    width: 689px;
+    border-collapse: collapse;
+    border: 1px solid #cdd2d2;
+}
+
 </style>
 <head>
 <script
@@ -235,12 +307,27 @@
 	String userName=request.getParameter("userName");
 %>
 <script>
+function textLengthOverCut(txt, len, lastTxt) {
+    if (len == "" || len == null) { // 기본값
+        len = 20;
+    }
+    if (lastTxt == "" || lastTxt == null) { // 기본값
+        lastTxt = "...";
+    }
+    if (txt.length > len) {
+        txt = txt.substr(0, len) + lastTxt;
+    }
+    return txt;
+}
+
+
 var userName="<%=userName%>";
 var riot="https://kr.api.riotgames.com";
-var api_key="RGAPI-6fccafeb-ccf8-46f8-b12f-865b1edc7ed7";
+var api_key="RGAPI-9e721a2b-c0f5-42a6-b411-3beb291cfa15";
 var accountId="";
 var id="";
 var participantId;
+var l=0;
 /* var ItemJson=JSON.parse(URL('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/en_US/ item.json'));
 var spellJson=JSON.parse('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/en_US/ summoner.json');
 var championJson=JSON.parse('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/en_US/ champion.json'); */
@@ -270,7 +357,7 @@ $.ajax({
 	 		    }
 	 		});//소환사 티어 전적
 	 		$.ajax({
-	 			url:riot+"/lol/match/v4/matchlists/by-account/"+json.accountId+"?endIndex=15&api_key="+api_key,
+	 			url:riot+"/lol/match/v4/matchlists/by-account/"+json.accountId+"?endIndex=3&api_key="+api_key,
 	 			type:"GET",
 	 		 	dataType:"json",
 	 		 	success:function(json){
@@ -283,7 +370,7 @@ $.ajax({
 	 			 		 			for(var ii=0;ii<10;ii++){
 	 			 		 			if(json.participantIdentities[ii].player.accountId==accountId)
 	 			 		 				participantId=ii;
-	 			 		 			}
+	 			 		 			}	//for문
 	 			 		 		if(json.teams[((json.participants[participantId].teamId)/100)-1].win=="Win")
 	 			 		 		var win="Win";
 	 			 		 		else
@@ -304,7 +391,7 @@ $.ajax({
 									break;
 								default:
 									break;
-								}
+								}//switch
 	 			 		 		var date1=new Date();//현재시간
 	 		 		 			var date2=new Date(json.gameCreation);//게임했던시간
 	 		 		 			var date=(date1.getDate()-date2.getDate())+"일전";
@@ -312,13 +399,11 @@ $.ajax({
 	 		 		 				 date=((date1.getHours()-date2.getHours())+"시간전")
 	 		 		 				if(date1.getHours()==date2.getHours()){
 	 		 		 					 date=(date1.getMinutes()-date2.getMinutes())+"분전";
-	 		 		 				}
-	 		 		 			}
-	 		 		 			console.log(json.participants[participantId].stats.kills);
+	 		 		 				}//if문
+	 		 		 			}//if문
 	 			 		 		var GameDuration_min=Math.floor(json.gameDuration/60)+"분";
 	 			 		 		var GameDuration_sec=Math.floor(json.gameDuration%60)+"초";
 	 			 		 		var KDA=Math.round((json.participants[participantId].stats.kills+json.participants[participantId].stats.assists)/json.participants[participantId].stats.deaths*100)/100;
-	 			 		 		console.log(KDA);
 	 			 		 		$('.main_content').append(
 	 			 		 			"<div class='GameItemWarp'>"+"<div class='GameItem "+win+"'>"  
 	 			 		 			+"<div class='Content'>"
@@ -328,7 +413,7 @@ $.ajax({
 	 			 		 			+"<div class='Bar'>"+"</div>"
 	 			 		 			+"<div class='GameResult'>"+((win=="Win")?"승리":"패배")+"</div>"
 	 			 		 			+"<div class='GameLength'>"+GameDuration_min+""+GameDuration_sec+"</div>"
-	 			 		 			+"</div>"		/*gameStatus 종료  */
+	 			 		 			+"</div>"		//gameStatus 종료  
 	 			 		 			+"<div class='GameSettingInfo'>"
 	 			 		 			+"<div class='ChampionImage'>"+"<img class='ChampionImage' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/champion/Aatrox.png'>"+"</div>"
 	 			 		 			+"<div class='SummonerSpell'>"
@@ -340,24 +425,66 @@ $.ajax({
 	 			 		 			+"<div class='Rune'>"+"</div>"
 	 			 		 			+"</div>"		//Runes 종료
 	 			 		 			+"<div class='ChampionName'>"+'아트록스'+"</div>"
-	 			 		 			+"</div>"		/*GameSettingInfo 종료  */
+	 			 		 			+"</div>"		//GameSettingInfo 종료  
 	 			 		 			+"<div class='KDABox'>"
 	 			 		 			+"<div class='KDA'>"+"<span class='kills'>"+json.participants[participantId].stats.kills+"</span>"
 	 			 		 			+"/"
 	 			 		 			+"<span class='deaths'>"+json.participants[participantId].stats.deaths+"</span>"
 	 			 		 			+"/"
 	 			 		 			+"<span class='assists'>"+json.participants[participantId].stats.assists+"</span>"
-	 			 		 			+"</div>"		/*KDA종료*/
+	 			 		 			+"</div>"		//KDA종료
 	 			 		 			+"<div class='KDARatio'>"+KDA+":1 평점</div>"
-	 			 		 			+"</div>"		/* KDABox종료 */
-	 			 		 				+"</div>"+"</div></div>"	/* Content GameItem GameItemWarp  */
-	 			 		 		);
+	 			 		 			+"</div>"		// KDABox종료 
+	 			 		 			+"<div class='Stats'>"
+	 			 		 			+"<div class='Level'>레벨"+json.participants[participantId].stats.champLevel+"</div>"
+	 			 		 			+"<div class='CS'>"+json.participants[participantId].stats.totalMinionsKilled+" ("
+	 			 		 					+Math.floor(json.participants[participantId].stats.totalMinionsKilled/Math.floor(json.gameDuration/60)*10)/10+") "+"CS</div>"
+	 			 		 			+"<div class='CKRate'>킬관여"+"</div>"
+	 			 		 			+"</div>"
+	 			 		 			+"<div class='Items'>"
+	 			 		 			+"<div class='ItemList'>"
+	 			 		 			+"<div class='Item'>"+"</div>"
+	 			 		 			+"</div>"	//ItemList끝
+	 			 		 			+"</div>" 	//Items끝
+	 			 		 			+"<div class='FollowPlayers Names'>"
+	 			 		 			+"<div class='Team 1'>"+"</div>"	//Team1 끝
+	 			 		 			+"<div class='Team 2'>"+"</div>"	//Team2 끝
+	 			 		 			+"</div>"	//FollowPlayers Names끝
+	 			 		 			 +"<div class='StatsButton'>"
+	 			 		 			+"<div class='Sts_content'>"
+	 			 		 			+"<div class='rightMatch'>"
+	 			 		 			+"<span class='ON'>"+"</span>"
+	 			 		 			+"<span class='OFF'>"+"</span>"
+	 			 		 			+"</div>"
+	 			 		 			+"</div>"
+	 			 		 			+"</div>" 
+	 			 		 				+"</div>"+"</div></div>"	// Content GameItem GameItemWarp  
+	 			 		 		);//main content append 끝
 	 			 		 		
-	 			 		 	}
+	 			 		 				for(var j=0;j<10;j++){
+	 			 		 					console.log(json.participants[j].teamId);
+		 			 		 				if(json.participants[j].teamId=='100'){
+	 			 		 		$('.Team.1:eq('+l+')').append(
+		 			 		 			+"<div class='summoner' >"
+		 			 		 			+"<div class='ChamptionImage' >"+"</div>"
+		 			 		 			+"<div class='SummonerName' ><a href='Search.jsp?userName="+json.participantIdentities[j].player.summonerName+"'>"+textLengthOverCut(json.participantIdentities[j].player.summonerName,5,'..')+"</a></div>"
+		 			 		 				+"</div>"
+	 			 		 				);
+		 			 		 				}//if문
+	 			 		 		if(json.participants[j].teamId=='200'){
+		 			 		 		$('.Team.2:eq('+l+')').append(
+			 			 		 			+"<div class='summoner' >"
+			 			 		 			+"<div class='ChamptionImage' >"+"</div>"
+			 			 		 			+"<div class='SummonerName' ><a href='Search.jsp?userName="+json.participantIdentities[j].player.summonerName+"'>"+textLengthOverCut(json.participantIdentities[j].player.summonerName,5,'..')+"</a></div>"
+			 			 		 				+"</div>"
+		 			 		 				);
+		 			 		 				}}//for 문[j] if문 끝
+		 			 		 				l++;
+	 			 		 	}//Matchlist success
 	 		 				
 	 		 			});//게임상세
 	 		 			setTimeout(5);
-	 		 		}//for문 끝 
+	 		 		}//for문 끝 [i]
 	 		 	}
 	 			
 	 		});//전적20게임
