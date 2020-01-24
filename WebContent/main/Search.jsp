@@ -4,6 +4,9 @@
 <html>
 <link href="../css/Search.css" rel="stylesheet">
 <style>
+body{
+background-color: #eaeaea;
+}
 .content-header{
 	position: relative;
     width: 1000px;
@@ -256,7 +259,7 @@ float:left;
 .Summoner {
     display: block;
     width: 80px;
-    height: 18px;
+    height: 17px;
     margin-left: 3px;
     text-align: left;
     white-space: nowrap;
@@ -267,11 +270,15 @@ float:left;
     margin-right: 3px;
 }
 .SummonerName {
-    display: inline-block;
+	
+    display: contents;
     max-width: 60px;
     vertical-align: middle;
     font-size: 11px;
     color: #555;
+}
+.SummonerName>a{
+	margin-left: 5px;
 }
 .SummonerName a:link { color: black; text-decoration: none;}
 .SummonerName a:visited { color: black; text-decoration: none;}
@@ -324,17 +331,56 @@ float:left;
   pointer-events: none;
   content: " ";
 }
+.Spell .tip{
+	left:0;
+	top:60px;
+}
 .Item:hover>.tip{
   display: block;
+}
+.Spell:hover>.tip{
+	display:block;
 }
 .tip>b{
 color:#00cfbc;
 }
 .yellow{
-color:yellow;
+color: #ec9b07;
 }
 .tip>span>unique{
     color: #11de47;}
+#tip{
+    position: absolute;
+    width: 250px;
+    padding: 8px;
+    left: -122px;
+    z-index: 1;
+    top: 37px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background: #333;
+    color: #fff;
+    font-size: 13px;
+}
+.ChamptionImage>img{
+	background-position: 0px -1792px;
+    width: 16px;
+    height: 16px;
+}
+.ChamptionImage{
+	height:16px;
+	width:16px;
+	display:contents;
+}
+ .Team>.Summoner {
+    display: block;
+    width: 80px;
+    height: 18px;
+    margin-left: 3px;
+    text-align: left;
+    white-space: nowrap;
+} 
 </style>
 <head>
 <script
@@ -409,19 +455,38 @@ function champion(champnum,i){
 		
 	});
 }
-	
-$.getJSON('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/ko_KR/summoner.json', function(data) {
-		
+ function spell(spellnum,i){
+	var spell_id="";
+	var spell_name="";
+	var spell_description="";
+	 
+$.getJSON('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/ko_KR/summoner.json', function(spell) {
+		$.each(spell.data, function(idx, Spell) {
+			if(Spell.key==spellnum){
+				spell_id=Spell.id;
+				spell_name=Spell.name;
+				spell_description=Spell.description;
+				console.log(spell_name+","+Spell.description);
+				$('.SummonerSpell:eq('+i+')').append(
+						"<div class='Spell'>"
+						+"<img class='Image' class='' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/spell/"+spell_id+".png'>"
+						+"<div class='tip'><span class='yellow'>"+spell_name+"</span><br><br><span>"+spell_description+"</span>"+"</div>"
+						+"</div>"
+						);
+				
+				return false;
+			}
+		})
 	
 	});
-	
-$(function(){    
+}
+ $(function(){    
     var title_;
     var class_;
     var imgTag;
      
     $(".tip").hover(function(e) {      // <a> hover 시 : mouseEnter
-     
+     	console.log('실행');
         title_ = $(this).attr("title");     // title을 변수에 저장
         class_ = $(this).attr("class");     // class를 변수에 저장
         $(this).attr("title","");           // title 속성 삭제( 기본 툴팁 기능 방지 )
@@ -447,10 +512,13 @@ $(function(){
         $("#tip").remove();                 // div#tip 삭제
      
     });
-});
+ }); 
+
+
+
  var userName="<%=userName%>";
 var riot="https://kr.api.riotgames.com";
-var api_key="RGAPI-7c13c1fd-5ff6-4f44-a1fe-b8d0aee1155d";
+var api_key="RGAPI-17d1a84f-9f19-4f73-ae85-f89e79dcf2fb";
 var accountId="";
 var id="";
 var participantId;
@@ -549,8 +617,6 @@ $.ajax({
 	 			 		 			+"<div class='GameSettingInfo'>"
 	 			 		 			+"<div class='ChampionImageBox'>"/* +"<img class='ChampionImage' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/champion/Aatrox.png'>" */+"</div>"
 	 			 		 			+"<div class='SummonerSpell'>"
-	 			 		 			+"<div class='Spell'>"+"<img class='Image'  src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/spell/SummonerFlash.png'>"+"</div>"
-	 			 		 			+"<div class='Spell'>"+"<img class='Image'  src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/spell/SummonerFlash.png'>"+"</div>"
 	 			 		 			+"</div>"		//SummonerSpell 종료
 	 			 		 			+"<div class='Runes'>"
 	 			 		 			+"<div class='Rune'>"+"</div>"
@@ -596,27 +662,28 @@ $.ajax({
 	 			 		 				for(var j=0;j<10;j++){
 		 			 		 				if(json.participants[j].teamId=='100'){
 	 			 		 		$('.Team.1:eq('+l+')').append(
-		 			 		 			+"<div class='summoner' >"
-		 			 		 			+"<div class='ChamptionImage' >"+"</div>"
+		 			 		 			"<div class='summoner' >"
+		 			 		 			+"<div class='ChamptionImage' ><img src='http://ddragon.leagueoflegends.com/cdn/10.2.1/img/champion/Aatrox.png'>"+"</div>"
 		 			 		 			+"<div class='SummonerName' ><a href='Search.jsp?userName="+json.participantIdentities[j].player.summonerName+"'>"+textLengthOverCut(json.participantIdentities[j].player.summonerName,5,'..')+"</a></div>"
 		 			 		 				+"</div>"
 	 			 		 				);
 		 			 		 				}//if문
 	 			 		 		if(json.participants[j].teamId=='200'){
 		 			 		 		$('.Team.2:eq('+l+')').append(
-			 			 		 			+"<div class='summoner' >"
-			 			 		 			+"<div class='ChamptionImage' >"+"</div>"
+			 			 		 			"<div class='summoner' >"
+			 			 		 			+"<div class='ChamptionImage'><img src='http://ddragon.leagueoflegends.com/cdn/10.2.1/img/champion/Aatrox.png'>"+"</div>"
 			 			 		 			+"<div class='SummonerName' ><a href='Search.jsp?userName="+json.participantIdentities[j].player.summonerName+"'>"+textLengthOverCut(json.participantIdentities[j].player.summonerName,5,'..')+"</a></div>"
 			 			 		 				+"</div>"
 		 			 		 				);
 		 			 		 			}}//for 문[j] if문 끝
 		 			 		 				l++;
 		 			 		 				var json_link=json.participants[participantId].stats;
-		 			 		 				var item_number=new Array(json_link.item0,json_link.item1,json_link.item2,json_link.item3,json_link.item4,json_link.item5,json_link.item6);
+		 			 		 				var item_number=new Array(json_link.item0,json_link.item1,json_link.item2,json_link.item6,json_link.item3,json_link.item4,json_link.item5);
 		 			 		 				console.log(item_num);
 		 			 		 				item(item_number, item_num);//아이템 추가
 		 			 		 				champion(json.participants[participantId].championId,item_num);//챔피언 이미지 추가	
-		 			 		 			
+		 			 		 				spell(json.participants[participantId].spell1Id,item_num);
+		 			 		 				spell(json.participants[participantId].spell2Id,item_num);
 		 			 		 				item_num++;
 		 			 		 			
 	 			 		 	}//Matchlist success
