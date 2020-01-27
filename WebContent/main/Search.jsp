@@ -421,9 +421,9 @@ function item(itemnumber,i){
 				if(item_id!=0){
 				item_alt=Item.data[Itemnumber].name; 
 				item_plaintext=Item.data[Itemnumber].plaintext;
-				item_description=Item.data[Itemnumber].description
-				item_gold_total=Item.data[Itemnumber].gold.total
-				item_gold_base=Item.data[Itemnumber].gold.base
+				item_description=Item.data[Itemnumber].description;
+				item_gold_total=Item.data[Itemnumber].gold.total;
+				item_gold_base=Item.data[Itemnumber].gold.base;
 			
 				
 					 $('.ItemList:eq('+i+')').append(
@@ -437,7 +437,7 @@ function item(itemnumber,i){
 	});//get json
 }
 
-function champion(champnum,i){
+function champion(champnum,t1,t2,i){
 	var id="";
 	var name="";
 	$.getJSON('http://ddragon.leagueoflegends.com/cdn/10.2.1/data/ko_KR/champion.json',function(Champ){
@@ -448,13 +448,27 @@ function champion(champnum,i){
 				return false;
 			}
 		});
+		
+		
 		$('.ChampionImageBox:eq('+i+')').append(
 				"<img class='ChampionImage' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/champion/"+id+".png'>"	
 		);
-		$('.ChampionName:eq('+i+')').append(name);
-		
-	});
-}
+		$('.ChampionName:eq('+i+')').append(name);//해당소환사 챔피언사진 이름 출력
+		for(var t_n=0;t_n>5;t_n++){
+			
+		$.each(Champ.data, function(idx, Champ) {
+			if(Champ.key==t1[t_n]){
+				name=Champ.name;
+				return false;
+			}	
+		});//each 종료
+		$('.ChamptionImage').append(
+			"<img src='http://ddragon.leagueoflegends.com/cdn/10.2.1/img/champion/"+name+".png'>"		
+			);
+			
+		}//for문 종료
+	}); //getJson 종료
+}//champion 종료
  function spell(spellnum,i){
 	var spell_id="";
 	var spell_name="";
@@ -466,7 +480,6 @@ $.getJSON('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/ko_KR/summoner.jso
 				spell_id=Spell.id;
 				spell_name=Spell.name;
 				spell_description=Spell.description;
-				console.log(spell_name+","+Spell.description);
 				$('.SummonerSpell:eq('+i+')').append(
 						"<div class='Spell'>"
 						+"<img class='Image' class='' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/spell/"+spell_id+".png'>"
@@ -480,13 +493,13 @@ $.getJSON('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/ko_KR/summoner.jso
 	
 	});
 }
+
  $(function(){    
     var title_;
     var class_;
     var imgTag;
      
     $(".tip").hover(function(e) {      // <a> hover 시 : mouseEnter
-     	console.log('실행');
         title_ = $(this).attr("title");     // title을 변수에 저장
         class_ = $(this).attr("class");     // class를 변수에 저장
         $(this).attr("title","");           // title 속성 삭제( 기본 툴팁 기능 방지 )
@@ -514,16 +527,17 @@ $.getJSON('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/ko_KR/summoner.jso
     });
  }); 
 
+///////////////////////////////api 키입력//////////////////
 
-
+ 
  var userName="<%=userName%>";
 var riot="https://kr.api.riotgames.com";
-var api_key="RGAPI-17d1a84f-9f19-4f73-ae85-f89e79dcf2fb";
+var api_key="RGAPI-e9568a1e-17f2-4196-851c-6405750e1280";
 var accountId="";
 var id="";
-var participantId;
+var participantId="";
 var l=0;
-var item_num=0;
+var item_num=0;//전적검색 갯수 
 
 
 
@@ -658,30 +672,38 @@ $.ajax({
 	 			 		 			+"</div>" 
 	 			 		 				+"</div>"+"</div></div>"	// Content GameItem GameItemWarp  
 	 			 		 		);//main content append 끝
-	 			 		 		
+	 			 		 		var t1=new Array(5);
+	 			 		 		var t2=new Array(5);
+	 			 		 		var t1_count=0;
+	 			 		 		var t2_count=0;
 	 			 		 				for(var j=0;j<10;j++){
 		 			 		 				if(json.participants[j].teamId=='100'){
 	 			 		 		$('.Team.1:eq('+l+')').append(
 		 			 		 			"<div class='summoner' >"
-		 			 		 			+"<div class='ChamptionImage' ><img src='http://ddragon.leagueoflegends.com/cdn/10.2.1/img/champion/Aatrox.png'>"+"</div>"
+		 			 		 			+"<div class='ChamptionImage' >"+"</div>"
 		 			 		 			+"<div class='SummonerName' ><a href='Search.jsp?userName="+json.participantIdentities[j].player.summonerName+"'>"+textLengthOverCut(json.participantIdentities[j].player.summonerName,5,'..')+"</a></div>"
 		 			 		 				+"</div>"
 	 			 		 				);
+		 			 		 				t1[t1_count]=json.participants[j].championId;
+		 			 		 				t1_count++;
 		 			 		 				}//if문
 	 			 		 		if(json.participants[j].teamId=='200'){
 		 			 		 		$('.Team.2:eq('+l+')').append(
 			 			 		 			"<div class='summoner' >"
-			 			 		 			+"<div class='ChamptionImage'><img src='http://ddragon.leagueoflegends.com/cdn/10.2.1/img/champion/Aatrox.png'>"+"</div>"
+			 			 		 			+"<div class='ChamptionImage'>"+"</div>"
 			 			 		 			+"<div class='SummonerName' ><a href='Search.jsp?userName="+json.participantIdentities[j].player.summonerName+"'>"+textLengthOverCut(json.participantIdentities[j].player.summonerName,5,'..')+"</a></div>"
 			 			 		 				+"</div>"
 		 			 		 				);
-		 			 		 			}}//for 문[j] if문 끝
+		 			 		 				t2[t2_count]=json.participants[j].championId;
+ 			 		 						t2_count++;
+		 			 		 			}
+		 			 		 				}//for 문[j] if문 끝
+		 			 		 				
 		 			 		 				l++;
 		 			 		 				var json_link=json.participants[participantId].stats;
 		 			 		 				var item_number=new Array(json_link.item0,json_link.item1,json_link.item2,json_link.item6,json_link.item3,json_link.item4,json_link.item5);
-		 			 		 				console.log(item_num);
 		 			 		 				item(item_number, item_num);//아이템 추가
-		 			 		 				champion(json.participants[participantId].championId,item_num);//챔피언 이미지 추가	
+		 			 		 				champion(json.participants[participantId].championId,t1,t2,item_num);//챔피언 이미지 추가	
 		 			 		 				spell(json.participants[participantId].spell1Id,item_num);
 		 			 		 				spell(json.participants[participantId].spell2Id,item_num);
 		 			 		 				item_num++;
