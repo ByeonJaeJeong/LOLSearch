@@ -3,385 +3,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <link href="../css/Search.css" rel="stylesheet">
-<style>
-body{
-background-color: #eaeaea;
-}
-.content-header{
-	position: relative;
-    width: 1000px;
-    margin: 0 auto;
-    padding: 20px 0 0 0;
-}
-.tierImg{
-	width:100px;
-	height:100px;
-}
-.summonerlevel{
-	position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-top: -31px;
-    margin-left: -476px;
-    width: 44px;
-    height: 24px;
-    padding-top: 3px;
-    box-sizing: border-box;
-    background-color: rgba(25, 23, 23, 0.3);
-    background-size: 100%;
-    line-height: 17px;
-    font-size: 14px;
-    text-align: center;
-    color: #eabd56;
-}
-.profileicon{
-	display: inline-block;
-    width: 100px;
-    vertical-align: top;
-}
-.profileimg{
-	display: block;
-    width: 100px;
-    height: 100px;
-}
-.profile{
-	position: relative;
-    display: inline-block;
-    height: 100px;
-    margin: 0 10px 0 5px;
-    vertical-align: top;
-    line-height: 1.1;
-}
-.name{
-	color: #242929;
-    font-size: 20px;
-    font-weight: bold;
-    margin-right: 4px;
-    vertical-align: middle;	
-}
-.content{
-	width: 1000px;
-    min-height: 500px;
-    margin: 0 auto;
-}
-.side_content{
-	display: inline-block;
-    width: 300px;
-    font-size: 12px;
-    vertical-align: top;
-}
-.box{
-	border: 1px solid #cdd2d2;
-    box-shadow: 0 1px #dcdfdf;
-    background: #f2f2f2;
-    border-radius: 2px;
-}
-.tierbox{
-	display: table;
-    width: 100%;
-    color: #879292;
-    position: relative;
-    background-color: #f2f2f2;
-    padding: 8px 0;
-}
-.tier_imgbox{
-	display: table-cell;
-    vertical-align: middle;
-    width: 120px;
-    height: 124px;
-    text-align: center;
-}
-.image{
-	width: 104px;
-    height: 104px;
-    margin: -5px 0 -10px 0;
-}
-.tierRankInfo{
-	display: table-cell;
-    vertical-align: middle;
-    font-size: 12px;
-    line-height: 1.5;
-    text-align: left;
-}
-.GameItemWarp{
-	position: relative;
-    border-radius: 3px;
-    margin-bottom: 8px;
-}
-.main_content{
-	display: inline-block;
-    width: 684px;
-    margin-left: 10px;
-    font-size: 12px;
-    vertical-align: top;
-}
-.GameStatus{
-	width: 70px;
-    text-align: center;
-    font-size: 11px;
-    color: #555;
-    line-height: 16px;
-}
-.GameType{
-	font-weight: bold;
-    width: 70px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.Bar{
-	display: block;
-    width: 27px;
-    margin: 5px auto;
-    height: 2px;
-    background: #cdd2d2;
-}
-.GameResult{
-	font-weight: bold;
-}
-.GameItem.Win>.Content {
-    table-layout: fixed;
-    background-color: #a3cfec;
-    border-color: #99b9cf;
-}
- .GameItem.Lose>.Content {
-    table-layout: fixed;
-    background-color: #e2b6b3;
-    border-color: #cea7a7;
-}
-.GameItem>.Content>div {
-    display: table-cell;
-    height: 96px;
-    vertical-align: middle;
-}
-.ChampionImage{
-	display: inline-block;
-    width: 46px;
-    height: 46px;
-    vertical-align: middle;
-    border-radius: 50%;
-    overflow: hidden;
-}
-.SummonerSpell {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 4px;
-   	}
-.Spell:first-child {
-    margin-left: 0;
-    }
-.Spell>.Image {
-    display: block;
-    width: 22px;
-    height: 22px;
-}
-.Runes {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 4px;
-}
-.Runes>.Rune:first-child {
-    margin-top: 0;
-}
-.GameItem>.Content>.GameSettingInfo>.ChampionName {
-    margin-top: 8px;
-    font-size: 11px;
-    color: #555;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    }
-.Win>.Content>.GameStatus>.GameResult {
-    color: #1a78ae;
-}
-.Lose>.Content>.GameStatus>.GameResult {
-    color: #c6443e;
-}
-.KDABox{
-	font-size: 11px;
-    text-align: center;
-    display: table-cell;
-    height: 96px;
-    vertical-align: middle;
-    padding-left: 16px;
-}
-.KDA{
-	font-size: 15px;
-    font-weight: bold;
-    color: #555e5e;
-    white-space: nowrap;
-}
-.KDARaio{
-	color: #555e5e;
-    font-size: 12px;
-    font-weight: bold;
-    margin-top: 6px;
-}
-.deaths{
-	color: #c6443e;
-}
-.Stats {
-    width: 90px;
-    font-size: 11px;
-    text-align: center;
-    line-height: 18px;
-    color: #555e5e;
-    }
-.CKRate {
-    color: #c6443e;
-}
-.Items {
-    font-size: 0;
-}
-.ItemList {
-    width: 96px;
-    margin: 0 auto;
-}
-.Item {
-    background-color: #99b9cf;
-    position: relative;
-    display: inline-block;
-    text-align: left;
-}
-.Itemimg{
-width:22px;
-float:left;
-}
-.GameItem>.Content>.FollowPlayers {
-    width: 170px;
-    font-size: 0;
-}
-.FollowPlayers.Names>.Team {
-    float: left;
-    width: 50%;
-}
-.Summoner {
-    display: block;
-    width: 80px;
-    height: 17px;
-    margin-left: 3px;
-    text-align: left;
-    white-space: nowrap;
-}
-.ChampionImageBox {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 3px;
-}
-.SummonerName {
-	
-    display: contents;
-    max-width: 60px;
-    vertical-align: middle;
-    font-size: 11px;
-    color: #555;
-}
-.SummonerName>a{
-	margin-left: 5px;
-}
-.SummonerName a:link { color: black; text-decoration: none;}
-.SummonerName a:visited { color: black; text-decoration: none;}
-.SummonerName a:hover { color: black; text-decoration: none;}
-.Win>.Content>.StatsButton  {
-    width: 30px;
-    border: 1px solid #000;
-    border-color: #4aa1d2;
-    background: #64b1e4;
-   
-}
-.Lose>.Content>.StatsButton {
-    width: 30px;
-    border: 1px solid #000;
-    border-color: #d67b77;
-    background: #e89d99;
-}
-.GameItem>.Content {
-    display: table;
-    width: 689px;
-    border-collapse: collapse;
-    border: 1px solid #cdd2d2;
-}
-.tip {
-  	display: none;
-    position: absolute;
-    width: 250px;
-    padding: 8px;
-    left: -122px;
-    z-index: 1;
-    top: 37px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    background: #333;
-    color: #fff;
-    font-size: 13px;
-}
-.tip::after{
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  margin-left: -10px;
-  border: solid transparent;
-  border-color: rgba(51, 51, 51, 0);
-  border-bottom-color: #333;
-  border-width: 10px;
-  pointer-events: none;
-  content: " ";
-}
-.Spell .tip{
-	left:0;
-	top:60px;
-}
-.Item:hover>.tip{
-  display: block;
-}
-.Spell:hover>.tip{
-	display:block;
-}
-.tip>b{
-color:#00cfbc;
-}
-.yellow{
-color: #ec9b07;
-}
-.tip>span>unique{
-    color: #11de47;}
-#tip{
-    position: absolute;
-    width: 250px;
-    padding: 8px;
-    left: -122px;
-    z-index: 1;
-    top: 37px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    background: #333;
-    color: #fff;
-    font-size: 13px;
-}
-.ChamptionImage>img{
-	background-position: 0px -1792px;
-    width: 16px;
-    height: 16px;
-}
-.ChamptionImage{
-	height:16px;
-	width:16px;
-	display:contents;
-}
- .Team>.Summoner {
-    display: block;
-    width: 80px;
-    height: 18px;
-    margin-left: 3px;
-    text-align: left;
-    white-space: nowrap;
-} 
-</style>
 <head>
 <script
   src="https://code.jquery.com/jquery-3.4.1.js"
@@ -428,10 +49,16 @@ function item(itemnumber,i){
 				
 					 $('.ItemList:eq('+i+')').append(
 						"<div class='Item'>"
-						+"<img class='Itemimg' title='' alt='"+item_alt+"' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/item/"+item_id+".png'/>"
+						+"<img class='Itemimg radius' title='' alt='"+item_alt+"' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/item/"+item_id+".png'/>"
 						+"<div class='tip'><b>"+item_alt+"</b><br><span>"+item_description+"</span><br>금액:<span  class='yellow'>"+item_gold_total+"("+item_gold_base+")</span>"
 						+"</div></div>"
 							); 
+			}//if 문 
+			else{
+				$('.ItemList:eq('+i+')').append(
+						"<div class='noItem radius'>"
+						+"</div>"///
+				);
 			}
 			});//forEach
 	});//get json
@@ -454,19 +81,31 @@ function champion(champnum,t1,t2,i){
 				"<img class='ChampionImage' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/champion/"+id+".png'>"	
 		);
 		$('.ChampionName:eq('+i+')').append(name);//해당소환사 챔피언사진 이름 출력
-		for(var t_n=0;t_n>5;t_n++){
-			
+		
+		
+		$.each(t1,function (tdx,T1){
 		$.each(Champ.data, function(idx, Champ) {
-			if(Champ.key==t1[t_n]){
-				name=Champ.name;
+			if(Champ.key==T1){
+				name=Champ.id;
 				return false;
 			}	
 		});//each 종료
-		$('.ChamptionImage').append(
+		$('.GameItemWarp:eq('+i+') .1 .ChamptionImage:eq('+tdx+')').append(
 			"<img src='http://ddragon.leagueoflegends.com/cdn/10.2.1/img/champion/"+name+".png'>"		
 			);
-			
-		}//for문 종료
+		});//t1_each
+		
+		$.each(t2,function (tdx,T2){
+			$.each(Champ.data, function(idx, Champ) {
+				if(Champ.key==T2){
+					name=Champ.id;
+					return false;
+				}	
+			});//each 종료
+			$('.GameItemWarp:eq('+i+') .2 .ChamptionImage:eq('+tdx+')').append(
+				"<img src='http://ddragon.leagueoflegends.com/cdn/10.2.1/img/champion/"+name+".png'>"		
+				);
+			});//t2_each
 	}); //getJson 종료
 }//champion 종료
  function spell(spellnum,i){
@@ -493,6 +132,41 @@ $.getJSON('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/ko_KR/summoner.jso
 	
 	});
 }
+
+function rune(mainRune,subRune,i){
+	var rune_name="";
+	var rune_icon="";
+	var rune_longDesc="";
+	$.getJSON("../json/runesReforged.json",function(rune){
+		$.each(rune,function(idx,Rune){
+			if(Rune.id.toString().substr(0,2)==mainRune.toString().substr(0, 2)){
+		  $.each(Rune.slots[0].runes, function(idx, MainRune) {
+				if(MainRune.id==mainRune){
+					rune_name=MainRune.name;
+					rune_icon='http://ddragon.leagueoflegends.com/cdn/img/'+MainRune.icon;
+					rune_longDesc=MainRune.longDesc;
+					$('.Runes:eq('+i+')>.Rune:eq(0)').append(
+							"<img src='"+rune_icon+"' alt='"+rune_name+"'>"
+							+"<div class='tip'><span>"+rune_name+"</span></div>" 
+							);//
+					
+				}//메인룬 
+			});//메인룬 위치찾기	
+			}
+			if(Rune.id==subRune){
+				rune_name=Rune.name;
+				rune_icon="http://ddragon.leagueoflegends.com/cdn/img/"+Rune.icon;
+				$('.Runes:eq('+i+')>.Rune:eq(1)').append(
+						"<img src='"+rune_icon+"' alt='"+rune_name+"'>"
+						+"<div class='tip'><span>"+rune_name+"</span></div>" 
+								
+						);//
+			}//보조룬 
+		});//each종료
+	});//getjson(rune)종료
+			
+}//rune()종료 
+
 
  $(function(){    
     var title_;
@@ -532,13 +206,13 @@ $.getJSON('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/ko_KR/summoner.jso
  
  var userName="<%=userName%>";
 var riot="https://kr.api.riotgames.com";
-var api_key="RGAPI-e9568a1e-17f2-4196-851c-6405750e1280";
+var api_key="RGAPI-4a4ce79e-7077-4120-8db5-ef33bc607154";
 var accountId="";
 var id="";
 var participantId="";
 var l=0;
-var item_num=0;//전적검색 갯수 
-
+var item_num=0;//index  
+var warpNum=10;//전적 검색 갯수 ;
 
 
 $.ajax({
@@ -568,20 +242,30 @@ $.ajax({
 	 		    }
 	 		});//소환사 티어 전적
 	 		$.ajax({
-	 			url:riot+"/lol/match/v4/matchlists/by-account/"+json.accountId+"?endIndex=3&api_key="+api_key,
+	 			url:riot+"/lol/match/v4/matchlists/by-account/"+json.accountId+"?endIndex="+warpNum+"&api_key="+api_key,
 	 			type:"GET",
 	 		 	dataType:"json",
 	 		 	success:function(json){
-	 		 		for(var i=0;i<json.matches.length;i++){
+	 		 		Matches_sort=new Array();
+	 		 		$.each(json.matches, function(idx,Matches) {
+	 		 			Matches_sort[idx]=Matches.gameId;
+	 		 		});
+	 		 	
+				
+					$.each(Matches_sort, function(i,ee) {
+						
 	 		 			$.ajax({
-	 		 				url:riot+"/lol/match/v4/matches/"+json.matches[i].gameId+"?api_key="+api_key,
+	 		 				url:riot+"/lol/match/v4/matches/"+Matches_sort[i]+"?api_key="+api_key,
 	 			 			type:"GET",
 	 			 		 	dataType:"json",
+	 			 		 	async: false,
 	 			 		 	success:function(json){
-	 			 		 			for(var ii=0;ii<10;ii++){
-	 			 		 			if(json.participantIdentities[ii].player.accountId==accountId)
-	 			 		 				participantId=ii;
+	 			 		 			for(var e=0;e<10;e++){
+	 			 		 			if(json.participantIdentities[e].player.accountId==accountId)
+	 			 		 				participantId=e;
 	 			 		 			}	//for문
+	 		 						
+	 			 		 				
 	 			 		 		if(json.teams[((json.participants[participantId].teamId)/100)-1].win=="Win")
 	 			 		 		var win="Win";
 	 			 		 		else
@@ -597,7 +281,7 @@ $.ajax({
 								case 450:
 								var RankType="칼바람";		
 									break;
-								case 900:
+								case 850:
 								var RankType="우르프";	
 									break;
 								default:
@@ -614,12 +298,13 @@ $.ajax({
 	 		 		 			}//if문
 	 			 		 		var GameDuration_min=Math.floor(json.gameDuration/60)+"분";
 	 			 		 		var GameDuration_sec=Math.floor(json.gameDuration%60)+"초";
-	 			 		 		var KDA=Math.round((json.participants[participantId].stats.kills+json.participants[participantId].stats.assists)/json.participants[participantId].stats.deaths*100)/100;
+	 			 		 		var KDA=(json.participants[participantId].stats.deaths == 0)?'<b>Perfect</b>':
+	 			 		 				+(Math.round((json.participants[participantId].stats.kills+json.participants[participantId].stats.assists)/json.participants[participantId].stats.deaths*100)/100)+':1';
 	 			 		 		var spell1="";
 	 			 		 		var spell2="";
 	 			 		 		
 	 			 		 		$('.main_content').append(
-	 			 		 			"<div class='GameItemWarp'>"+"<div class='GameItem "+win+"'>"  
+	 			 		 			"<div class='GameItemWarp '>"+"<div class='GameItem "+win+"'>"  
 	 			 		 			+"<div class='Content'>"
 	 			 		 			+"<div class='GameStatus'>"
 	 			 		 			+"<div class='GameType'>"+RankType+"</div>"
@@ -633,8 +318,8 @@ $.ajax({
 	 			 		 			+"<div class='SummonerSpell'>"
 	 			 		 			+"</div>"		//SummonerSpell 종료
 	 			 		 			+"<div class='Runes'>"
-	 			 		 			+"<div class='Rune'>"+"</div>"
-	 			 		 			+"<div class='Rune'>"+"</div>"
+	 			 		 			+"<div class='Rune'></div>"
+	 			 		 			+"<div class='Rune'></div>"
 	 			 		 			+"</div>"		//Runes 종료
 	 			 		 			+"<div class='ChampionName'>"+"</div>"
 	 			 		 			+"</div>"		//GameSettingInfo 종료  
@@ -645,7 +330,7 @@ $.ajax({
 	 			 		 			+"/"
 	 			 		 			+"<span class='assists'>"+json.participants[participantId].stats.assists+"</span>"
 	 			 		 			+"</div>"		//KDA종료
-	 			 		 			+"<div class='KDARatio'>"+KDA+":1 평점</div>"
+	 			 		 			+"<div class='KDARatio'>"+KDA+" 평점</div>"
 	 			 		 			+"</div>"		// KDABox종료 
 	 			 		 			+"<div class='Stats'>"
 	 			 		 			+"<div class='Level'>레벨"+json.participants[participantId].stats.champLevel+"</div>"
@@ -672,6 +357,7 @@ $.ajax({
 	 			 		 			+"</div>" 
 	 			 		 				+"</div>"+"</div></div>"	// Content GameItem GameItemWarp  
 	 			 		 		);//main content append 끝
+	 			 		 		
 	 			 		 		var t1=new Array(5);
 	 			 		 		var t2=new Array(5);
 	 			 		 		var t1_count=0;
@@ -702,19 +388,24 @@ $.ajax({
 		 			 		 				l++;
 		 			 		 				var json_link=json.participants[participantId].stats;
 		 			 		 				var item_number=new Array(json_link.item0,json_link.item1,json_link.item2,json_link.item6,json_link.item3,json_link.item4,json_link.item5);
+		 			 		 				var mainRune=json_link.perk0;
+		 			 		 				var subRune=json_link.perkSubStyle;
+		 			 		 				rune(mainRune,subRune,item_num);//룬 추가
 		 			 		 				item(item_number, item_num);//아이템 추가
+		 			 		 				
 		 			 		 				champion(json.participants[participantId].championId,t1,t2,item_num);//챔피언 이미지 추가	
 		 			 		 				spell(json.participants[participantId].spell1Id,item_num);
 		 			 		 				spell(json.participants[participantId].spell2Id,item_num);
 		 			 		 				item_num++;
-		 			 		 			
+		 			 		 				
 	 			 		 	}//Matchlist success
 	 		 				
 	 		 			});//게임상세
 	 		 			setTimeout(5);
-	 		 		}//for문 끝 [i]
+	 		 				}); 
+	 		 				//}//for문 끝 [i]
+	 		
 	 		 	}
-	 			
 	 		});//전적20게임
 	    }
 });//소환사 검색

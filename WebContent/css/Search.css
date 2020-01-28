@@ -1,5 +1,411 @@
 @CHARSET "UTF-8";
 
 body{
+	background-color: #eaeaea;
 	margin:0 ;
 }
+.content-header{
+	position: relative;
+    width: 1000px;
+    margin: 0 auto;
+    padding: 20px 0 0 0;
+}
+.tierImg{
+	width:100px;
+	height:100px;
+}
+.summonerlevel{
+	position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: -31px;
+    margin-left: -476px;
+    width: 44px;
+    height: 24px;
+    padding-top: 3px;
+    box-sizing: border-box;
+    background-color: rgba(25, 23, 23, 0.3);
+    background-size: 100%;
+    line-height: 17px;
+    font-size: 14px;
+    text-align: center;
+    color: #eabd56;
+}
+.profileicon{
+	display: inline-block;
+    width: 100px;
+    vertical-align: top;
+}
+.profileimg{
+	display: block;
+    width: 100px;
+    height: 100px;
+}
+.profile{
+	position: relative;
+    display: inline-block;
+    height: 100px;
+    margin: 0 10px 0 5px;
+    vertical-align: top;
+    line-height: 1.1;
+}
+.name{
+	color: #242929;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 4px;
+    vertical-align: middle;	
+}
+.content{
+	width: 1000px;
+    min-height: 500px;
+    margin: 0 auto;
+}
+.side_content{
+	display: inline-block;
+    width: 300px;
+    font-size: 12px;
+    vertical-align: top;
+}
+.box{
+	border: 1px solid #cdd2d2;
+    box-shadow: 0 1px #dcdfdf;
+    background: #f2f2f2;
+    border-radius: 2px;
+}
+.tierbox{
+	display: table;
+    width: 100%;
+    color: #879292;
+    position: relative;
+    background-color: #f2f2f2;
+    padding: 8px 0;
+}
+.tier_imgbox{
+	display: table-cell;
+    vertical-align: middle;
+    width: 120px;
+    height: 124px;
+    text-align: center;
+}
+.image{
+	width: 104px;
+    height: 104px;
+    margin: -5px 0 -10px 0;
+}
+.tierRankInfo{
+	display: table-cell;
+    vertical-align: middle;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: left;
+}
+.GameItemWarp{
+	position: relative;
+    border-radius: 3px;
+    margin-bottom: 8px;
+}
+.main_content{
+	display: inline-block;
+    width: 684px;
+    margin-left: 10px;
+    font-size: 12px;
+    vertical-align: top;
+}
+.GameStatus{
+	width: 70px;
+    text-align: center;
+    font-size: 11px;
+    color: #555;
+    line-height: 16px;
+}
+.GameType{
+	font-weight: bold;
+    width: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.Bar{
+	display: block;
+    width: 27px;
+    margin: 5px auto;
+    height: 2px;
+    background: #cdd2d2;
+}
+.GameResult{
+	font-weight: bold;
+}
+.GameItem.Win>.Content {
+    table-layout: fixed;
+    background-color: #a3cfec;
+    border-color: #99b9cf;
+}
+ .GameItem.Lose>.Content {
+    table-layout: fixed;
+    background-color: #e2b6b3;
+    border-color: #cea7a7;
+}
+.GameItem>.Content>div {
+    display: table-cell;
+    height: 96px;
+    vertical-align: middle;
+}
+.ChampionImage{
+	display: inline-block;
+    width: 46px;
+    height: 46px;
+    vertical-align: middle;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.SummonerSpell {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 4px;
+   	}
+.Spell:first-child {
+    margin-left: 0;
+    }
+.Spell>.Image {
+    display: block;
+    width: 22px;
+    height: 22px;
+}
+.Runes {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 4px;
+    
+}
+.Runes>.Rune:first-child {
+    margin-top: 0;
+    background-color: black;
+    border-radius: 20px;
+}
+.Rune{
+	width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    
+}
+.Rune>img{
+	display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+	
+}
+.GameItem>.Content>.GameSettingInfo>.ChampionName {
+    margin-top: 8px;
+    font-size: 11px;
+    color: #555;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+.Win>.Content>.GameStatus>.GameResult {
+    color: #1a78ae;
+}
+.Lose>.Content>.GameStatus>.GameResult {
+    color: #c6443e;
+}
+.KDABox{
+	font-size: 11px;
+    text-align: center;
+    display: table-cell;
+    height: 96px;
+    vertical-align: middle;
+    padding-left: 16px;
+}
+.KDA{
+	font-size: 15px;
+    font-weight: bold;
+    color: #555e5e;
+    white-space: nowrap;
+}
+.KDARaio{
+	color: #555e5e;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 6px;
+}
+.deaths{
+	color: #c6443e;
+}
+.Stats {
+    width: 90px;
+    font-size: 11px;
+    text-align: center;
+    line-height: 18px;
+    color: #555e5e;
+    }
+.CKRate {
+    color: #c6443e;
+}
+.Items {
+    font-size: 0;
+}
+.ItemList {
+    width: 96px;
+    margin: 0 auto;
+}
+.Item {
+    background-color: #99b9cf;
+    position: relative;
+    display: inline-block;
+    text-align: left;
+}
+.Itemimg{
+width:22px;
+float:left;
+}
+.noItem{
+	width: 22px;
+    height: 22px;
+    background-size: 100%;
+    background-color: #99b9cf;
+    position: relative;
+    display: inline-block;
+    text-align: left;
+}
+.GameItem>.Content>.FollowPlayers {
+    width: 170px;
+    font-size: 0;
+}
+.FollowPlayers.Names>.Team {
+    float: left;
+    width: 50%;
+}
+.blue{
+	color:blue;
+}
+.Summoner {
+    display: block;
+    width: 80px;
+    height: 17px;
+    margin-left: 3px;
+    text-align: left;
+    white-space: nowrap;
+}
+.ChampionImageBox {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+.SummonerName {
+	
+    display: contents;
+    max-width: 60px;
+    vertical-align: middle;
+    font-size: 11px;
+    color: #555;
+}
+.SummonerName>a{
+	margin-left: 5px;
+}
+.SummonerName a:link { color: black; text-decoration: none;}
+.SummonerName a:visited { color: black; text-decoration: none;}
+.SummonerName a:hover { color: black; text-decoration: none;}
+.Win>.Content>.StatsButton  {
+    width: 30px;
+    border: 1px solid #000;
+    border-color: #4aa1d2;
+    background: #64b1e4;
+   
+}
+.Lose>.Content>.StatsButton {
+    width: 30px;
+    border: 1px solid #000;
+    border-color: #d67b77;
+    background: #e89d99;
+}
+.GameItem>.Content {
+    display: table;
+    width: 689px;
+    border-collapse: collapse;
+    border: 1px solid #cdd2d2;
+}
+.tip {
+  	display: none;
+    position: absolute;
+    width: 250px;
+    padding: 8px;
+    left: -122px;
+    z-index: 1;
+    top: 37px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background: #333;
+    color: #fff;
+    font-size: 13px;
+}
+.tip::after{
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -10px;
+  border: solid transparent;
+  border-color: rgba(51, 51, 51, 0);
+  border-bottom-color: #333;
+  border-width: 10px;
+  pointer-events: none;
+  content: " ";
+}
+.Spell .tip{
+	left:0;
+	top:60px;
+}
+.radius{
+	border-radius: 5px;
+	}
+.Item:hover>.tip{
+  display: block;
+}
+.Spell:hover>.tip{
+	display:block;
+}
+.tip>b{
+color:#00cfbc;
+}
+.yellow{
+color: #ec9b07;
+}
+.tip>span>unique{
+    color: #11de47;}
+#tip{
+    position: absolute;
+    width: 250px;
+    padding: 8px;
+    left: -122px;
+    z-index: 1;
+    top: 37px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background: #333;
+    color: #fff;
+    font-size: 13px;
+}
+.ChamptionImage>img{
+	background-position: 0px -1792px;
+    width: 16px;
+    height: 16px;
+}
+.ChamptionImage{
+	height:16px;
+	width:16px;
+	display:contents;
+}
+ .Team>.Summoner {
+    display: block;
+    width: 80px;
+    height: 18px;
+    margin-left: 3px;
+    text-align: left;
+    white-space: nowrap;
+} 
