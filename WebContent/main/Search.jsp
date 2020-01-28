@@ -15,6 +15,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String userName=request.getParameter("userName");
+	
 %>
 <script>
 function textLengthOverCut(txt, len, lastTxt) {
@@ -36,7 +37,7 @@ function item(itemnumber,i){
 	var item_description="";
 	var item_gold_total="";
 	var item_gold_base="";
-	$.getJSON('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/ko_KR/item.json', function(Item) {
+	$.getJSON('../json/item.json', function(Item) {
 			itemnumber.forEach(function(Itemnumber, item_index, item_array) {
 				item_id=Itemnumber;
 				if(item_id!=0){
@@ -67,7 +68,7 @@ function item(itemnumber,i){
 function champion(champnum,t1,t2,i){
 	var id="";
 	var name="";
-	$.getJSON('http://ddragon.leagueoflegends.com/cdn/10.2.1/data/ko_KR/champion.json',function(Champ){
+	$.getJSON('../json/champion.json',function(Champ){
 		$.each(Champ.data, function(idx, Champ) {
 			if(Champ.key==champnum){
 				id=Champ.id;
@@ -113,7 +114,7 @@ function champion(champnum,t1,t2,i){
 	var spell_name="";
 	var spell_description="";
 	 
-$.getJSON('http://ddragon.leagueoflegends.com/cdn/10.1.1/data/ko_KR/summoner.json', function(spell) {
+$.getJSON('../json/summoner', function(spell) {
 		$.each(spell.data, function(idx, Spell) {
 			if(Spell.key==spellnum){
 				spell_id=Spell.id;
@@ -147,7 +148,7 @@ function rune(mainRune,subRune,i){
 					rune_longDesc=MainRune.longDesc;
 					$('.Runes:eq('+i+')>.Rune:eq(0)').append(
 							"<img src='"+rune_icon+"' alt='"+rune_name+"'>"
-							+"<div class='tip'><span>"+rune_name+"</span></div>" 
+							+"<div class='tip'><span class='yellow'>"+rune_name+"</span><span><br><br>"+rune_longDesc+"</span></div>" 
 							);//
 					
 				}//메인룬 
@@ -158,7 +159,7 @@ function rune(mainRune,subRune,i){
 				rune_icon="http://ddragon.leagueoflegends.com/cdn/img/"+Rune.icon;
 				$('.Runes:eq('+i+')>.Rune:eq(1)').append(
 						"<img src='"+rune_icon+"' alt='"+rune_name+"'>"
-						+"<div class='tip'><span>"+rune_name+"</span></div>" 
+						+"<div class='tip'><span class='yellow'>"+rune_name+"</span><span><br><br>보조룬"+"</span></div>" 
 								
 						);//
 			}//보조룬 
@@ -206,20 +207,23 @@ function rune(mainRune,subRune,i){
  
  var userName="<%=userName%>";
 var riot="https://kr.api.riotgames.com";
-var api_key="RGAPI-4a4ce79e-7077-4120-8db5-ef33bc607154";
+var api_key="RGAPI-efd0423f-219b-4f54-bca9-e343460501c8";
 var accountId="";
 var id="";
 var participantId="";
 var l=0;
 var item_num=0;//index  
-var warpNum=10;//전적 검색 갯수 ;
+var warpNum=3;//전적 검색 갯수 ;
 
 
 $.ajax({
-	    url:riot+"/lol/summoner/v4/summoners/by-name/"+userName+"?api_key="+api_key,
+	    url:riot+"/lol/summoner/v4/summoners/by-name/"+userName,
 	 	type:"GET",
 	 	dataType:"json",
-	 	crossDomain:true,
+	 	headers:{
+	    "X-Riot-Token": "RGAPI-efd0423f-219b-4f54-bca9-e343460501c8",
+	    "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+	    },
 	    success: function(json) {
 	   		id=json.id;
 	 		accountId=json.accountId;
@@ -229,6 +233,9 @@ $.ajax({
 	 		    url:riot+"/lol/league/v4/entries/by-summoner/"+json.id+"?api_key="+api_key,
 	 		 	type:"GET",
 	 		 	dataType:"json",
+	 		 	headers:{"X-Riot-Token":api_key,
+	 		 		'Access-Control-Allow-Origin':'*'
+	 		 		},
 	 		    success: function(json) {
 	 		    	var tier="UNRANK";
 		 		    var rank="";
@@ -242,9 +249,10 @@ $.ajax({
 	 		    }
 	 		});//소환사 티어 전적
 	 		$.ajax({
-	 			url:riot+"/lol/match/v4/matchlists/by-account/"+json.accountId+"?endIndex="+warpNum+"&api_key="+api_key,
+	 			url:riot+"/lol/match/v4/matchlists/by-account/"+json.accountId+"?endIndex="+warpNum,
 	 			type:"GET",
 	 		 	dataType:"json",
+	 		 	headers:{"X-Riot-Token":api_key},
 	 		 	success:function(json){
 	 		 		Matches_sort=new Array();
 	 		 		$.each(json.matches, function(idx,Matches) {
@@ -255,9 +263,12 @@ $.ajax({
 					$.each(Matches_sort, function(i,ee) {
 						
 	 		 			$.ajax({
-	 		 				url:riot+"/lol/match/v4/matches/"+Matches_sort[i]+"?api_key="+api_key,
+	 		 				url:riot+"/lol/match/v4/matches/"+Matches_sort[i],
 	 			 			type:"GET",
 	 			 		 	dataType:"json",
+	 			 		 	headers:{"X-Riot-Token":api_key,
+	 			 		 		'Access-Control-Allow-Origin':'*'
+	 			 		 		},
 	 			 		 	async: false,
 	 			 		 	success:function(json){
 	 			 		 			for(var e=0;e<10;e++){
@@ -299,7 +310,8 @@ $.ajax({
 	 			 		 		var GameDuration_min=Math.floor(json.gameDuration/60)+"분";
 	 			 		 		var GameDuration_sec=Math.floor(json.gameDuration%60)+"초";
 	 			 		 		var KDA=(json.participants[participantId].stats.deaths == 0)?'<b>Perfect</b>':
-	 			 		 				+(Math.round((json.participants[participantId].stats.kills+json.participants[participantId].stats.assists)/json.participants[participantId].stats.deaths*100)/100)+':1';
+	 			 		 				+(Math.round((json.participants[participantId].stats.kills+json.participants[participantId].stats.assists)
+	 			 		 						+""+json.participants[participantId].stats.deaths*100)/100)+':1';
 	 			 		 		var spell1="";
 	 			 		 		var spell2="";
 	 			 		 		
@@ -439,6 +451,7 @@ $.ajax({
 </div>
 
 </div>
+
 <jsp:include page="../inc/footer.jsp"/>
 </body>
 </html>

@@ -391,6 +391,14 @@ color: #ec9b07;
     color: #fff;
     font-size: 13px;
 }
+.Rune .tip{
+	left: 28px;
+	top: 70px;
+}
+.Rune:hover>.tip{
+	display:block;
+}
+
 .ChamptionImage>img{
 	background-position: 0px -1792px;
     width: 16px;
