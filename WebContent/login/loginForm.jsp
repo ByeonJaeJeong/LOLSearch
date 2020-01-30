@@ -41,7 +41,9 @@ var scope="";
 	      // 로그인 창을 띄웁니다.
 	      Kakao.Auth.login({
 	        success: function(authObj) {
-	          alert(JSON.stringify(authObj)+"성공");
+	        	var obj=JSON.stringify(authObj.id);
+	        
+	          alert+"성공");
 	         console.log(JSON.stringify(authObj.access_token));
 	        	$.ajax(kapi.kakao.com, settings)  
 	        },
