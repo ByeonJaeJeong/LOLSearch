@@ -31,9 +31,18 @@
   </resource-ref>
   
   
-  
-  
-  
+ 
+<!-- 	<servlet>	
+		<servlet-name>TestServlet</servlet-name>
+		<servlet-class>com.riot.api.okHttpServlet</servlet-class>
+		
+	</servlet>
+	
+	<servlet-mapping>
+	<servlet-name>TestServlet</servlet-name> 
+	<url-pattern>/riotapi</url-pattern> 	
+	</servlet-mapping>
+   -->
   
   
   

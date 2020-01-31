@@ -23,10 +23,10 @@
 
 function textLengthOverCut(txt, len, lastTxt) {
     if (len == "" || len == null) { // 기본값
-        len = 20;
+        len = 4;
     }
     if (lastTxt == "" || lastTxt == null) { // 기본값
-        lastTxt = "...";
+        lastTxt = ".";
     }
     if (txt.length > len) {
         txt = txt.substr(0, len) + lastTxt;
@@ -117,7 +117,7 @@ function champion(champnum,t1,t2,i){
 	var spell_name="";
 	var spell_description="";
 	 
-$.getJSON('../json/summoner', function(spell) {
+$.getJSON('../json/summoner.json', function(spell) {
 		$.each(spell.data, function(idx, Spell) {
 			if(Spell.key==spellnum){
 				spell_id=Spell.id;
@@ -206,8 +206,8 @@ function rune(mainRune,subRune,i){
  }); 
 
 ///////////////////////////////api 키입력//////////////////
-
- 
+var riot="https://kr.api.riotgames.com";
+var token="RGAPI-b040a33f-c873-4de5-87d3-c201d2adc753";
 var userName="<%=userName%>";
 var accountId="";
 var id="";
@@ -215,189 +215,216 @@ var participantId="";
 var l=0;
 var item_num=0;//index  
 var warpNum=3;//전적 검색 갯수 ;
-$(document).ready(function() {
-	
 
-<%
-	okHttp okhttp =new okHttp();
-	okhttp.setName(userName);
-%>
-	var summoner=[];//summoner 정보 json 담는곳
-	var summoner_tier=[];//summoner_tier 정보  json 담는곳
-	var summoner_game_id=[];//summoner_game_id 정보 json 담는곳
-	var summoner_game=[];//summoner_game 정보 json 담는곳
-	summoner.push(<%=okhttp.summoner()%>);//okHttp로 부터 소환사 정보 받아옴
-	console.log(summoner[0]);
-	id=summoner.id;
-	accountId=summoner.accountId;
-	$("#summonerName").append("<span class='name'>"+summoner[0].name+"</span>");
-	$("#profileIcon").append("<img class='profileimg' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/profileicon/"+summoner[0].profileIconId+".png'>"+"<span class='summonerlevel'>"+summoner.summonerLevel+"</span>");
-	//summoner 사용 
-	summoner_tier.push(<%=okhttp.summoner_tier()%>)//okHttp로 부터 소환사 티어 정보 받아옴
-		console.log(summoner_tier[0][0].tier);
-	 		    	var tier="UNRANK";
-		 		    var rank="";
-	 		    	if(summoner_tier[0][0]){
-	 		    	var tier=summoner_tier[0][0].tier;
-	 		    	var rank=summoner_tier[0][0].rank;
-	 		    	console.log(tier+","+rank);
-	 		    	}
-	 		    	$('.tier_imgbox').append("<img class='image' src='https://raw.githubusercontent.com/ByeonJaeJeong/LOLSearch/master/WebContent/img/"+tier+".png'>");
-	 		 		$('.tier_Rank').append("<span>"+tier+""+rank+"</span>");
-	 		    	//setTimeout(5);
-});
-	 		 //소환사 티어 전적
-	 		summoner_game_id.push(<%=okhttp.summoner_game_id()%>);
-	 		console.log(summoner_game_id[0].matches);
-	 		summoner_game.push(<%=okhttp.summoner_game().get(0)%>);
-	 		console.log("game:"+(summoner_game[0].participants[participantId]));
-	 		
-/* 
-	 		 		Matches_sort=new Array();
-	 		 	for(var i=0;i<3;i++){
-	 		 		console.log(i);	
-	 		 	
+
+	////
+$.ajax({
+    url:"../riotapi",
+ 	type:"GET",
+ 	dataType:"json",
+ 	data:{"URL": riot+"/lol/summoner/v4/summoners/by-name/"+userName},
+ 	  headers:{
+    "X-Riot-Token": token
+    },  
+    success: function(json) {
+   		id=json.id;
+ 		accountId=json.accountId;
+ 		$("#summonerName").append("<span class='name'>"+json.name+"</span>");
+ 		$("#profileIcon").append("<img class='profileimg' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/profileicon/"+json.profileIconId+".png'>"+"<span class='summonerlevel'>"+json.summonerLevel+"</span>");
+ 		 $.ajax({
+ 		    url:"../riotapi",
+ 		 	type:"GET",
+ 		 	dataType:"json",
+ 		 	data:{"URL":riot+"/lol/league/v4/entries/by-summoner/"+json.id},
+ 		 	headers:{"X-Riot-Token":token},
+ 		    success: function(json) {
+ 		    	var tier="UNRANK";
+	 		    var rank="";
+ 		    	if(json[0]){
+ 		    	var tier=json[0].tier;
+ 		    	var rank=json[0].rank;
+ 		    	}
+ 		    	$('.tier_imgbox').append("<img class='image' src='https://raw.githubusercontent.com/ByeonJaeJeong/LOLSearch/master/WebContent/img/"+tier+".png'>");
+ 		 		$('.tier_Rank').append("<span>"+tier+""+rank+"</span>");
+ 		    	setTimeout(5);
+ 		    }
+ 		});//소환사 티어 전적
+ 		$.ajax({
+ 			url:"../riotapi",
+ 			type:"GET",
+ 		 	dataType:"json",
+ 		 	data:{"URL":riot+"/lol/match/v4/matchlists/by-account/"+json.accountId+"?endIndex="+warpNum},
+ 		 	headers:{"X-Riot-Token":token},
+ 		 	success:function(json){
+ 		 		Matches_sort=new Array();
+ 		 		$.each(json.matches, function(idx,Matches) {
+ 		 			Matches_sort[idx]=Matches.gameId;
+ 		 		});
+ 		 	
+			
+				$.each(Matches_sort, function(i,ee) {
 					
-	 		 			
-	 				for(var e=0;e<10;e++){
-	 			 	if(summoner_game[0].participantIdentities[e].player.accountId==accountId)
-	 			 	participantId=e;
-	 			 		}	//for문 10명중에 내가 몇인지
-	 			 		console.log(participantId);
-	 			 		 		if(summoner_game[0].teams[((summoner_game[0].participants[participantId].teamId)/100)-1].win=="Win")
-	 			 		 		var win="Win";
-	 			 		 		else
-	 			 		 		var win="Lose";
-	 			 		 		
-	 			 		 		switch (summoner_game[0].queueId) {
-								case 420:
-								var RankType="솔랭";
-									break;
-								case 430:
-								var RankType="일반";	
-									break;
-								case 450:
-								var RankType="칼바람";		
-									break;
-								case 850:
-								var RankType="우르프";	
-									break;
-								default:
-									break;
-								}//switch
-	 			 		 		var date1=new Date();//현재시간
-	 		 		 			var date2=new Date(summoner_game[0].gameCreation);//게임했던시간
-	 		 		 			var date=(date1.getDate()-date2.getDate())+"일전";
-	 		 		 			if((date1.getDate()==date2.getDate())){
-	 		 		 				 date=((date1.getHours()-date2.getHours())+"시간전")
-	 		 		 				if(date1.getHours()==date2.getHours()){
-	 		 		 					 date=(date1.getMinutes()-date2.getMinutes())+"분전";
-	 		 		 				}//if문
-	 		 		 			}//if문
-	 			 		 		var GameDuration_min=Math.floor(summoner_game[0].gameDuration/60)+"분";
-	 			 		 		var GameDuration_sec=Math.floor(summoner_game[0].gameDuration%60)+"초";
-	 			 		 		var KDA=(summoner_game[0].participants[participantId].stats.deaths == 0)?'<b>Perfect</b>':
-	 			 		 				+(Math.round((summoner_game[0].participants[participantId].stats.kills+json.participants[participantId].stats.assists)
-	 			 		 						+""+summoner_game[0].participants[participantId].stats.deaths*100)/100)+':1';
-	 			 		 		var spell1="";
-	 			 		 		var spell2="";
-	 			 		 		
-	 			 		 		$('.main_content').append(
-	 			 		 			"<div class='GameItemWarp '>"+"<div class='GameItem "+win+"'>"  
-	 			 		 			+"<div class='Content'>"
-	 			 		 			+"<div class='GameStatus'>"
-	 			 		 			+"<div class='GameType'>"+RankType+"</div>"
-	 			 		 			+"<div class='TimeStamp'>"+date+"</div>"
-	 			 		 			+"<div class='Bar'>"+"</div>"
-	 			 		 			+"<div class='GameResult'>"+((win=="Win")?"승리":"패배")+"</div>"
-	 			 		 			+"<div class='GameLength'>"+GameDuration_min+""+GameDuration_sec+"</div>"
-	 			 		 			+"</div>"		//gameStatus 종료  
-	 			 		 			+"<div class='GameSettingInfo'>"
-	 			 		 			+"<div class='ChampionImageBox'>"+"</div>"
-	 			 		 			+"<div class='SummonerSpell'>"
-	 			 		 			+"</div>"		//SummonerSpell 종료
-	 			 		 			+"<div class='Runes'>"
-	 			 		 			+"<div class='Rune'></div>"
-	 			 		 			+"<div class='Rune'></div>"
-	 			 		 			+"</div>"		//Runes 종료
-	 			 		 			+"<div class='ChampionName'>"+"</div>"
-	 			 		 			+"</div>"		//GameSettingInfo 종료  
-	 			 		 			+"<div class='KDABox'>"
-	 			 		 			+"<div class='KDA'>"+"<span class='kills'>"+summoner_game[0].participants[participantId].stats.kills+"</span>"
-	 			 		 			+"/"
-	 			 		 			+"<span class='deaths'>"+summoner_game[0].participants[participantId].stats.deaths+"</span>"
-	 			 		 			+"/"
-	 			 		 			+"<span class='assists'>"+summoner_game[0].participants[participantId].stats.assists+"</span>"
-	 			 		 			+"</div>"		//KDA종료
-	 			 		 			+"<div class='KDARatio'>"+KDA+" 평점</div>"
-	 			 		 			+"</div>"		// KDABox종료 
-	 			 		 			+"<div class='Stats'>"
-	 			 		 			+"<div class='Level'>레벨"+summoner_game[0].participants[participantId].stats.champLevel+"</div>"
-	 			 		 			+"<div class='CS'>"+summoner_game[0].participants[participantId].stats.totalMinionsKilled+" ("
-	 			 		 					+Math.floor(summoner_game[0].participants[participantId].stats.totalMinionsKilled/Math.floor(json.gameDuration/60)*10)/10+") "+"CS</div>"
-	 			 		 			+"<div class='CKRate'>킬관여"+"</div>"
-	 			 		 			+"</div>"
-	 			 		 			+"<div class='Items'>"
-	 			 		 			+"<div class='ItemList'>"
-	 			 		 			
-	 			 		 			+"</div>"	//ItemList끝
-	 			 		 			+"</div>" 	//Items끝
-	 			 		 			+"<div class='FollowPlayers Names'>"
-	 			 		 			+"<div class='Team 1'>"+"</div>"	//Team1 끝
-	 			 		 			+"<div class='Team 2'>"+"</div>"	//Team2 끝
-	 			 		 			+"</div>"	//FollowPlayers Names끝
-	 			 		 			 +"<div class='StatsButton'>"
-	 			 		 			+"<div class='Sts_content'>"
-	 			 		 			+"<div class='rightMatch'>"
-	 			 		 			+"<span class='ON'>"+"</span>"
-	 			 		 			+"<span class='OFF'>"+"</span>"
-	 			 		 			+"</div>"
-	 			 		 			+"</div>"
-	 			 		 			+"</div>" 
-	 			 		 				+"</div>"+"</div></div>"	// Content GameItem GameItemWarp  
-	 			 		 		);//main content append 끝
-	 			 		 		
-	 			 		 		var t1=new Array(5);
-	 			 		 		var t2=new Array(5);
-	 			 		 		var t1_count=0;
-	 			 		 		var t2_count=0;
-	 			 		 				for(var j=0;j<10;j++){
-		 			 		 				if(summoner_game[0].participants[j].teamId=='100'){
-	 			 		 		$('.Team.1:eq('+l+')').append(
+ 		 			 $.ajax({
+ 		 				url:"../riotapi",
+ 			 			type:"GET",
+ 			 		 	dataType:"json",
+ 			 		 	data:{"URL":riot+"/lol/match/v4/matches/"+Matches_sort[i]},
+ 			 		 	headers:{"X-Riot-Token":token},
+ 			 		 	success:function(json){
+ 			 		 			for(var e=0;e<10;e++){
+ 			 		 			if(json.participantIdentities[e].player.accountId==accountId)
+ 			 		 				participantId=e;
+ 			 		 			}	//for문
+ 		 						
+ 			 		 				
+ 			 		 		if(json.teams[((json.participants[participantId].teamId)/100)-1].win=="Win")
+ 			 		 		var win="Win";
+ 			 		 		else
+ 			 		 		var win="Lose";
+ 			 		 		
+ 			 		 		switch (json.queueId) {
+							case 420:
+							var RankType="솔랭";
+								break;
+							case 430:
+							var RankType="일반";	
+								break;
+							case 450:
+							var RankType="칼바람";		
+								break;
+							case 850:
+							var RankType="우르프";	
+								break;
+							default:
+								break;
+							}//switch
+ 			 		 		var date1=new Date();//현재시간
+ 		 		 			var date2=new Date(json.gameCreation);//게임했던시간
+ 		 		 			var date=(date1.getDate()-date2.getDate())+"일전";
+ 		 		 			if((date1.getDate()==date2.getDate())){
+ 		 		 				 date=((date1.getHours()-date2.getHours())+"시간전")
+ 		 		 				if(date1.getHours()==date2.getHours()){
+ 		 		 					 date=(date1.getMinutes()-date2.getMinutes())+"분전";
+ 		 		 				}//if문
+ 		 		 			}//if문
+ 			 		 		var GameDuration_min=Math.floor(json.gameDuration/60)+"분";
+ 			 		 		var GameDuration_sec=Math.floor(json.gameDuration%60)+"초";
+ 			 		 		var KDA=(json.participants[participantId].stats.deaths == 0)?'<b>Perfect</b>':
+ 			 		 				+(Math.round((json.participants[participantId].stats.kills+json.participants[participantId].stats.assists)
+ 			 		 						+""+json.participants[participantId].stats.deaths*100)/100)+':1';
+ 			 		 		var spell1="";
+ 			 		 		var spell2="";
+ 			 		 		
+ 			 		 		$('.main_content').append(
+ 			 		 			"<div class='GameItemWarp '>"+"<div class='GameItem "+win+"'>"  
+ 			 		 			+"<div class='Content'>"
+ 			 		 			+"<div class='GameStatus'>"
+ 			 		 			+"<div class='GameType'>"+RankType+"</div>"
+ 			 		 			+"<div class='TimeStamp'>"+date+"</div>"
+ 			 		 			+"<div class='Bar'>"+"</div>"
+ 			 		 			+"<div class='GameResult'>"+((win=="Win")?"승리":"패배")+"</div>"
+ 			 		 			+"<div class='GameLength'>"+GameDuration_min+""+GameDuration_sec+"</div>"
+ 			 		 			+"</div>"		//gameStatus 종료  
+ 			 		 			+"<div class='GameSettingInfo'>"
+ 			 		 			+"<div class='ChampionImageBox'>"+"</div>"
+ 			 		 			+"<div class='SummonerSpell'>"
+ 			 		 			+"</div>"		//SummonerSpell 종료
+ 			 		 			+"<div class='Runes'>"
+ 			 		 			+"<div class='Rune'></div>"
+ 			 		 			+"<div class='Rune'></div>"
+ 			 		 			+"</div>"		//Runes 종료
+ 			 		 			+"<div class='ChampionName'>"+"</div>"
+ 			 		 			+"</div>"		//GameSettingInfo 종료  
+ 			 		 			+"<div class='KDABox'>"
+ 			 		 			+"<div class='KDA'>"+"<span class='kills'>"+json.participants[participantId].stats.kills+"</span>"
+ 			 		 			+"/"
+ 			 		 			+"<span class='deaths'>"+json.participants[participantId].stats.deaths+"</span>"
+ 			 		 			+"/"
+ 			 		 			+"<span class='assists'>"+json.participants[participantId].stats.assists+"</span>"
+ 			 		 			+"</div>"		//KDA종료
+ 			 		 			+"<div class='KDARatio'>"+KDA+" 평점</div>"
+ 			 		 			+"</div>"		// KDABox종료 
+ 			 		 			+"<div class='Stats'>"
+ 			 		 			+"<div class='Level'>레벨"+json.participants[participantId].stats.champLevel+"</div>"
+ 			 		 			+"<div class='CS'>"+json.participants[participantId].stats.totalMinionsKilled+" ("
+ 			 		 					+Math.floor(json.participants[participantId].stats.totalMinionsKilled/Math.floor(json.gameDuration/60)*10)/10+") "+"CS</div>"
+ 			 		 			+"<div class='CKRate'>킬관여"+"</div>"
+ 			 		 			+"</div>"
+ 			 		 			+"<div class='Items'>"
+ 			 		 			+"<div class='ItemList'>"
+ 			 		 			
+ 			 		 			+"</div>"	//ItemList끝
+ 			 		 			+"</div>" 	//Items끝
+ 			 		 			+"<div class='FollowPlayers Names'>"
+ 			 		 			+"<div class='Team 1'>"+"</div>"	//Team1 끝
+ 			 		 			+"<div class='Team 2'>"+"</div>"	//Team2 끝
+ 			 		 			+"</div>"	//FollowPlayers Names끝
+ 			 		 			 +"<div class='StatsButton'>"
+ 			 		 			+"<div class='Sts_content'>"
+ 			 		 			+"<div class='rightMatch'>"
+ 			 		 			+"<span class='ON'>"+"</span>"
+ 			 		 			+"<span class='OFF'>"+"</span>"
+ 			 		 			+"</div>"
+ 			 		 			+"</div>"
+ 			 		 			+"</div>" 
+ 			 		 				+"</div>"+"</div></div>"	// Content GameItem GameItemWarp  
+ 			 		 		);//main content append 끝
+ 			 		 		
+ 			 		 		var t1=new Array(5);
+ 			 		 		var t2=new Array(5);
+ 			 		 		var t1_count=0;
+ 			 		 		var t2_count=0;
+ 			 		 				for(var j=0;j<10;j++){
+	 			 		 				if(json.participants[j].teamId=='100'){
+ 			 		 		$('.Team.1:eq('+l+')').append(
+	 			 		 			"<div class='summoner' >"
+	 			 		 			+"<div class='ChamptionImage' >"+"</div>"
+	 			 		 			+"<div class='SummonerName' ><a href='Search.jsp?userName="+json.participantIdentities[j].player.summonerName+"'>"+textLengthOverCut(json.participantIdentities[j].player.summonerName,4,'..')+"</a></div>"
+	 			 		 				+"</div>"
+ 			 		 				);
+	 			 		 				t1[t1_count]=json.participants[j].championId;
+	 			 		 				t1_count++;
+	 			 		 				}//if문
+ 			 		 		if(json.participants[j].teamId=='200'){
+	 			 		 		$('.Team.2:eq('+l+')').append(
 		 			 		 			"<div class='summoner' >"
-		 			 		 			+"<div class='ChamptionImage' >"+"</div>"
-		 			 		 			+"<div class='SummonerName' ><a href='Search.jsp?userName="+summoner_game[0].participantIdentities[j].player.summonerName+"'>"+textLengthOverCut(json.participantIdentities[j].player.summonerName,5,'..')+"</a></div>"
+		 			 		 			+"<div class='ChamptionImage'>"+"</div>"
+		 			 		 			+"<div class='SummonerName' ><a href='Search.jsp?userName="+json.participantIdentities[j].player.summonerName+"'>"+textLengthOverCut(json.participantIdentities[j].player.summonerName,4,'..')+"</a></div>"
 		 			 		 				+"</div>"
 	 			 		 				);
-		 			 		 				t1[t1_count]=summoner_game[0].participants[j].championId;
-		 			 		 				t1_count++;
-		 			 		 				}//if문
-	 			 		 		if(summoner_game[0].participants[j].teamId=='200'){
-		 			 		 		$('.Team.2:eq('+l+')').append(
-			 			 		 			"<div class='summoner' >"
-			 			 		 			+"<div class='ChamptionImage'>"+"</div>"
-			 			 		 			+"<div class='SummonerName' ><a href='Search.jsp?userName="+summoner_game[0].participantIdentities[j].player.summonerName+"'>"+textLengthOverCut(json.participantIdentities[j].player.summonerName,5,'..')+"</a></div>"
-			 			 		 				+"</div>"
-		 			 		 				);
-		 			 		 				t2[t2_count]=summoner_game[0].participants[j].championId;
- 			 		 						t2_count++;
-		 			 		 			}
-		 			 		 				}//for 문[j] if문 끝
-		 			 		 				
-		 			 		 				l++;
-		 			 		 				var json_link=summoner_game[0].participants[participantId].stats;
-		 			 		 				var item_number=new Array(json_link.item0,json_link.item1,json_link.item2,json_link.item6,json_link.item3,json_link.item4,json_link.item5);
-		 			 		 				var mainRune=json_link.perk0;
-		 			 		 				var subRune=json_link.perkSubStyle;
-		 			 		 				rune(mainRune,subRune,item_num);//룬 추가
-		 			 		 				item(item_number, item_num);//아이템 추가
-		 			 		 				
-		 			 		 				champion(summoner_game[0].participants[participantId].championId,t1,t2,item_num);//챔피언 이미지 추가	
-		 			 		 				spell(summoner_game[0].participants[participantId].spell1Id,item_num);
-		 			 		 				spell(summoner_game[0].participants[participantId].spell2Id,item_num);
-		 			 		 				item_num++;
-	 		 	} */	
-	 			 		 	
+	 			 		 				t2[t2_count]=json.participants[j].championId;
+			 		 						t2_count++;
+	 			 		 			}
+	 			 		 				}//for 문[j] if문 끝
+	 			 		 				
+	 			 		 				l++;
+	 			 		 				var json_link=json.participants[participantId].stats;
+	 			 		 				var item_number=new Array(json_link.item0,json_link.item1,json_link.item2,json_link.item6,json_link.item3,json_link.item4,json_link.item5);
+	 			 		 				var mainRune=json_link.perk0;
+	 			 		 				var subRune=json_link.perkSubStyle;
+	 			 		 				rune(mainRune,subRune,item_num);//룬 추가
+	 			 		 				item(item_number, item_num);//아이템 추가
+	 			 		 				
+	 			 		 				champion(json.participants[participantId].championId,t1,t2,item_num);//챔피언 이미지 추가	
+	 			 		 				spell(json.participants[participantId].spell1Id,item_num);
+	 			 		 				spell(json.participants[participantId].spell2Id,item_num);
+	 			 		 				item_num++;
+	 			 		 				
+ 			 		 	}//Matchlist success
+ 		 				
+ 		 			});//게임상세 
+ 		 			setTimeout(5);
+ 		 				}); 
+ 		 				//}//for문 끝 [i]
+ 		
+ 		 	}
+ 		});//전적20게임 */
+    },error:function(request,status,error){
+        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    }
+//
+
+});//소환사 검색
 	 		 				
 	 		 			
 	 		 				
