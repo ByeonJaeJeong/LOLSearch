@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link href="../css/main.css" type="text/css" rel="stylesheet">
+<link href="/LOLSearch/css/main.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 
@@ -19,7 +19,7 @@
 
 </div>
 <div class="Search-box">
-<form action="Search.jsp" >
+<form action="/LOLSearch/main/Search.jsp" >
 <input type="text" name="userName" class="Search" placeholder="소환사 검색">
 <input type="submit" value="검색"class="Search-btn"> 
 </form>

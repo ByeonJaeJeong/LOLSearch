@@ -269,6 +269,7 @@ float:left;
     position: relative;
     display: inline-block;
     text-align: left;
+    opacity: 0.4;
 }
 .GameItem>.Content>.FollowPlayers {
     width: 170px;
