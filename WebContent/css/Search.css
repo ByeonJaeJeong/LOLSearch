@@ -88,6 +88,9 @@ body{
     height: 124px;
     text-align: center;
 }
+#subBox>.tier_imgbox{
+	height:60px;
+}
 .image{
 	width: 104px;
     height: 104px;
@@ -99,6 +102,11 @@ body{
     font-size: 12px;
     line-height: 1.5;
     text-align: left;
+}
+.tier_Rank>span{
+	font-size: 15px;
+    color: #3187b9;
+    font-weight: bold;
 }
 .GameItemWarp{
 	position: relative;
@@ -271,6 +279,37 @@ float:left;
     text-align: left;
     opacity: 0.4;
 }
+.tier_info>.L{
+	border-radius: 25px;
+    float: left;
+    background-color: red;
+    width: 18px;
+    text-align: center;
+    color: white;
+    margin-left: 8px;
+}
+.tier_info>.W{
+	border-radius: 25px;
+    float: left;
+    background-color: blue;
+    width: 18px;
+    text-align: center;
+    color: white;
+    margin-left: 8px;
+}
+.tier_info>.N{
+	border-radius: 25px;
+    float: left;
+    background-color: white;
+    width: 18px;
+    text-align: center;
+    color: white;
+    margin-left: 8px;
+    border:1px solid;
+}
+.legueName>span{
+	float:left;
+	}
 .GameItem>.Content>.FollowPlayers {
     width: 170px;
     font-size: 0;
