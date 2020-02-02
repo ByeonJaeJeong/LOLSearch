@@ -13,7 +13,7 @@
 </div>
 </div>
 <div class="login">
-<a href="../login/loginForm.jsp">로그인</a>
+<a href="/LOLSearch/login/loginForm.jsp">로그인</a>
 </div>
 
 </div>

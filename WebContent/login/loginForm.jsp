@@ -43,7 +43,7 @@ var scope="";
 	        success: function(authObj) {
 	        	var obj=JSON.stringify(authObj.id);
 	        
-	          alert+"성공");
+	          alert("성공");
 	         console.log(JSON.stringify(authObj.access_token));
 	        	$.ajax(kapi.kakao.com, settings)  
 	        },

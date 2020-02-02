@@ -107,6 +107,7 @@ body{
 	font-size: 15px;
     color: #3187b9;
     font-weight: bold;
+    text-transform: capitalize;
 }
 .GameItemWarp{
 	position: relative;
@@ -279,33 +280,33 @@ float:left;
     text-align: left;
     opacity: 0.4;
 }
-.tier_info>.L{
+.tier_info>.Series>.Content>.L{
 	border-radius: 25px;
     float: left;
     background-color: red;
     width: 18px;
     text-align: center;
     color: white;
-    margin-left: 8px;
+    margin-right: 8px;
 }
-.tier_info>.W{
+.tier_info>.Series>.Content>.W{
 	border-radius: 25px;
     float: left;
     background-color: blue;
     width: 18px;
     text-align: center;
     color: white;
-    margin-left: 8px;
+    margin-right: 8px;
 }
-.tier_info>.N{
+.tier_info>.Series>.Content>.N{
 	border-radius: 25px;
     float: left;
     background-color: white;
     width: 18px;
     text-align: center;
     color: white;
-    margin-left: 8px;
-    border:1px solid;
+    margin-right: 8px;
+    border:1px solid #dadada;
 }
 .legueName>span{
 	float:left;
@@ -406,6 +407,14 @@ float:left;
 .Item:hover>.tip{
   display: block;
 }
+.Items>.Trinket{
+	margin-top: 7px;
+    color: #353a3a;
+    line-height: 13px;
+    font-size: 11px;
+    text-align: center;
+}
+}
 .Spell:hover>.tip{
 	display:block;
 }
@@ -438,12 +447,19 @@ color: #ec9b07;
 .Rune:hover>.tip{
 	display:block;
 }
-
+.Trinket>img{
+	border-radius: 10px;
+    width: 16px;
+    float: none;
+    margin: -3px 4px;
+    margin-left: -11px;
+}
 .ChamptionImage>img{
 	background-position: 0px -1792px;
     width: 16px;
     height: 16px;
 }
+
 .ChamptionImage{
 	height:16px;
 	width:16px;
@@ -457,3 +473,9 @@ color: #ec9b07;
     text-align: left;
     white-space: nowrap;
 } 
+.GameItem>.Content>.Sts_content>.Button {
+    display: block;
+    width: 30px;
+    position: relative;
+    cursor: pointer;
+}
