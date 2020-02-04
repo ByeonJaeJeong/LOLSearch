@@ -1,8 +1,8 @@
-package net.member.db;
+package net.User.db;
 
 import java.sql.Timestamp;
 
-public class MemberBean {
+public class UserBean {
 	String id;
 	String pass;
 	String name;
@@ -54,9 +54,10 @@ public class MemberBean {
 	}
 	@Override
 	public String toString() {
-		return "MemberBean [id=" + id + ", pass=" + pass + ", name=" + name + ", birth=" + birth + ", gender=" + gender
+		return "UserBean [id=" + id + ", pass=" + pass + ", name=" + name + ", birth=" + birth + ", gender=" + gender
 				+ ", email=" + email + ", reg_date=" + reg_date + "]";
 	}
+	
 	
 	
 }

@@ -57,6 +57,13 @@ public class SearchFrontController extends HttpServlet{
 				forward=new ActionForward();
 				forward.setPath("./login/insertForm.jsp");
 				forward.setRedirect(false);
+			}else if(command.equals("/MemberJoinAction.kr")){
+				action=new InsertAction();
+				try{
+					forward=action.execute(request, response);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			
 			if(forward!=null){//페이지 이동 정보가 있을때 처리

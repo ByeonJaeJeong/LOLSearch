@@ -2,6 +2,14 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <link href="/LOLSearch/css/header.css" rel="stylesheet" type="text/css">
+<script src="./js/jquery-3.4.1.js"></script>
+<script>
+$(document).ready(function(){
+	$('.btn').click(function(){
+		location.href=$(this).attr("alt");
+	});
+});
+</script>
 <div class="header">
 <div class="family-site">
 <div class="container">
@@ -12,7 +20,7 @@
 </ul>
 </div>
 </div>
-<div class="login">
+<div class="login btn" alt="./login.kr">
 <a href="./login.kr">로그인</a>
 </div>
 

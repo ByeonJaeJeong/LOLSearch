@@ -4,13 +4,13 @@
  <Resource
   maxIdle="100"
    maxActive="500"
-    password="1234"
-     username="root"
-      url="jdbc:mysql://localhost:3306/jsp7"
+    password="riotuser"
+     username="RiotUser"
+      url="jdbc:mysql://localhost:3306/lolsearch"
        driverClassName="com.mysql.jdbc.Driver"
         type="javax.sql.DataSource"
          auth="Container"
-          name="jdbc/mysqlDB"/>
+          name="jdbc/LOLSearchDB"/>
 
 	
 
