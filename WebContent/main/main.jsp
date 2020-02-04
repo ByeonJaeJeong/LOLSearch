@@ -19,7 +19,7 @@
 
 </div>
 <div class="Search-box">
-<form action="/LOLSearch/main/Search.jsp" >
+<form action="/LOLSearch/Search.kr" >
 <input type="text" name="userName" class="Search" placeholder="소환사 검색">
 <input type="submit" value="검색"class="Search-btn"> 
 </form>

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<link href="../css/Search.css" rel="stylesheet">
+<link href="./css/Search.css" rel="stylesheet">
 <head>
 <script
   src="https://code.jquery.com/jquery-3.4.1.js"
@@ -18,8 +18,92 @@
 	
 %>
 <script>
+var riot="https://kr.api.riotgames.com";
+var token="RGAPI-503a324e-108b-495e-87b2-84a8154e95ec";
+var id="";
+var participantId="";
+var accountId="";
 $(document).ready(function(){
+var userName="<%=userName%>";
+var item_num=0;//index  
+var l=0;
+		////
+	$.ajax({
+	    url:"./riotapi",
+	 	type:"GET",
+	 	dataType:"json",
+	 	data:{"URL": riot+"/lol/summoner/v4/summoners/by-name/"+userName},
+	 	  headers:{
+	    "X-Riot-Token": token
+	    },  
+	    success: function(json) {
+	   		id=json.id;
+	 		accountId=json.accountId;
+	 		$("#summonerName").append("<span class='name'>"+json.name+"</span>");
+	 		$("#profileIcon").append("<img class='profileimg' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/profileicon/"+json.profileIconId+".png'>"+"<span class='summonerlevel'>"+json.summonerLevel+"</span>");
+	 		 $.ajax({
+	 		    url:"./riotapi",
+	 		 	type:"GET",
+	 		 	dataType:"json",
+	 		 	data:{"URL":riot+"/lol/league/v4/entries/by-summoner/"+json.id},
+	 		 	headers:{"X-Riot-Token":token},
+	 		    success: function(json) {
+	 		    		 $.each(json, function(i, rank) {
+	 		    			 switch(rank.rank) {
+	 		    			 case "I": var tier=1; break; //
+	 		    			 case "II": var tier=2; break; 
+	 		    			 case "III": var tier=3; break; 
+	 		    			 case "IV": var tier=4; break; 
+	 		    			 }//
+	 		    		 	if(rank.queueType=="RANKED_SOLO_5x5"){
+	 		    		 		$('#mainBox .tier_imgbox').append("<img class='image' src='https://raw.githubusercontent.com/ByeonJaeJeong/LOLSearch/master/WebContent/img/"+json[0].tier+".png'>");
+	 			 		 		$('#mainBox .tier_Rank').append("<span>"+rank.tier.toLowerCase() +"</span><span class='number'> "+tier+"</span>");
+	 			 		 		$('#mainBox .tier_info').append("<b>"+rank.leaguePoints+"LP</b><span>/"+rank.wins+"승"+rank.losses+"패</span><br>"
+	 			 		 				+"<span>승률"+Math.floor(rank.wins/(rank.wins+rank.losses)*100)+"%</span><br>");
+	 			 		 		if(rank.miniSeries){
+				 		 				var winlose=new Array();
+				 		 					winlose=(rank.miniSeries.progress).split("");
+				 		 			$('#mainBox .tier_info').append("<div class='Series'><span>승급전 진행중</span><br></div>");
+				 		 			$('#mainBox .tier_info>.Series').append("<div class='Content'></div>")
+				 		 			for(var dat=0;dat<winlose.length;dat++)
+				 		 			$('#mainBox .tier_info>.Series>.Content').append("<div class='"+winlose[dat]+"'>"+winlose[dat]+"</div>");
+				 		 			}
+	 		    		 	}//솔랭일때
+	 		    		 	if(rank.queueType=="RANKED_FLEX_SR"){
+	 		    		 		$('#subBox .tier_imgbox').append("<img class='image' src='https://raw.githubusercontent.com/ByeonJaeJeong/LOLSearch/master/WebContent/img/"+json[0].tier+".png'>");
+	 			 		 		$('#subBox .tier_Rank').append("<span>"+rank.tier+"</span><span class='number'>"+tier+"</span>");
+	 			 		 		$('#subBox .tier_info').append("<b>"+rank.leaguePoints+"LP</b><span>/"+json[0].wins+"승"+json[0].losses+"패</span><br>"
+	 			 		 				+"<span>승률"+Math.floor(rank.wins/(rank.wins+rank.losses)*100)+"%</span><br>");//
+	 			 		 		if(json[0].miniSeries){
+	 			 		 				var winlose=new Array();
+	 			 		 					winlose=(rank.miniSeries.progress).split("");
+	 			 		 			$('#subBox .tier_info').append("<div class='Series'><span>승급전 진행중</span><br></div>");
+	 			 		 			$('#subBox .tier_info>.Series').append("<div class='Content'></div>")
+	 			 		 			for(var dat=0;dat<winlose.length;dat++)
+	 			 		 			$('#subBox .tier_info>.Series>.Content').append("<div class='"+winlose[dat]+"'>"+winlose[dat]+"</div>");
+	 			 		 			}
+	 		    		 	}//자랭일때//
+	 		    		 });//each
+	 		    		  if($('#mainBox .tier_Rank')[0].innerText==""){
+	 	 		    		$('#mainBox .tier_imgbox').append("<img class='image' src='https://raw.githubusercontent.com/ByeonJaeJeong/LOLSearch/master/WebContent/img/UNRANK.png'>");
+	 		 		 		$('#mainBox .tier_Rank').append("<span>Unranked</span>");
+	 	 		    	 }//솔랭default
+	 	 		    	  if($('#subBox .tier_Rank')[0].innerText==""){
+	 	 		    		 $('#subBox .tier_imgbox').append("<img class='image' src='https://raw.githubusercontent.com/ByeonJaeJeong/LOLSearch/master/WebContent/img/UNRANK.png'>");
+	 	 	 		 		$('#subBox .tier_Rank').append("<span>Unranked</span>");
+	 	 		    	  }//자랭default 
+	 		    }//success
+	 		});//소환사 티어 전적
+	 		//ㅇㅇ
+	 		
 	Search(accountId, token);
+	    },error:function(request,status,error){
+	        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	    }
+	//
+
+	});//소환사 검색
+	
 });
 	
 
@@ -42,7 +126,7 @@ function item(itemnumber,i){
 	var item_description="";
 	var item_gold_total="";
 	var item_gold_base="";
-	$.getJSON('../json/item.json', function(Item) {
+	$.getJSON('./json/item.json', function(Item) {
 			itemnumber.forEach(function(Itemnumber, item_index, item_array) {
 				item_id=Itemnumber;
 				if(item_id!=0){
@@ -73,7 +157,7 @@ function item(itemnumber,i){
 function champion(champnum,t1,t2,i){
 	var id="";
 	var name="";
-	$.getJSON('../json/champion.json',function(Champ){
+	$.getJSON('./json/champion.json',function(Champ){
 		$.each(Champ.data, function(idx, Champ) {
 			if(Champ.key==champnum){
 				id=Champ.id;
@@ -119,7 +203,7 @@ function champion(champnum,t1,t2,i){
 	var spell_name="";
 	var spell_description="";
 	 
-$.getJSON('../json/summoner.json', function(spell) {
+$.getJSON('./json/summoner.json', function(spell) {
 		$.each(spell.data, function(idx, Spell) {
 			if(Spell.key==spellnum){
 				spell_id=Spell.id;
@@ -146,7 +230,7 @@ function rune(mainRune,subRune,i){
 	var rune_icon="";
 	var rune_longDesc="";
 	
-	$.getJSON("../json/runesReforged.json",function(rune){
+	$.getJSON("./json/runesReforged.json",function(rune){
 		$.each(rune,function(idx,Rune){
 			if(Rune.id.toString().substr(0,2)==mainRune.toString().substr(0, 2)){
 		  $.each(Rune.slots[0].runes, function(idx, MainRune) {
@@ -182,7 +266,7 @@ function Search(accountId,token){
 	var warpNum=2;
 	$('.gameItemList').empty();
 	$.ajax({
-		url:"../riotapi",
+		url:"./riotapi",
 		type:"GET",
 	 	dataType:"json",
 	 	data:{"URL":riot+"/lol/match/v4/matchlists/by-account/"+accountId+"?endIndex="+warpNum},
@@ -199,7 +283,7 @@ function Search(accountId,token){
 	
 		$.each(Matches_sort, function(i,ee) {
 	 			 $.ajax({
-	 				url:"../riotapi",
+	 				url:"./riotapi",
 		 			type:"GET",
 		 		 	dataType:"json",
 		 		 	data:{"URL":riot+"/lol/match/v4/matches/"+ee},
@@ -217,7 +301,7 @@ function Search(accountId,token){
 		 		 		else
 		 		 		var win="Lose";
 		 		 		
-		 		 		switch (json.queueId) {
+		 		 		switch (json.queueId) {//큐타입
 					case 420:
 					var RankType="솔랭";
 						break;
@@ -371,7 +455,7 @@ function Search(accountId,token){
 	 				//}//for문 끝 [i]
 	
 	 	}
-	});//전적20게임 */
+	});//전적20게임 
 	
 	
 }
@@ -408,91 +492,8 @@ function Search(accountId,token){
     });
  });  */
 
-///////////////////////////////api 키입력//////////////////
-var riot="https://kr.api.riotgames.com";
-var token="RGAPI-569481b5-d410-4193-a572-b44fc3b0cfe6";
-var userName="<%=userName%>";
-var accountId="";
-var id="";
-var participantId="";
-var l=0;
-var item_num=0;//index  
 
-	////
-$.ajax({
-    url:"../riotapi",
- 	type:"GET",
- 	dataType:"json",
- 	data:{"URL": riot+"/lol/summoner/v4/summoners/by-name/"+userName},
- 	  headers:{
-    "X-Riot-Token": token
-    },  
-    success: function(json) {
-   		id=json.id;
- 		accountId=json.accountId;
- 		$("#summonerName").append("<span class='name'>"+json.name+"</span>");
- 		$("#profileIcon").append("<img class='profileimg' src='http://ddragon.leagueoflegends.com/cdn/10.1.1/img/profileicon/"+json.profileIconId+".png'>"+"<span class='summonerlevel'>"+json.summonerLevel+"</span>");
- 		 $.ajax({
- 		    url:"../riotapi",
- 		 	type:"GET",
- 		 	dataType:"json",
- 		 	data:{"URL":riot+"/lol/league/v4/entries/by-summoner/"+json.id},
- 		 	headers:{"X-Riot-Token":token},
- 		    success: function(json) {
- 		    		 $.each(json, function(i, rank) {
- 		    			 switch(rank.rank) {
- 		    			 case "I": var tier=1; break; //
- 		    			 case "II": var tier=2; break; 
- 		    			 case "III": var tier=3; break; 
- 		    			 case "IV": var tier=4; break; 
- 		    			 }//
- 		    		 	if(rank.queueType=="RANKED_SOLO_5x5"){
- 		    		 		$('#mainBox .tier_imgbox').append("<img class='image' src='https://raw.githubusercontent.com/ByeonJaeJeong/LOLSearch/master/WebContent/img/"+json[0].tier+".png'>");
- 			 		 		$('#mainBox .tier_Rank').append("<span>"+rank.tier.toLowerCase() +"</span><span class='number'> "+tier+"</span>");
- 			 		 		$('#mainBox .tier_info').append("<b>"+rank.leaguePoints+"LP</b><span>/"+rank.wins+"승"+rank.losses+"패</span><br>"
- 			 		 				+"<span>승률"+Math.floor(rank.wins/(rank.wins+rank.losses)*100)+"%</span><br>");
- 			 		 		if(rank.miniSeries){
-			 		 				var winlose=new Array();
-			 		 					winlose=(rank.miniSeries.progress).split("");
-			 		 			$('#mainBox .tier_info').append("<div class='Series'><span>승급전 진행중</span><br></div>");
-			 		 			$('#mainBox .tier_info>.Series').append("<div class='Content'></div>")
-			 		 			for(var dat=0;dat<winlose.length;dat++)
-			 		 			$('#mainBox .tier_info>.Series>.Content').append("<div class='"+winlose[dat]+"'>"+winlose[dat]+"</div>");
-			 		 			}
- 		    		 	}//솔랭일때
- 		    		 	if(rank.queueType=="RANKED_FLEX_SR"){
- 		    		 		$('#subBox .tier_imgbox').append("<img class='image' src='https://raw.githubusercontent.com/ByeonJaeJeong/LOLSearch/master/WebContent/img/"+json[0].tier+".png'>");
- 			 		 		$('#subBox .tier_Rank').append("<span>"+rank.tier+"</span><span class='number'>"+tier+"</span>");
- 			 		 		$('#subBox .tier_info').append("<b>"+rank.leaguePoints+"LP</b><span>/"+json[0].wins+"승"+json[0].losses+"패</span><br>"
- 			 		 				+"<span>승률"+Math.floor(rank.wins/(rank.wins+rank.losses)*100)+"%</span><br>");//
- 			 		 		if(json[0].miniSeries){
- 			 		 				var winlose=new Array();
- 			 		 					winlose=(rank.miniSeries.progress).split("");
- 			 		 			$('#subBox .tier_info').append("<div class='Series'><span>승급전 진행중</span><br></div>");
- 			 		 			$('#subBox .tier_info>.Series').append("<div class='Content'></div>")
- 			 		 			for(var dat=0;dat<winlose.length;dat++)
- 			 		 			$('#subBox .tier_info>.Series>.Content').append("<div class='"+winlose[dat]+"'>"+winlose[dat]+"</div>");
- 			 		 			}
- 		    		 	}//자랭일때//
- 		    		 });//each
- 		    		  if($('#mainBox .tier_Rank')[0].innerText==""){
- 	 		    		$('#mainBox .tier_imgbox').append("<img class='image' src='https://raw.githubusercontent.com/ByeonJaeJeong/LOLSearch/master/WebContent/img/UNRANK.png'>");
- 		 		 		$('#mainBox .tier_Rank').append("<span>Unranked</span>");
- 	 		    	 }//솔랭default
- 	 		    	  if($('#subBox .tier_Rank')[0].innerText==""){
- 	 		    		 $('#subBox .tier_imgbox').append("<img class='image' src='https://raw.githubusercontent.com/ByeonJaeJeong/LOLSearch/master/WebContent/img/UNRANK.png'>");
- 	 	 		 		$('#subBox .tier_Rank').append("<span>Unranked</span>");
- 	 		    	  }//자랭default 
- 		    }//success
- 		});//소환사 티어 전적
- 		//
- 		
-    },error:function(request,status,error){
-        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-    }
-//
 
-});//소환사 검색
 	 		 				
 	 		 			
 	 		 				
@@ -532,16 +533,16 @@ $.ajax({
 <div class="tier_info"></div>
 <div class="legueName"></div></div>
 </div><!-- 자유랭크 박스 -->
-</div><!-- side content -->
+</div><!-- side_content -->
 <div class="main_content">
 <div class="navigation"></div>
 <div class="gameItemList" id="gameItemList"></div>
 
-</div>
-</div>
-</div>
+</div><!-- main_content -->
+</div><!-- content -->
+</div><!-- menu -->
 
-</div>
+</div><!--container-->
 
 <jsp:include page="../inc/footer.jsp"/>
 </body>

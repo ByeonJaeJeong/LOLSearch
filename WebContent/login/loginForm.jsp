@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="../css/login.css" rel="styleSheet">
+<link href="./css/login.css" rel="styleSheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -14,7 +14,7 @@
 <div class="center">
 <div class="header">
 <div class="logo">
-<a href="../main/main.jsp"><h1>LOLSearch</h1></a>
+<a href="/LOLSearch"><h1>LOLSearch</h1></a>
 </div>
 </div>
 <div class="content">
@@ -57,7 +57,7 @@ var scope="";
 </fieldset>
 <hr>
 <div class="find_info">
-<a href="#">회원가입</a> <span class="bar">|</span>
+<a href="./MemberJoin.kr">회원가입</a> <span class="bar">|</span>
 <a href="#">아이디 찾기</a> <span class="bar">|</span>
 <a href="#">비밀번호 찾기</a> <span class="bar">|</span>
 </div>
