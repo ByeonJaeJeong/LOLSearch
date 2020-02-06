@@ -6,6 +6,7 @@ public class UserBean {
 	String id;
 	String pass;
 	String name;
+	String nickname;
 	String birth;
 	String gender;
 	String email;
@@ -27,6 +28,12 @@ public class UserBean {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public String getBirth() {
 		return birth;
@@ -54,9 +61,10 @@ public class UserBean {
 	}
 	@Override
 	public String toString() {
-		return "UserBean [id=" + id + ", pass=" + pass + ", name=" + name + ", birth=" + birth + ", gender=" + gender
-				+ ", email=" + email + ", reg_date=" + reg_date + "]";
+		return "UserBean [id=" + id + ", pass=" + pass + ", name=" + name + ", nickname=" + nickname + ", birth="
+				+ birth + ", gender=" + gender + ", email=" + email + ", reg_date=" + reg_date + "]";
 	}
+	
 	
 	
 	

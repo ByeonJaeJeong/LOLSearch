@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.net.URLEncoder" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <link href="./css/Search.css" rel="stylesheet">
@@ -19,7 +20,7 @@
 %>
 <script>
 var riot="https://kr.api.riotgames.com";
-var token="RGAPI-503a324e-108b-495e-87b2-84a8154e95ec";
+var token="RGAPI-822ddabc-8aa1-4ee0-960a-7d0a41e8530e";
 var id="";
 var participantId="";
 var accountId="";

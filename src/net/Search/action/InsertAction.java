@@ -1,5 +1,6 @@
 package net.Search.action;
 
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,23 +20,32 @@ public class InsertAction implements Action {
 		ub.setId(request.getParameter("id"));
 		ub.setPass(request.getParameter("pass"));
 		ub.setName(request.getParameter("name"));
+		ub.setNickname(request.getParameter("nickname"));
 		ub.setBirth(birth);
 		ub.setGender(request.getParameter("gender"));
 		ub.setEmail(request.getParameter("email"));
 		ub.setReg_date(new Timestamp(System.currentTimeMillis()));
 		UserDAO udao =new UserDAO();
 		System.out.println(ub.toString());
-		int check=udao.insertMember(ub);
+		int check=udao.insertUser(ub);
 		System.out.println(check);
 		ActionForward forward =new ActionForward();
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out =response.getWriter();
 		if(check==1){
-			forward.setPath("./login.kr");
-			forward.setRedirect(true);
+			out.print("<script>");
+			out.print("alert('회원가입 성공');");
+			out.print("history.go(-2);");
+			out.print("</script>");
+			
 		}else{
-			System.out.println("회원가입 실패");
-			forward.setPath("./MemberJoin.kr");
-			forward.setRedirect(true);
+			out.print("<script>");
+			out.print("alert('회원가입 실패');");
+			out.print("history.back();");
+			out.print("</script>");
+			
 		}
+		out.close();
 		return forward;
 	}
 

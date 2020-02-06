@@ -40,7 +40,7 @@ a:link { color: white; text-decoration: none;}
     vertical-align: middle;
     text-decoration: none;
 }
-.login{
+.ab_btn{
 	position: absolute;
     padding: 0 16px;
     border: none;
@@ -55,6 +55,15 @@ a:link { color: white; text-decoration: none;}
     right: 20px;
     top: 2px;
     
+}
+.user_info{
+	right:106px;
+}
+.user_name{
+	position: absolute;
+    right: 196px;
+    top: 12px;
+    color: wheat;
 }
 .gnb{
 	background-color: #4a73f7;

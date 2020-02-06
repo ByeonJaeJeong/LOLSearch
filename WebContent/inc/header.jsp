@@ -1,15 +1,40 @@
+<%@page import="net.User.db.UserBean"%>
+<%@page import="net.User.db.UserDAO"%>
+<%@page import="java.nio.channels.SeekableByteChannel"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <link href="/LOLSearch/css/header.css" rel="stylesheet" type="text/css">
 <script src="./js/jquery-3.4.1.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
+Kakao.init('e2464f1c7676015d97f020b788597014');
 $(document).ready(function(){
-	$('.btn').click(function(){
-		location.href=$(this).attr("alt");
-	});
+	  $('.btn').click(function(){
+		  var number=(window.location.host+window.location.pathname).length+window.location.pathname.length;
+		  var param_num=window.location.href.indexOf("?");
+		  console.log(window.location.href.substring(param_num));
+		   if(param_num==-1){
+			  location.href=$(this).attr("alt")+"?url="+window.location.pathname;
+		  }else{
+			  location.href=$(this).attr("alt")+"?url="+window.location.pathname+"&param="+window.location.href.substring(param_num+1);
+		  } 
+		  console.log(window.location.href.indexOf("?"));
+		//location.href=$(this).attr("alt")+"?url="+window.location.pathname+"&param="+encodeURI(window.location.href.substring(number));
+	});   
+//
 });
 </script>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String user_id=null;
+	String usernickName=null;
+	if(session.getAttribute("user_id")!=null){
+	 user_id=(String)session.getAttribute("user_id");
+	 
+	 usernickName=(String)session.getAttribute("usernickName");
+	}
+%>
 <div class="header">
 <div class="family-site">
 <div class="container">
@@ -19,10 +44,15 @@ $(document).ready(function(){
 <li><a href="#">리그오브룬테라</a></li>
 </ul>
 </div>
+
 </div>
-<div class="login btn" alt="./login.kr">
-<a href="./login.kr">로그인</a>
-</div>
+<%if(user_id!=null) {%>
+<div class="user_name"><%=usernickName %>님 반갑습니다.</div>
+<div class="ab_btn btn user_info" alt="./memberInfo.kr">회원정보</div>
+<div class="ab_btn btn logout" alt="./logOut.kr">로그아웃</div>
+<%}if(user_id==null){ %>
+<div class="ab_btn btn login" alt="./login.kr">로그인</div>
+<%} %>
 
 </div>
 <div class="gnb ">
