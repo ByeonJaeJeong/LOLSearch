@@ -37,16 +37,17 @@ public class InsertAction implements Action {
 			out.print("alert('회원가입 성공');");
 			out.print("history.go(-2);");
 			out.print("</script>");
-			
+			out.close();
+			return null;
 		}else{
 			out.print("<script>");
 			out.print("alert('회원가입 실패');");
 			out.print("history.back();");
 			out.print("</script>");
-			
+			out.close();
+			return null;
 		}
-		out.close();
-		return forward;
+	
 	}
 
 }

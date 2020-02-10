@@ -24,6 +24,8 @@ public class LoginAction implements Action{
 		String param="";
 		if(param_n!=null){
 		param=URLEncoder.encode(param_n,"UTF-8").replace("+", "%20").replace("*", "%2A").replace("%7E", "~").replace("%3D","=");
+		}else{
+			param="";
 		}
 		System.out.println("인코딩한url->>"+url);
 		UserDAO udao=new UserDAO();

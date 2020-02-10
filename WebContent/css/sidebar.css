@@ -1,0 +1,43 @@
+@CHARSET "UTF-8";
+.community-header-title{
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 10px auto;
+    float: left;
+    padding-left: 20px;
+}
+.community-title{
+	display: block;
+    padding: 17px 0 16px 20px;
+    line-height: 17px;
+    font-size: 14px;
+
+    text-decoration: none;
+    font-weight: bold;
+}
+.list:HOVER {
+	background-color: #dddddd;
+}
+.side_bar li{
+margin:0px 10px;
+display: block;
+color:black !important;  
+}
+.side_bar .title{
+padding: 10px 15px;
+font-size: 12px;
+}
+.side_bar .list{
+padding:6px 20px;
+font-size:15px;
+}
+.side_bar {
+    width: 300px;
+    float: left;
+    padding: 25px 0px;
+    border: 2px solid;
+    border-radius: 5px;
+    margin: 30px 0px;
+    margin-right: 30px;
+}

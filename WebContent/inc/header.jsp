@@ -62,7 +62,7 @@ $(document).ready(function(){
 <li><a href="#">챔피언 분석</a></li>
 <li><a href="#">아이템</a></li>
 <li><a href="#">랭킹</a></li>
-<li><a href="#">커뮤니티</a></li>
+<li><a href="/LOLSearch/community.kr">커뮤니티</a></li>
 </ul>
 
 </div>

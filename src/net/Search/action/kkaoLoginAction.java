@@ -19,8 +19,10 @@ public class kkaoLoginAction implements Action{
 		String url=request.getParameter("url");
 		String param_n=request.getParameter("param");
 		String param="";
-		if(param_n!=null){
+		if(param_n!=null || !param_n.equals("null")){
 		param=URLEncoder.encode(param_n,"UTF-8").replace("+", "%20").replace("*", "%2A").replace("%7E", "~").replace("%3D","=");
+		}else{
+			param="";
 		}
 		UserDAO udao =new UserDAO();
 		ActionForward forward =new ActionForward();

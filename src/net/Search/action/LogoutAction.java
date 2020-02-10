@@ -17,12 +17,14 @@ public class LogoutAction implements Action{
 		String param="";
 		if(param_n!=null){
 		param=URLEncoder.encode(param_n,"UTF-8").replace("+", "%20").replace("*", "%2A").replace("%7E", "~").replace("%3D","=");
+		}else{
+			param="";
 		}
 		System.out.println("logouturl:"+url);
 		ActionForward forward =new ActionForward();
 		HttpSession session=request.getSession();
 		session.removeAttribute("user_id");
-		session.removeAttribute("userName");
+		session.removeAttribute("usernickName");
 		session.removeAttribute("userInfo");
 		forward.setPath(url+"?"+param);
 		forward.setRedirect(true);
