@@ -194,4 +194,48 @@ public class BoardDAO {
 		}
 		return bb;
 	}
+	public void addreadCount(int w_num){
+		try{
+			getConnection();
+			sql="select readcount from board where writenum=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, w_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()){
+				sql="update board set readcount=? where writenum=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, rs.getInt(1)+1);
+				pstmt.setInt(2, w_num);
+				
+				pstmt.executeUpdate();
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+	}
+	public void addre_ref(int w_num){
+		try{
+			getConnection();
+			sql="select count(*) from comment where board_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, w_num);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next()){
+				sql="update board set re_ref=? where writenum=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, rs.getInt(1));
+				pstmt.setInt(2, w_num);
+				
+				pstmt.executeUpdate();
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+	}
 }

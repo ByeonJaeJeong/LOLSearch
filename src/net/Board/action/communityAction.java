@@ -7,11 +7,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.Board.db.BoardBean;
 import net.Board.db.BoardDAO;
+import net.Comment.db.commentBean;
+import net.Comment.db.commentDAO;
 
 public class communityAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
 		int pageNum=1;
 		int PageSize=10;
 		if(request.getParameter("pageNum")!=null){
@@ -20,6 +23,7 @@ public class communityAction implements Action{
 		String type=request.getParameter("type");
 		BoardDAO bdao=new BoardDAO();
 		ArrayList<BoardBean> bbList=new ArrayList<BoardBean>();
+		
 		if(type==null || type.equals("*")){
 		bbList=bdao.AllselectBoardList(pageNum, PageSize);
 		}else{

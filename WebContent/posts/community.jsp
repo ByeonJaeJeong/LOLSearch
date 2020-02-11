@@ -34,7 +34,7 @@ int startRow = (currentPage - 1) * PageSize + 1; //1-1 * 15+1;// 0+1  //15+1
 <div class="center">
 	<jsp:include page="../inc/sidebar.jsp"/>
 	<div class="mainPage">
-	<div class="community">
+	<div class="community box">
 	<div class="community-header">
 	<div class="community-header-title"><%=(type.equals("*")?"전체":type)%>(<%=count %>)</div>
 	<div class="right_write"><a href="./write.net?pageNum=<%=pageNum%>"><img src="https://talk.op.gg/images/icon-write@2x.png"></a></div>

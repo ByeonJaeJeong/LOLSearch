@@ -1,5 +1,7 @@
 @CHARSET "UTF-8";
-
+body{
+	background-color: #ebeef1;
+}
 .center{
 width:1280px;
 margin:0 auto;
@@ -10,7 +12,7 @@ margin:0 auto;
 }
 .Posts{
 	margin:30px 0px;
-	width:650px;
+	width:666px;
 	border: solid 2px #e9eff4;
 	min-height: 300px;
 	padding: 10px 15px;
@@ -39,3 +41,40 @@ margin:0 auto;
 .content{
 	display: content;
 }
+.comment{
+	background-color: #f5ecf4;
+	min-height:200px;
+	padding: 12px 10px; 
+}
+.comment_input_box{
+	display: flex;	
+}
+.comment_input{
+	width: 510px;
+    resize: none;
+    float: left;
+    margin: 0px 20px;
+    padding: 10px;
+}
+.comment_btn{
+	width:100px;
+	float: left;
+	height: 67px;
+	color: green;	
+}
+.comment_view_item{
+	display: flex;
+}
+
+.comment_userName{
+	padding: 15px;
+}
+.comment_content{
+	    padding: 0px 5px;
+}
+.comment hr{
+	border: dashed 1px #9a9a9a;
+}
+.comment p{
+	text-align: center;
+	}

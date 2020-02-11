@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="net.Comment.db.commentBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="net.Board.db.BoardBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -14,13 +17,20 @@
 request.setCharacterEncoding("UTF-8");
 String w_num=request.getParameter("w_num");
 String pageNum=request.getParameter("pageNum");
-BoardBean bb= (BoardBean)request.getAttribute("Boardinfo"); %>
+BoardBean bb= (BoardBean)request.getAttribute("Boardinfo");
+String user_id="";
+String user_nickName="";
+ if(session.getAttribute("user_id")!=null){
+	 user_id=(String)session.getAttribute("user_id");
+	 user_nickName=(String)session.getAttribute("usernickName");
+}  
+%>
 
 <jsp:include page="../inc/header.jsp"/>
 <div class="center">
 	<jsp:include page="../inc/sidebar.jsp"/>
 	<div class="mainPage">
-		<div class="Posts">
+		<div class="Posts box">
 			<div class="posts-header">
 				<div class="subject">
 				<b><%=bb.getSubject() %></b>
@@ -32,8 +42,8 @@ BoardBean bb= (BoardBean)request.getAttribute("Boardinfo"); %>
 				<span><%=bb.getNickname() %></span> 
 				</div>
 				<div class="posts_info info">
-				<span><%=bb.getReadcount() %></span> <span class="bar">|</span>
-				<span><%=bb.getRe_ref() %></span> <span class="bar">|</span>
+				<span>조회 <%=bb.getReadcount() %></span> <span class="bar">|</span>
+				<span>덧글 <%=bb.getRe_ref() %></span> <span class="bar">|</span>
 				<span>추천</span>
 				</div>
 				</div>
@@ -41,10 +51,41 @@ BoardBean bb= (BoardBean)request.getAttribute("Boardinfo"); %>
 				<hr class="bar">
 				<div class="content">
 				<%=bb.getContent() %>
-				</div>
+				</div><!-- content -->
+		</div><!-- posts -->
+		<div class="comment box">
+		<% if(session.getAttribute("user_id")!=null){  %>
+		<div class="comment_input_box">
+		<form action="comment.net?w_num=<%=w_num%>&pageNum=<%=pageNum%>" method="post">
+		<input type="hidden" name="user_id" value="<%=user_id%>">
+		<input type="hidden" name="user_nickName" value="<%=user_nickName%>">
+		<textarea rows="3" cols="70" class="comment_input" name="content"></textarea>
+		<input type="submit" value="댓글달기" class="comment_btn" >
+		</form>
 		</div>
-	</div>
-</div>
+		<%}else{ %>
+		<p>로그인 하셔야 덧글을 적으실수 있습니다.</p>
+		<%} %>
+		<div class="comment_view">
+		<% 
+		ArrayList<commentBean> cbList=new ArrayList<commentBean>();
+		if(request.getAttribute("cbList")!=null){
+		cbList=(ArrayList<commentBean>)request.getAttribute("cbList");
+		}
+		System.out.println(cbList.size());
+		for(int i=0;i<cbList.size();i++){
+		commentBean cb=cbList.get(i);
+		%>
+		<hr>
+		<div class="comment_view_item">
+		<div class="comment_userName"><%=cb.getUser_nickname() %></div>
+		<div class="comment_content"><p><%=cb.getContent() %></p></div>
+		</div>
+		<%} %>
+		</div>
+		</div>
+	</div><!-- mainPage -->
+</div><!-- center -->
 <jsp:include page="../inc/footer.jsp"/>
 </body>
 </html>

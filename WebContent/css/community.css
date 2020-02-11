@@ -1,4 +1,7 @@
 @CHARSET "UTF-8";
+body{
+	background-color: #ebeef1;
+}
 .center a:VISITED{
 color:black;
 }
@@ -51,6 +54,7 @@ color:black;
 .community_item:hover .title{
 	color: blue; text-decoration: underline;
 }
+
 .rank {
     float: left;
     line-height: 45px;
