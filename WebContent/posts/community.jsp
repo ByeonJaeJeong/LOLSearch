@@ -13,7 +13,7 @@
 <body>
 <%
 String type="*";
-int PageSize=1;
+int PageSize=10;
 if(request.getParameter("type")!=null){
 type=request.getParameter("type");
 }
@@ -34,33 +34,29 @@ int startRow = (currentPage - 1) * PageSize + 1; //1-1 * 15+1;// 0+1  //15+1
 <div class="center">
 	<jsp:include page="../inc/sidebar.jsp"/>
 	<div class="mainPage">
-	<div class="">
 	<div class="community">
 	<div class="community-header">
 	<div class="community-header-title"><%=(type.equals("*")?"전체":type)%>(<%=count %>)</div>
-	<div class="right_write"><a href="./write.kr"><img src="https://talk.op.gg/images/icon-write@2x.png"></a></div>
+	<div class="right_write"><a href="./write.net?pageNum=<%=pageNum%>"><img src="https://talk.op.gg/images/icon-write@2x.png"></a></div>
 	</div><!--  community-header -->
 	<% 
 ArrayList<BoardBean> bbList=null;
 if(count!=0){
-bbList=bdao.selectBoard(type, startRow, PageSize);
+bbList=(ArrayList<BoardBean>)request.getAttribute("bbList");
 	System.out.println(bbList.size());
 	System.out.println(startRow+","+PageSize);
 	for(int j=0;j<bbList.size();j++){
 		BoardBean bb= new BoardBean();
 		bb=bbList.get(j);
-	System.out.println(j);	
-	System.out.println("jsp="+bb.toString());
-	System.out.println("bbList="+bb.toString());
 %>
-	<li class="community_item"><a href="">
+	<li class="community_item"><a href="view.net?w_num=<%=bb.getWritenum()%>&pageNum=<%=pageNum%>">
 	<div class="rank"><%=bb.getWritenum() %></div>
 	<div class="title">
 	<span><%=bb.getSubject() %></span>
 	<em>[덧글수]</em>
 	</div>
 	<div class="sub">
-	<div class="sub_item"><%=bb.getBoardType() %></div>
+	<div class="sub_item"><%=bb.getBoardType() %>  </div> <span class="bar">|</span>
 	<div class="sub_item"><%=bb.getNickname() %></div>
 	</div>
 	</a></li>	<!--  커뮤니티 item -->	
@@ -92,26 +88,25 @@ bbList=bdao.selectBoard(type, startRow, PageSize);
 						//이전
 						if (StartPage > pageBlock) {
 				%>
-				<a href="community.kr?type=<%=type %>&pageNum=<%=StartPage - pageBlock%>">[이전]</a>
+				<a href="community.net?type=<%=type %>&pageNum=<%=StartPage - pageBlock%>">[이전]</a>
 				<%
 					}
 						//숫자	1~10,11~20
 						for (int i = StartPage; i <= endPage; i++) {
 				%>
-				<a href="community.kr?type=<%=type %>pageNum=<%=i%>"><%=i%></a>
+				<a href="community.net?type=<%=type %>&pageNum=<%=i%>"><%=i%></a>
 				<%
 					}
 						//다음
 						if (endPage < pageCount) {
 				%>
-				<a href="community.kr?type=<%=type %>&pageNum=<%=StartPage + pageBlock%>">[다음]</a>
+				<a href="community.net?type=<%=type %>&pageNum=<%=StartPage + pageBlock%>">[다음]</a>
 				<%
 					}
 					}
 				%>
 				
 			</div>
-	</div><!-- 미정 -->
 	</div><!-- mainpage -->
 </div><!-- body center -->
 <jsp:include page="../inc/footer.jsp"/>

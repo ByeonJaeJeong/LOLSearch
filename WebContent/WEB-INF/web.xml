@@ -41,6 +41,14 @@
 	<url-pattern>*.kr</url-pattern>
 	</servlet-mapping>
   
+  	<servlet>
+  	<servlet-name>board</servlet-name>
+  	<servlet-class>net.Board.action.postsController</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+  	<servlet-name>board</servlet-name>
+  	<url-pattern>*.net</url-pattern>
+  	</servlet-mapping>
   
   
   

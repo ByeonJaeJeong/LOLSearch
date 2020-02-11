@@ -4,9 +4,16 @@ dl, dt, dd, ol, ul, li{
 	margin:0;
 	padding:0;
 }
- a:link { color: white; text-decoration: none;}
- a:visited { color: white; text-decoration: none;}
- a:hover { color: blue; text-decoration: none;}
+body{
+	margin:0;
+}
+ a:link{ color: black; text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+ a:hover { color: blue; text-decoration: none;}	
+.header a:link { color: white; text-decoration: none;}
+.header a:visited { color: white; text-decoration: none;}
+.header a:hover { color: blue; text-decoration: none;}
+
 
  .family-site a:visited { color: white; text-decoration: none;}
  .family-site a:hover { color: black; text-decoration: none;}

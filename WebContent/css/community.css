@@ -11,13 +11,12 @@ color:black;
 .mainPage{
 	width:700px;
 	float: left;
-	height: 700px;
+	padding:30px 0px;
 }
 
 .community{
 	width:700px;
     margin: 0 auto;
-	margin-top: 30px;
     min-height: 396px;
     background: #fff;
     border: solid 1px #e9eff4;
@@ -85,7 +84,6 @@ padding: 5px 0px;
 }
 .sub_item{
 float:left;
-margin-right: 20px;
 font-size: 12px;
 color: #8f979e;
 }
@@ -102,12 +100,17 @@ color: #8f979e;
 width:24px;
 }
 #page_control{
-	width:200px;
-	margin:2px auto;
+	width: fit-content;
+    margin: 20px auto;
 }
 #page_control>a{
 	display: block;
 	color:black;
 	float: left;
 	margin:0px 7px;
+}
+.bar{
+	color:#ffe5e5;
+	padding:0px 5px;
+	float: left;
 }

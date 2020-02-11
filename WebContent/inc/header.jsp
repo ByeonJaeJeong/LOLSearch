@@ -13,13 +13,16 @@ $(document).ready(function(){
 	  $('.btn').click(function(){
 		  var number=(window.location.host+window.location.pathname).length+window.location.pathname.length;
 		  var param_num=window.location.href.indexOf("?");
-		  console.log(window.location.href.substring(param_num));
-		   if(param_num==-1){
+		  var param=window.location.href.toString();
+		  var param_num2=param.split("url=");
+		  if(param_num2.length>1){
+			  location.href=$(this).attr("alt")+"?url="+param_num2[1];
+		  }else if(param_num==-1){
 			  location.href=$(this).attr("alt")+"?url="+window.location.pathname;
 		  }else{
 			  location.href=$(this).attr("alt")+"?url="+window.location.pathname+"&param="+window.location.href.substring(param_num+1);
 		  } 
-		  console.log(window.location.href.indexOf("?"));
+		  
 		//location.href=$(this).attr("alt")+"?url="+window.location.pathname+"&param="+encodeURI(window.location.href.substring(number));
 	});   
 //
@@ -62,7 +65,7 @@ $(document).ready(function(){
 <li><a href="#">챔피언 분석</a></li>
 <li><a href="#">아이템</a></li>
 <li><a href="#">랭킹</a></li>
-<li><a href="/LOLSearch/community.kr">커뮤니티</a></li>
+<li><a href="/LOLSearch/community.net">커뮤니티</a></li>
 </ul>
 
 </div>

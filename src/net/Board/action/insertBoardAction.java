@@ -1,4 +1,4 @@
-package net.Search.action;
+package net.Board.action;
 
 import java.io.PrintWriter;
 import java.sql.Timestamp;
@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.Board.db.BoardBean;
 import net.Board.db.BoardDAO;
+import net.Board.action.Action;
+import net.Board.action.ActionForward;
 
 public class insertBoardAction implements Action{
 
@@ -17,9 +19,9 @@ public class insertBoardAction implements Action{
 		String id=request.getParameter("id");
 		String nickname=request.getParameter("nickname");
 		String subject=request.getParameter("subject");
-		String content=request.getParameter("content").replace("<p>", "").replace("</p>","<br>");
+		String content=request.getParameter("content");
 		String boardType=request.getParameter("boardType");
-		
+		String pageNum=request.getParameter("pageNum");
 	
 		BoardBean bb= new BoardBean();
 		bb.setId(id);
@@ -32,9 +34,10 @@ public class insertBoardAction implements Action{
 		BoardDAO bdao=new BoardDAO();
 		int check=bdao.insertBoard(bb);
 		System.out.println("check="+check);
-		if(check==1){
+		System.out.println("pageNum="+pageNum);
+		if(check>0){
 			ActionForward forward=new ActionForward();
-			forward.setPath("./community.kr");
+			forward.setPath("./view.net?w_num="+check+"&pageNum="+pageNum);
 			forward.setRedirect(true);
 			return forward;
 		}else{

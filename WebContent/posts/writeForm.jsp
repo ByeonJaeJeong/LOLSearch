@@ -50,9 +50,10 @@
 <% 
 String id="";
 String nickname="";
+String pageNum=request.getParameter("pageNum");
 	request.setCharacterEncoding("UTF-8");
 	if(session.getAttribute("user_id")==null ||session.getAttribute("usernickName")==null){
-		response.sendRedirect("./login.kr?url=./write.kr");
+		response.sendRedirect("./login.kr?url=./write.net");
 	}else{
 	id=(String)session.getAttribute("user_id");
 	nickname=(String)session.getAttribute("usernickName");}
@@ -68,7 +69,7 @@ String nickname="";
 		@decsription
 		등록하기 위한 Form으로 상황에 맞게 수정하여 사용한다. Form 이름은 에디터를 생성할 때 설정값으로 설정한다.
 	-->
-	<form name="tx_editor_form" id="tx_editor_form" action="./writeAction.kr" method="post" accept-charset="utf-8" style="width:700px">
+	<form name="tx_editor_form" id="tx_editor_form" action="./writeAction.net?pageNum=<%=pageNum %>" method="post" accept-charset="utf-8" style="width:700px">
 		<!-- 에디터 컨테이너 시작 -->
 		<input type="hidden" name="id" value="<%= id%>">	
 		<input type="hidden" name="nickname" value="<%=nickname%>">	

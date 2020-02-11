@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+
+.center{
+width:1280px;
+margin:0 auto;
+}
+.mainPage{
+	width:700px;
+	float: left;
+}
+.Posts{
+	margin:30px 0px;
+	width:650px;
+	border: solid 2px #e9eff4;
+	min-height: 300px;
+	padding: 10px 15px;
+	display: block;
+}
+.posts-header{
+	padding: 0px 24px;
+	height: 118px;
+	}
+.bar{
+	color:#ffe5e5;
+	padding:0px 5px;
+}
+.subject{
+	font-size: 24px;
+	}
+.info{
+	margin: 10px 0px;
+}
+.user_info{
+	float: left;
+}
+.posts_info{
+	float: right;
+}
+.content{
+	display: content;
+}

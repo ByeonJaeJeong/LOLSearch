@@ -58,7 +58,8 @@ public class BoardDAO {
 				pstmt.setString(11, "127.0.0.1");
 				pstmt.setString(12, bb.getBoardType());
 				
-				check=pstmt.executeUpdate();
+				pstmt.executeUpdate();
+				check=(rs.getInt(1)+1);
 			}else{
 				check=-2;
 			}
@@ -67,15 +68,14 @@ public class BoardDAO {
 		}finally {
 			closeDB();
 		}
-		
 		return check;
 	}
 	
-	public ArrayList<BoardBean> selectBoard(String type,int startPage,int PageSize){
+	public ArrayList<BoardBean> selectBoardList(String type,int startPage,int PageSize){
 		ArrayList<BoardBean> bbList=new ArrayList<BoardBean>();
 		try{
 			getConnection();
-			sql="select * from board where boardtype=? order by re_ref desc, re_seq asc limit ?,?";
+			sql="select * from board where boardtype=? order by writenum desc, re_ref desc, re_seq asc limit ?,?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, type);
 			pstmt.setInt(2, startPage-1);
@@ -97,7 +97,6 @@ public class BoardDAO {
 				bb.setIp(rs.getString(11));
 				bb.setBoardType(rs.getString(12));
 				bbList.add(bb);
-				System.out.println(bb.toString());
 			}
 			
 		}catch (Exception e) {
@@ -107,6 +106,40 @@ public class BoardDAO {
 		}
 		return bbList;
 		
+	}
+	public ArrayList<BoardBean> AllselectBoardList(int startPage,int PageSize){
+		ArrayList<BoardBean> bbList=new ArrayList<BoardBean>();
+		try{
+			System.out.println("실행1");
+			getConnection();
+			sql="select * from board order by writenum desc, re_ref desc, re_seq asc limit ?,?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, startPage-1);
+			pstmt.setInt(2, PageSize);
+			
+			rs=pstmt.executeQuery();
+			while(rs.next()){
+				BoardBean bb=new BoardBean();
+				bb.setWritenum(rs.getInt(1));
+				bb.setId(rs.getString(2));
+				bb.setNickname(rs.getString(3));
+				bb.setSubject(rs.getString(4));
+				bb.setContent(rs.getString(5));
+				bb.setReadcount(rs.getInt(6));
+				bb.setRe_ref(rs.getInt(7));
+				bb.setRe_lev(rs.getInt(8));
+				bb.setRe_seq(rs.getInt(9));
+				bb.setReg_date(rs.getTimestamp(10));
+				bb.setIp(rs.getString(11));
+				bb.setBoardType(rs.getString(12));
+				bbList.add(bb);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		return bbList;
 	}
 	public int countBoard(String type){
 		int check=0;
@@ -131,5 +164,34 @@ public class BoardDAO {
 			closeDB();
 		}
 		return check;
+	}
+	public BoardBean selectBoard(int w_num){
+		BoardBean bb= new BoardBean();
+		try {
+			getConnection();
+			sql="select * from board where writenum=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, w_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()){
+				bb.setWritenum(rs.getInt(1));
+				bb.setId(rs.getString(2));
+				bb.setNickname(rs.getString(3));
+				bb.setSubject(rs.getString(4));
+				bb.setContent(rs.getString(5));
+				bb.setReadcount(rs.getInt(6));
+				bb.setRe_ref(rs.getInt(7));
+				bb.setRe_lev(rs.getInt(8));
+				bb.setRe_seq(rs.getInt(9));
+				bb.setReg_date(rs.getTimestamp(10));
+				bb.setIp(rs.getString(11));
+				bb.setBoardType(rs.getString(12));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		return bb;
 	}
 }

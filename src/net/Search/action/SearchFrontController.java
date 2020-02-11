@@ -102,23 +102,8 @@ public class SearchFrontController extends HttpServlet{
 				forward=new ActionForward();
 				forward.setPath("./login/userinfoForm.jsp");
 				forward.setRedirect(false);
-			}else if(command.equals("/community.kr")){
-				forward=new ActionForward();
-				forward.setPath("./posts/community.jsp");
-				forward.setRedirect(false);
-			}else if(command.equals("/write.kr")){
-				forward=new ActionForward();
-				forward.setPath("./posts/writeForm.jsp");
-				forward.setRedirect(false);
-			}else if(command.equals("/writeAction.kr")){
-					action=new insertBoardAction();
-				try{
-					forward=action.execute(request, response);
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
 			
+			}
 			
 			
 			
@@ -134,9 +119,9 @@ public class SearchFrontController extends HttpServlet{
 					RequestDispatcher dis=
 							request.getRequestDispatcher(forward.getPath());
 					dis.forward(request, response);
-				}
-			}
+				}//redirect 인지 아닌지
+			}//forward null아닐때
 		
-	}
+	}//process
 	
-}
+}//main
