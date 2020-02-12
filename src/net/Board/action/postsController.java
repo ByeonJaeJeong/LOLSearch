@@ -67,6 +67,17 @@ public class postsController extends HttpServlet {
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/rewrite.net")){
+			forward=new ActionForward();
+			forward.setPath("./posts/rewriteForm.jsp");
+			forward.setRedirect(false);
+		}else if(command.equals("/rewriteAction.net")){
+			action=new reinsertBoardAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		

@@ -39,11 +39,12 @@ margin:0 auto;
 	float: right;
 }
 .content{
-	display: content;
+	display: block;
+	min-height:300px;
 }
 .comment{
 	background-color: #f5ecf4;
-	min-height:200px;
+	
 	padding: 12px 10px; 
 }
 .comment_input_box{
@@ -78,3 +79,17 @@ margin:0 auto;
 .comment p{
 	text-align: center;
 	}
+.btn_box{
+	float: right;
+	margin:10px 0px;	
+}
+.btn_box .link_btn{
+    float: none;
+    height: 34px;
+   padding: 7px 10px;
+    margin: 0;
+    font-size: 13px;
+    line-height: 16px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}

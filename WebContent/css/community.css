@@ -80,7 +80,7 @@ color:black;
 .title em{
 	color: #0475b8;
     font-style: normal;
-	
+	font-weight: bold;
 }
 .sub{
 display: table;

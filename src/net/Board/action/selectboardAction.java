@@ -19,7 +19,6 @@ public class selectboardAction	implements Action {
 		int w_num=Integer.parseInt(request.getParameter("w_num"));
 		BoardDAO bdao=new BoardDAO();
 		bdao.addreadCount(w_num);
-		bdao.addre_ref(w_num);
 		BoardBean bb=bdao.selectBoard(w_num);
 		bb.toString();
 		request.setAttribute("Boardinfo", bb);

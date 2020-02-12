@@ -45,15 +45,22 @@ if(count!=0){
 bbList=(ArrayList<BoardBean>)request.getAttribute("bbList");
 	System.out.println(bbList.size());
 	System.out.println(startRow+","+PageSize);
+	int[] ccount_array=(int[])request.getAttribute("ccount_array");
 	for(int j=0;j<bbList.size();j++){
 		BoardBean bb= new BoardBean();
 		bb=bbList.get(j);
 %>
-	<li class="community_item"><a href="view.net?w_num=<%=bb.getWritenum()%>&pageNum=<%=pageNum%>">
+	<li class="community_item"><a href="view.net?w_num=<%=bb.getWritenum()%>&pageNum=<%=pageNum%>&type=<%=bb.getBoardType() %>">
 	<div class="rank"><%=bb.getWritenum() %></div>
 	<div class="title">
-	<span><%=bb.getSubject() %></span>
-	<em>[덧글수]</em>
+	<span><%for(int ii=1;ii<bb.getRe_lev();ii++){%><img src="./img/level.gif"><%}%>
+	<%if(bb.getRe_seq()>0) {%>
+	<img src="./img/re.gif">
+	<%} %>
+	<%=bb.getSubject() %>
+	
+	</span>
+	<em>[<%=ccount_array[j] %>]</em>
 	</div>
 	<div class="sub">
 	<div class="sub_item"><%=bb.getBoardType() %>  </div> <span class="bar">|</span>

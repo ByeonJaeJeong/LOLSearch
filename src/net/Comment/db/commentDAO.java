@@ -91,5 +91,23 @@ public class commentDAO {
 		}
 		return cbList;
 	}
+	public int commentcount(int w_num){
+		int count=0;
+		try {
+			getConnection();
+			sql="select count(*) from comment where board_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1,w_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()){
+				count=rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		return count;
+	}
 	
 }

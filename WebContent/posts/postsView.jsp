@@ -16,16 +16,31 @@
 <%
 request.setCharacterEncoding("UTF-8");
 String w_num=request.getParameter("w_num");
-String pageNum=request.getParameter("pageNum");
+int pageNum=0;
+if(request.getParameter("pageNum")==null){
+	pageNum=(Integer.parseInt(w_num)-1)/10;
+}else{
+	pageNum=Integer.parseInt(request.getParameter("pageNum"));
+}
 BoardBean bb= (BoardBean)request.getAttribute("Boardinfo");
 String user_id="";
+String type="";
+if(request.getParameter("type")==null){
+	type="*";
+}else{
+	type=request.getParameter("type");
+}
 String user_nickName="";
  if(session.getAttribute("user_id")!=null){
 	 user_id=(String)session.getAttribute("user_id");
 	 user_nickName=(String)session.getAttribute("usernickName");
-}  
-%>
+ }  
 
+	ArrayList<commentBean> cbList=new ArrayList<commentBean>();
+	if(request.getAttribute("cbList")!=null){
+	cbList=(ArrayList<commentBean>)request.getAttribute("cbList");
+	}
+%>
 <jsp:include page="../inc/header.jsp"/>
 <div class="center">
 	<jsp:include page="../inc/sidebar.jsp"/>
@@ -43,7 +58,7 @@ String user_nickName="";
 				</div>
 				<div class="posts_info info">
 				<span>조회 <%=bb.getReadcount() %></span> <span class="bar">|</span>
-				<span>덧글 <%=bb.getRe_ref() %></span> <span class="bar">|</span>
+				<span>덧글 <%=cbList.size()%></span> <span class="bar">|</span>
 				<span>추천</span>
 				</div>
 				</div>
@@ -52,6 +67,7 @@ String user_nickName="";
 				<div class="content">
 				<%=bb.getContent() %>
 				</div><!-- content -->
+		
 		</div><!-- posts -->
 		<div class="comment box">
 		<% if(session.getAttribute("user_id")!=null){  %>
@@ -67,12 +83,8 @@ String user_nickName="";
 		<p>로그인 하셔야 덧글을 적으실수 있습니다.</p>
 		<%} %>
 		<div class="comment_view">
+		
 		<% 
-		ArrayList<commentBean> cbList=new ArrayList<commentBean>();
-		if(request.getAttribute("cbList")!=null){
-		cbList=(ArrayList<commentBean>)request.getAttribute("cbList");
-		}
-		System.out.println(cbList.size());
 		for(int i=0;i<cbList.size();i++){
 		commentBean cb=cbList.get(i);
 		%>
@@ -84,6 +96,13 @@ String user_nickName="";
 		<%} %>
 		</div>
 		</div>
+		<div class="btn_box">
+		<input class="link_btn" type="button" value="글쓰기" onclick="location.href='write.net?pageNum=<%=pageNum%>&type=<%=type%>'">
+		<input class="link_btn" type="button" value="답글" onclick="location.href='rewrite.net?type=<%=type%>&w_num=<%=w_num%>&re_ref=<%=bb.getRe_ref()%>&re_lev=<%=bb.getRe_lev() %>&re_seq=<%=bb.getRe_seq() %>'">
+		<input class="link_btn" type="button" value="목록" onclick="location.href='community.net?pageNum=<%=pageNum%>&type=<%=type%>'">
+		</div>
+		<div class="next content_link"></div>
+		<div class="prev content_link"></div>
 	</div><!-- mainPage -->
 </div><!-- center -->
 <jsp:include page="../inc/footer.jsp"/>
