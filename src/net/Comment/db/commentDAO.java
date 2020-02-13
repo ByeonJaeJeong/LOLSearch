@@ -109,5 +109,21 @@ public class commentDAO {
 		}
 		return count;
 	}
-	
+	public void deletecomment(int w_num){
+		
+		try{
+			getConnection();
+			sql="delete from comment where board_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, w_num);
+			
+			pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		
+	}
 }

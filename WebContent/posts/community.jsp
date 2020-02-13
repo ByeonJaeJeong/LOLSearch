@@ -37,7 +37,7 @@ int startRow = (currentPage - 1) * PageSize + 1; //1-1 * 15+1;// 0+1  //15+1
 	<div class="community box">
 	<div class="community-header">
 	<div class="community-header-title"><%=(type.equals("*")?"전체":type)%>(<%=count %>)</div>
-	<div class="right_write"><a href="./write.net?pageNum=<%=pageNum%>"><img src="https://talk.op.gg/images/icon-write@2x.png"></a></div>
+	<div class="right_write"><a href="./write.net?pageNum=<%=pageNum%>&type=<%=type%>"><img src="https://talk.op.gg/images/icon-write@2x.png"></a></div>
 	</div><!--  community-header -->
 	<% 
 ArrayList<BoardBean> bbList=null;

@@ -57,6 +57,7 @@ public class postsController extends HttpServlet {
 			action=new selectboardAction();
 			try{
 				forward=action.execute(request, response);
+			
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -76,6 +77,13 @@ public class postsController extends HttpServlet {
 			try {
 				forward=action.execute(request, response);
 			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/delete.net")){
+			action=new deleteBoardAction();
+			try{
+				forward=action.execute(request, response);
+			}catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

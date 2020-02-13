@@ -7,12 +7,12 @@ width:1280px;
 margin:0 auto;
 }
 .mainPage{
-	width:700px;
+	width:734px;
 	float: left;
 }
 .Posts{
 	margin:30px 0px;
-	width:666px;
+	width:700px;
 	border: solid 2px #e9eff4;
 	min-height: 300px;
 	padding: 10px 15px;
@@ -79,17 +79,21 @@ margin:0 auto;
 .comment p{
 	text-align: center;
 	}
-.btn_box{
+.btn_group{
 	float: right;
 	margin:10px 0px;	
 }
-.btn_box .link_btn{
-    float: none;
-    height: 34px;
-   padding: 7px 10px;
-    margin: 0;
-    font-size: 13px;
-    line-height: 16px;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+.btn_group input{
+	width:120px;
+	font-size:16px;
+	border: 1px solid skyblue; 
+	background-color: rgba(0,0,0,0); 
+	color: skyblue; 
+	padding: 10px;
+	border-radius: 4px;
+
+}
+.btn_group input:hover{
+	color:white; 
+	background-color: skyblue;
 }

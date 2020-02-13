@@ -20,9 +20,9 @@
 	UserBean ub=udao.UserInfo(user_id);
 	String insertuser;
 	if(ub.getId().length()==15){
-		insertuser="for kkao";
+		insertuser="카카오 유저";
 	}else{
-		insertuser="natural";
+		insertuser="일반 유저 ";
 	}
 	
 	

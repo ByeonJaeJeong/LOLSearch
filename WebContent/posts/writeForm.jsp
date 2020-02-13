@@ -10,10 +10,11 @@ String ctx = request.getContextPath();
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <title>글쓰기 페이지</title>
-    <script type="text/javascript" src="<%=ctx %>/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+    <script type="text/javascript" src="<%=ctx %>/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <link href="./css/writeForm.css" rel="stylesheet">
 <% 
+String input_type=request.getParameter("type");
 String id="";
 String nickname="";
 String pageNum=request.getParameter("pageNum");
@@ -30,36 +31,36 @@ String pageNum=request.getParameter("pageNum");
 	<!--
 		@decsription
 		등록하기 위한 Form으로 상황에 맞게 수정하여 사용한다. Form 이름은 에디터를 생성할 때 설정값으로 설정한다.
-		<input type="hidden" name="id" value="<%= id%>">	
-		<input type="hidden" name="nickname" value="<%=nickname%>">	
 	-->
 <body>
 <jsp:include page="../inc/header.jsp"/>
-<div class="content">
+
 <jsp:include page="../inc/sidebar.jsp"/>
 <div class="body box">
 <form action="./writeAction.net?pageNum=<%=pageNum %>" method="post">
+	<div class="inputbox">
 	<div class="title">
-			<label>계시판 종류:</label>
+		<input type="hidden" name="id" value="<%= id%>">	
+		<input type="hidden" name="nickname" value="<%=nickname%>">	
+			<label>게시판 종류:</label>
 			<select name="boardType">
 			<option value="" disabled>게시판 선택</option>
-			<option value="자유">자유</option>
-			<option value="유머">유머</option>
-			<option value="영상">영상</option>
+			<option value="자유" <%if(input_type.equals("자유")) {%>selected<%} %>>자유</option>
+			<option value="유머" <%if(input_type.equals("유머")) {%>selected<%} %> >유머</option>
+			<option value="영상" <%if(input_type.equals("영상")) {%>selected<%} %> >영상</option>
 			</select>
 			</div>
 			<div class="subject">
 			<label>제목:</label>
 			<input type="text" name="subject" >
 			</div>
-	<textarea name="ir1" id="ir1" rows="10" cols="100" style="width:766px; height:412px; display:none;"></textarea>
+	<textarea name="content" id="ir1" rows="10" cols="100" style="width:762px; height:412px; display:none;"></textarea>
 	<!--textarea name="ir1" id="ir1" rows="10" cols="100" style="width:100%; height:412px; min-width:610px; display:none;"></textarea-->
-	<p>
-		<input type="button" onclick="pasteHTML();" value="본문에 내용 넣기" />
-		<input type="button" onclick="showHTML();" value="본문 내용 가져오기" />
-		<input type="button" onclick="submitContents(this);" value="서버로 내용 전송" />
-		<input type="button" onclick="setDefaultFont();" value="기본 폰트 지정하기 (궁서_24)" />
-	</p>
+	</div>
+	<div class="btn_group">
+		<input class="submit_btn" type="button" onclick="history.back();" value="돌아가기"/>
+		<input class="reset_btn" type="button" onclick="submitContents(this);" value="작성완료"/>  
+	</div>
 </form>
 
 <script type="text/javascript">
@@ -117,6 +118,8 @@ function setDefaultFont() {
 	var nFontSize = 16;
 	oEditors.getById["ir1"].setDefaultFont(sDefaultFont, nFontSize);
 }
+
+
 
 </script>	
 </div>

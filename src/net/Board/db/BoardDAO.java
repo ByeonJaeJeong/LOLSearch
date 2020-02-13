@@ -261,6 +261,24 @@ public class BoardDAO {
 			closeDB();
 		}
 	}
+	public int deleteBoard(int w_num){
+		int check=-1;
+		try{
+			getConnection();
+			sql="delete from board where writenum=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, w_num);
+			
+			check=pstmt.executeUpdate();
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		return check;
+	}
 	
 	
 }

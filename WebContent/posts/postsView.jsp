@@ -14,6 +14,7 @@
 </head>
 <body>
 <%
+String login_id=(String)session.getAttribute("user_id");
 request.setCharacterEncoding("UTF-8");
 String w_num=request.getParameter("w_num");
 int pageNum=0;
@@ -96,7 +97,10 @@ String user_nickName="";
 		<%} %>
 		</div>
 		</div>
-		<div class="btn_box">
+		<div class="btn_group">
+		<%if(bb.getId().equals(login_id)) {%>
+		<input class="link_btn" type="button" value="게시글 삭제" onclick="location.href='delete.net?w_num=<%=w_num%>&pageNum=<%=pageNum%>&type=<%=type%>'"/>
+		<%} %>
 		<input class="link_btn" type="button" value="글쓰기" onclick="location.href='write.net?pageNum=<%=pageNum%>&type=<%=type%>'">
 		<input class="link_btn" type="button" value="답글" onclick="location.href='rewrite.net?type=<%=type%>&w_num=<%=w_num%>&re_ref=<%=bb.getRe_ref()%>&re_lev=<%=bb.getRe_lev() %>&re_seq=<%=bb.getRe_seq() %>'">
 		<input class="link_btn" type="button" value="목록" onclick="location.href='community.net?pageNum=<%=pageNum%>&type=<%=type%>'">

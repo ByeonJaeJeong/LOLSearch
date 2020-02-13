@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>네이버 :: Smart Editor 2 &#8482;</title>
-<script type="text/javascript" src="./js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="./js/HuskyEZCreator.js" charset="utf-8"></script>
 </head>
 <body>
 <form action="sample/viewer/index.php" method="post">
@@ -20,8 +20,6 @@
 <script type="text/javascript">
 var oEditors = [];
 
-var sLang = "ko_KR";	// 언어 (ko_KR/ en_US/ ja_JP/ zh_CN/ zh_TW), default = ko_KR
-
 // 추가 글꼴 목록
 //var aAdditionalFontSet = [["MS UI Gothic", "MS UI Gothic"], ["Comic Sans MS", "Comic Sans MS"],["TEST","TEST"]];
 
@@ -37,8 +35,7 @@ nhn.husky.EZCreator.createInIFrame({
 		//aAdditionalFontList : aAdditionalFontSet,		// 추가 글꼴 목록
 		fOnBeforeUnload : function(){
 			//alert("완료!");
-		},
-		I18N_LOCALE : sLang
+		}
 	}, //boolean
 	fOnAppLoad : function(){
 		//예제 코드

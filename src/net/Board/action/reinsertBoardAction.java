@@ -14,8 +14,8 @@ public class reinsertBoardAction implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-			
-		
+			request.setCharacterEncoding("UTF-8");
+			String type=request.getParameter("boardType");
 			BoardBean bb= new BoardBean();
 			bb.setId(request.getParameter("id"));
 			bb.setNickname(request.getParameter("nickname"));
@@ -31,7 +31,7 @@ public class reinsertBoardAction implements Action{
 			int check=bdao.reInsertBoard(bb);
 			if(check>0){
 			ActionForward forward = new ActionForward();
-			forward.setPath("./view.net?w_num="+check);
+			forward.setPath("./view.net?w_num="+check+"&type="+type);
 			forward.setRedirect(true);
 			return forward;
 			}else{

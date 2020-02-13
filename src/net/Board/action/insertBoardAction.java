@@ -1,6 +1,7 @@
 package net.Board.action;
 
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,8 @@ public class insertBoardAction implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
+		String type=request.getParameter("boardType");
+		System.out.println("type="+type);
 		String id=request.getParameter("id");
 		String nickname=request.getParameter("nickname");
 		String subject=request.getParameter("subject");
@@ -37,7 +40,7 @@ public class insertBoardAction implements Action{
 		System.out.println("pageNum="+pageNum);
 		if(check>0){
 			ActionForward forward=new ActionForward();
-			forward.setPath("./view.net?w_num="+check+"&pageNum="+pageNum);
+			forward.setPath("./view.net?w_num="+check+"&pageNum="+pageNum+"&type="+URLEncoder.encode(type,"UTF-8"));
 			forward.setRedirect(true);
 			return forward;
 		}else{
