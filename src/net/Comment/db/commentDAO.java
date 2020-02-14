@@ -21,7 +21,6 @@ public class commentDAO {
 		Context init =new InitialContext();
 		DataSource ds=(DataSource)init.lookup("java:comp/env/jdbc/LOLSearchDB");
 		con=ds.getConnection();
-		System.out.println("DB연결 성공");
 		return con;
 	}
 	private void closeDB(){
@@ -32,7 +31,6 @@ public class commentDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("자원정리 완료");
 	}
 	
 	public int insertcomment(commentBean cb){

@@ -21,7 +21,6 @@ public class BoardDAO {
 		Context init =new InitialContext();
 		DataSource ds=(DataSource)init.lookup("java:comp/env/jdbc/LOLSearchDB");
 		con=ds.getConnection();
-		System.out.println("DB연결 성공");
 		return con;
 	}
 	private void closeDB(){
@@ -32,7 +31,6 @@ public class BoardDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("자원정리 완료");
 	}
 	
 	public int insertBoard(BoardBean bb){
@@ -159,6 +157,40 @@ public class BoardDAO {
 			System.out.println("실행1");
 			getConnection();
 			sql="select * from board order by  re_ref desc, re_seq asc limit ?,?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, startPage-1);
+			pstmt.setInt(2, PageSize);
+			
+			rs=pstmt.executeQuery();
+			while(rs.next()){
+				BoardBean bb=new BoardBean();
+				bb.setWritenum(rs.getInt(1));
+				bb.setId(rs.getString(2));
+				bb.setNickname(rs.getString(3));
+				bb.setSubject(rs.getString(4));
+				bb.setContent(rs.getString(5));
+				bb.setReadcount(rs.getInt(6));
+				bb.setRe_ref(rs.getInt(7));
+				bb.setRe_lev(rs.getInt(8));
+				bb.setRe_seq(rs.getInt(9));
+				bb.setReg_date(rs.getTimestamp(10));
+				bb.setIp(rs.getString(11));
+				bb.setBoardType(rs.getString(12));
+				bbList.add(bb);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		return bbList;
+	}
+	public ArrayList<BoardBean> MainselectBoardList(int startPage,int PageSize){
+		ArrayList<BoardBean> bbList=new ArrayList<BoardBean>();
+		try{
+			System.out.println("실행1");
+			getConnection();
+			sql="select * from board where re_seq=0 order by  re_ref desc, re_seq asc limit ?,? ";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startPage-1);
 			pstmt.setInt(2, PageSize);

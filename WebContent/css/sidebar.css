@@ -45,3 +45,61 @@ font-size:15px;
 	background-color:#fff;
 	-webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,.15);
 }
+.loginBox>input{
+	color: white;
+    margin: 4px auto;
+    display: block;
+    border: none;
+    padding: 8px 100px;
+    font-size: 16px;
+    border-radius: 4px;
+    background-color: #46cfa7;
+}
+.userInfo{
+	padding: 10px 20px;
+	position: relative;
+}
+.userInfo>p{
+    padding: 0px 40px;
+}
+
+.userInfo>.btn_group{
+	margin-top: 30px;
+	
+}
+.userInfo>.btn_group>input{
+	color: white;
+    margin: 4px auto;
+    display: block;
+    border: none;
+    padding: 8px 100px;
+    font-size: 16px;
+    border-radius: 4px;
+    background-color: #46cfa7;
+}
+.board_content{
+	border: 1px solid #ebeef1;
+    padding: 10px 0px;
+}
+.user_icon{
+	width: 96px;
+	height:96px;
+    float: left;
+    border-radius: 70px;
+    padding-right: 10px;
+}
+.userInfoBox{
+	display: contents;
+}
+.userInfo>a{
+	position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: 12px;
+}
+p{
+	margin:5px 0px;
+}
+.mouse:hover{
+	cursor: pointer;
+}

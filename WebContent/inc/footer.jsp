@@ -11,5 +11,6 @@ LOLSearch isn’t endorsed by Riot Games and doesn’t reflect the views or opin
 or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are
 trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
 </p>
+<div>아이콘 제작자 <a href="https://www.flaticon.com/kr/authors/hevngrafix" title="HevnGrafix">HevnGrafix</a> from <a href="https://www.flaticon.com/kr/" title="Flaticon">www.flaticon.com</a></div>
 </div>
 </footer>

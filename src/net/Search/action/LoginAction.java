@@ -22,8 +22,9 @@ public class LoginAction implements Action{
 		String url=request.getParameter("url");
 		String param_n=request.getParameter("param");
 		String param="";
+		
 		if(param_n!=null){
-		param=URLEncoder.encode(param_n,"UTF-8").replace("+", "%20").replace("*", "%2A").replace("%7E", "~").replace("%3D","=");
+		param="?"+URLEncoder.encode(param_n,"UTF-8").replace("+", "%20").replace("*", "%2A").replace("%7E", "~").replace("%3D","=");
 		}else{
 			param="";
 		}
@@ -36,8 +37,9 @@ public class LoginAction implements Action{
 			HttpSession session=request.getSession();
 			session.setAttribute("user_id", user_id);
 			session.setAttribute("usernickName", ub.getNickname());
+			session.setAttribute("userprofileicon",ub.getProfileicon());
 			System.out.println("ub:"+ub.getName());
-			forward.setPath(url+"?"+param);
+			forward.setPath(url+param);
 			forward.setRedirect(true);
 		}else if(check==0){
 			response.setContentType("text/html; charset=UTF-8");

@@ -91,6 +91,7 @@ String user_nickName="";
 		%>
 		<hr>
 		<div class="comment_view_item">
+		
 		<div class="comment_userName"><%=cb.getUser_nickname() %></div>
 		<div class="comment_content"><p><%=cb.getContent() %></p></div>
 		</div>
@@ -99,11 +100,11 @@ String user_nickName="";
 		</div>
 		<div class="btn_group">
 		<%if(bb.getId().equals(login_id)) {%>
-		<input class="link_btn" type="button" value="게시글 삭제" onclick="location.href='delete.net?w_num=<%=w_num%>&pageNum=<%=pageNum%>&type=<%=type%>'"/>
+		<input class="link_btn mouse" type="button" value="게시글 삭제" onclick="location.href='delete.net?w_num=<%=w_num%>&pageNum=<%=pageNum%>&type=<%=type%>'"/>
 		<%} %>
-		<input class="link_btn" type="button" value="글쓰기" onclick="location.href='write.net?pageNum=<%=pageNum%>&type=<%=type%>'">
-		<input class="link_btn" type="button" value="답글" onclick="location.href='rewrite.net?type=<%=type%>&w_num=<%=w_num%>&re_ref=<%=bb.getRe_ref()%>&re_lev=<%=bb.getRe_lev() %>&re_seq=<%=bb.getRe_seq() %>'">
-		<input class="link_btn" type="button" value="목록" onclick="location.href='community.net?pageNum=<%=pageNum%>&type=<%=type%>'">
+		<input class="link_btn mouse" type="button" value="글쓰기" onclick="location.href='write.net?pageNum=<%=pageNum%>&type=<%=type%>'">
+		<input class="link_btn mouse" type="button" value="답글" onclick="location.href='rewrite.net?type=<%=type%>&w_num=<%=w_num%>&re_ref=<%=bb.getRe_ref()%>&re_lev=<%=bb.getRe_lev() %>&re_seq=<%=bb.getRe_seq() %>'">
+		<input class="link_btn mouse" type="button" value="목록" onclick="location.href='community.net?pageNum=<%=pageNum%>&type=<%=type%>'">
 		</div>
 		<div class="next content_link"></div>
 		<div class="prev content_link"></div>

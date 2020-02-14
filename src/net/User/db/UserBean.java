@@ -11,6 +11,7 @@ public class UserBean {
 	String gender;
 	String email;
 	Timestamp reg_date;
+	String profileicon;
 	public String getId() {
 		return id;
 	}
@@ -59,11 +60,22 @@ public class UserBean {
 	public void setReg_date(Timestamp reg_date) {
 		this.reg_date = reg_date;
 	}
+	
+	
+	public String getProfileicon() {
+		return profileicon;
+	}
+	public void setProfileicon(String profileicon) {
+		this.profileicon = profileicon;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserBean [id=" + id + ", pass=" + pass + ", name=" + name + ", nickname=" + nickname + ", birth="
-				+ birth + ", gender=" + gender + ", email=" + email + ", reg_date=" + reg_date + "]";
+				+ birth + ", gender=" + gender + ", email=" + email + ", reg_date=" + reg_date + ", profileicon="
+				+ profileicon + "]";
 	}
+	
 	
 	
 	

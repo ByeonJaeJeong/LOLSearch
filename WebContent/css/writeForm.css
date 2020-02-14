@@ -38,7 +38,7 @@
     border-top-right-radius: 5px; border-bottom-right-radius: 5px; margin-left:-3px;
 
     }
-    .btn_group input{
+    .body>form>.btn_group input{
     border: 1px solid skyblue;
      background-color: rgba(0,0,0,0); 
      color: skyblue; 
@@ -47,11 +47,11 @@
     width: 200px;
     font-size: 20px;
     }
-    .btn_group input:hover{
+    .body>form>.btn_group input:hover{
    color:white; background-color: skyblue;
 
     }
-    .btn_group{
+    .body>form>.btn_group{
     text-align: center;
     margin: 15px 0px;
     }

@@ -39,7 +39,7 @@ public class UserDAO {
 		try {
 			getConnection();
 			System.out.println("ub값:"+ub.toString());
-			sql="insert into user values(?,?,?,?,?,?,?,?)";
+			sql="insert into user values(?,?,?,?,?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, ub.getId());
 			pstmt.setString(2, ub.getPass());
@@ -49,6 +49,7 @@ public class UserDAO {
 			pstmt.setString(6, ub.getGender());
 			pstmt.setString(7, ub.getEmail());
 			pstmt.setTimestamp(8, ub.getReg_date());
+			pstmt.setString(9, ub.getProfileicon());
 			check=pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -123,6 +124,7 @@ public class UserDAO {
 				ub.setGender(rs.getString(6));
 				ub.setEmail(rs.getString(7));
 				ub.setReg_date(rs.getTimestamp(8));
+				ub.setProfileicon(rs.getString(9));
 				System.out.println(ub.toString());
 			}
 		}catch (Exception e) {
@@ -155,5 +157,38 @@ public class UserDAO {
 		}
 		return check;
 	}//delete User
-	
+	public int updateprofile(String id,String profile){
+		int check=-1;
+		try{
+			getConnection();
+			sql="update user set profileicon=? where id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, profile);
+			pstmt.setString(2, id);
+			
+			check=pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		return check;
+	}
+	public int updatenickname(String id, String nickname){
+		int check=-1;
+		try{
+			getConnection();
+			sql="update user set nickname=? where id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			pstmt.setString(2, id);
+			
+			pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		return check;
+	}
 }

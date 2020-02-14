@@ -12,13 +12,13 @@ color:black;
 }
 
 .mainPage{
-	width:700px;
+	width:768px;
 	float: left;
 	padding:30px 0px;
 }
 
 .community{
-	width:700px;
+	width:768px;
     margin: 0 auto;
     min-height: 396px;
     background: #fff;
@@ -31,13 +31,10 @@ color:black;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    width:700px;
+    width:768px;
     height: 70px;
 }
-.community-new{
-	width:50%;
-	float:left;
-}
+
 .coummunity li{
 	color: black;
     height: 100%;

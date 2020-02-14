@@ -34,7 +34,7 @@ String pageNum=request.getParameter("pageNum");
 	-->
 <body>
 <jsp:include page="../inc/header.jsp"/>
-
+<div class="content">
 <jsp:include page="../inc/sidebar.jsp"/>
 <div class="body box">
 <form action="./writeAction.net?pageNum=<%=pageNum %>" method="post">
@@ -122,6 +122,7 @@ function setDefaultFont() {
 
 
 </script>	
+</div>
 </div>
 <jsp:include page="../inc/footer.jsp"/>
 </body>

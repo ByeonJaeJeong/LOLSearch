@@ -45,9 +45,12 @@ public class SearchFrontController extends HttpServlet{
 			ActionForward forward= null;
 			
 			if(command.equals("/main.kr")){
-				forward=new ActionForward();
-				forward.setPath("./main/main.jsp");
-				forward.setRedirect(false);
+				action=new mainpostsAction();
+				try{
+					forward=action.execute(request, response);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
 			}else if(command.equals("/Search.kr")){
 				forward=new ActionForward();
 				forward.setPath("./main/Search.jsp");
@@ -103,6 +106,23 @@ public class SearchFrontController extends HttpServlet{
 				forward.setPath("./login/userinfoForm.jsp");
 				forward.setRedirect(false);
 			
+			}else if(command.equals("/config.kr")){
+				forward=new ActionForward();
+				forward.setPath("./login/userconfig.jsp");
+			}else if(command.equals("/configAction.kr")){
+				action=new configAction();
+				try{
+					forward=action.execute(request, response);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else if(command.equals("/realoadAction.kr")){
+				action=new openerreload();
+				try{
+					forward=action.execute(request, response);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			
 			

@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="net.Board.db.BoardBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -27,130 +29,31 @@
 </div>
 <!-- cotent(Search) -->
 <div class="community">
-<div class="community-new">
 <div class="community-header">
-<a href="" class="community-title">최신글</a></div>
+<a href="" class="community-title">최신글</a>
+</div>
 <ul>
-<li class="community_item"><a href="">
-<div class="rank">1</div>
+<%
+	ArrayList<BoardBean> bbList=new ArrayList<BoardBean>();
+	bbList=(ArrayList<BoardBean>)request.getAttribute("bbList");
+	System.out.println(bbList.size());
+	for(int i=0;i<bbList.size();i++){
+		BoardBean bb=bbList.get(i);
+	
+%>
+<li class="community_item"><a href="view.net?w_num=<%=bb.getWritenum()%>">
+<div class="rank"><%=i+1 %></div>
 <div class="title">
-<span>글제목</span>
+<span><%=bb.getSubject() %></span>
 <em>[덧글수]</em>
 </div>
 <div class="sub">
-<div class="sub_item">이름</div>
-<div class="sub_item">닉네임</div>
+<div class="sub_item"><%=bb.getBoardType()%></div>
+<div class="sub_item"><%=bb.getNickname() %></div>
 </div>
-</a></li>
-<li class="community_item"><a href="">
-<div class="rank">2</div>
-<div class="title">
-<span>글제목</span>
-<em>[덧글수]</em>
-</div>
-<div class="sub">
-<div class="sub_item">이름</div>
-<div class="sub_item">닉네임</div>
-</div>
-</a></li>
-<li class="community_item"><a href="">
-<div class="rank">3</div>
-<div class="title">
-<span>글제목</span>
-<em>[덧글수]</em>
-</div>
-<div class="sub">
-<div class="sub_item">이름</div>
-<div class="sub_item">닉네임</div>
-</div>
-</a></li>
-<li class="community_item"><a href="">
-<div class="rank">4</div>
-<div class="title">
-<span>글제목</span>
-<em>[덧글수]</em>
-</div>
-<div class="sub">
-<div class="sub_item">이름</div>
-<div class="sub_item">닉네임</div>
-</div>
-</a></li>
-<li class="community_item"><a href="">
-<div class="rank">5</div>
-<div class="title">
-<span>글제목</span>
-<em>[덧글수]</em>
-</div>
-<div class="sub">
-<div class="sub_item">이름</div>
-<div class="sub_item">닉네임</div>
-</div>
-</a></li>
-
+</a>
+<%} %>
 </ul>
-</div>
-<div class="community-best">
-<div class="community-header">
-<a href="" class="community-title">베스트 게시글</a></div>
-<ul>
-<li class="community_item"><a href="">
-<div class="rank">1</div>
-<div class="title">
-<span>글제목</span>
-<em>[덧글수]</em>
-</div>
-<div class="sub">
-<div class="sub_item">이름</div>
-<div class="sub_item">닉네임</div>
-</div>
-</a></li>
-<li class="community_item"><a href="">
-<div class="rank">2</div>
-<div class="title">
-<span>글제목</span>
-<em>[덧글수]</em>
-</div>
-<div class="sub">
-<div class="sub_item">이름</div>
-<div class="sub_item">닉네임</div>
-</div>
-</a></li>
-<li class="community_item"><a href="">
-<div class="rank">3</div>
-<div class="title">
-<span>글제목</span>
-<em>[덧글수]</em>
-</div>
-<div class="sub">
-<div class="sub_item">이름</div>
-<div class="sub_item">닉네임</div>
-</div>
-</a></li>
-<li class="community_item"><a href="">
-<div class="rank">4</div>
-<div class="title">
-<span>글제목</span>
-<em>[덧글수]</em>
-</div>
-<div class="sub">
-<div class="sub_item">이름</div>
-<div class="sub_item">닉네임</div>
-</div>
-</a></li>
-<li class="community_item"><a href="">
-<div class="rank">5</div>
-<div class="title">
-<span>글제목</span>
-<em>[덧글수]</em>
-</div>
-<div class="sub">
-<div class="sub_item">이름</div>
-<div class="sub_item">닉네임</div>
-</div>
-</a></li>
-
-</ul>
-</div>
 </div>
 <!-- 갤러리 최신글  -->
 <jsp:include page="../inc/footer.jsp"/>
