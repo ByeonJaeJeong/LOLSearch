@@ -10,6 +10,7 @@ public class commentBean {
 	private String user_nickname;
 	private String content;
 	private Timestamp reg_date;
+	private String profile;
 	public int getComment_num() {
 		return comment_num;
 	}
@@ -46,11 +47,21 @@ public class commentBean {
 	public void setReg_date(Timestamp reg_date) {
 		this.reg_date = reg_date;
 	}
+	
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
 	@Override
 	public String toString() {
 		return "commentBean [comment_num=" + comment_num + ", board_num=" + board_num + ", user_id=" + user_id
-				+ ", user_nickname=" + user_nickname + ", content=" + content + ", reg_date=" + reg_date + "]";
+				+ ", user_nickname=" + user_nickname + ", content=" + content + ", reg_date=" + reg_date + ", profile="
+				+ profile + "]";
 	}
+	
+	
 	
 	
 }

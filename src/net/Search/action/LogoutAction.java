@@ -26,9 +26,14 @@ public class LogoutAction implements Action{
 		session.removeAttribute("user_id");
 		session.removeAttribute("usernickName");
 		session.removeAttribute("userInfo");
+		session.removeAttribute("userprofileicon");
+		if(url==null){
+			forward.setPath("./main.kr");
+			forward.setRedirect(true);
+		}else{
 		forward.setPath(url+"?"+param);
 		forward.setRedirect(true);
-		
+		}
 		
 		return forward;
 	}

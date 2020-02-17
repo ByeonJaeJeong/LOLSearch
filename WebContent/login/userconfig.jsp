@@ -5,6 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
 <style>
 .content{
 	width: 460px;
@@ -63,6 +67,35 @@ width:70px;
 	
 	String user_id=request.getParameter("user_id");
 %>
+<script type="text/javascript">
+
+	$(document).ready(
+			function() {
+				$("#profile_icon").on(
+						"propertychange change keyup paste input", function() {
+							if($(this).val().length>0){
+								$("#in-icon-on").attr("checked","checked");
+								if($(this).val().substring($(this).val().length, $(this).val().length-4)==".png" || $(this).val().substring($(this).val().length, $(this).val().length-4)==".jpg" ||$(this).val().substring($(this).val().length, $(this).val().length-4)==".gif"){
+									$(".submit_btn").attr("type","submit");	
+								}else{
+									$(".submit_btn").attr("type","button");
+									alert("jpg png gif 중에 넣어주세요")
+								}
+							}else{
+								$(".submit_btn").attr("type","submit");	
+							}
+							
+						});
+				$("#idcheck").on("click",function(){
+					var getCheck= RegExp(/^[a-zA-Z0-9가-힣]{2,10}$/);
+					if(!getCheck.test($("#nickname").val())){
+						$("#nickname-check").html("사용 불가능한 닉네임입니다.");
+					}else{
+						$("#nickname-check").html("사용 가능한 닉네임입니다.");
+					}
+				});
+			});
+</script>
 <div class="content">
 <form action="configAction.kr" method="post" enctype="multipart/form-data" >
 <div class="nickname box">
@@ -71,8 +104,9 @@ width:70px;
 	<table>
 		<tr>
 			<th><label>별명</label></th>
-			<td><input  name="nickname" type="text" maxlength="15">
-			<input type="button" value="중복확인"> 
+			<td><input id="nickname" name="nickname"  type="text" maxlength="10"  value="<%=session.getAttribute("usernickName")%>">
+			<input id="idcheck" type="button" value="중복확인" > 
+			<p><label id="nickname-check"></label></p>
 			<p>한글 영어 숫자 를 혼합한 10자 이내의 닉네임을 정해주세요</p></td>
 		</tr>
 	</table>
@@ -84,7 +118,11 @@ width:70px;
 		<tr>
 			<th><label>프로필<br> 이미지</label></th>
 			<td>
-				<input type="file" name="profile_icon">
+				<input type="file" name="profile_icon" id="profile_icon" >
+				<p>
+				<input type="radio" name="in-icon" value="on" id="in-icon-on">변경
+				<input type="radio" name="in-icon" value="off" id="in-icon-off" checked="checked">변경하지않음</p>
+				
 				<p>10MB이하의 .jpg , .png, .gif파일만 가능합니다.</p>
 				<p>가로 세로 96px 96px 의 사진으로 저장됩니다.</p>
 				
@@ -93,7 +131,7 @@ width:70px;
 	</div>
 </div>
 	<div class="btn_group">
-		<input class="submit_btn" type="submit" value="확인">
+		<input class="submit_btn"  type="submit" value="확인">
 		<input class="reset_btn"type="button" value="취소" onclick="javascript:self.close();">
 	</div>
 </form>

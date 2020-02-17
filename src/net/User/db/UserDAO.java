@@ -191,4 +191,67 @@ public class UserDAO {
 		}
 		return check;
 	}
+	public int deleteMember(String id){
+		int check=-1;
+		try{
+			getConnection();
+			sql="delete from user where id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			check=pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		return check;
+	}
+	public int replacePass(String id,String pass,String inputpass){
+		int check=-1;//알수없는 오류
+		try{
+			getConnection();
+			sql="select pass from user where id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs=pstmt.executeQuery();
+			if(rs.next()){
+				if(rs.getString(1).equals(pass)){
+					sql="update user set pass=? where id=?";
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1, inputpass);
+					pstmt.setString(2, id);
+					check=pstmt.executeUpdate();
+				}else{
+				check=0;//아이디존재 비밀번호 틀림
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		return check;
+	}
+	
+	public int updateUser(UserBean ub){
+		int check=-1;
+		try{
+			getConnection();
+			sql="update user set  nickname=?,birth=?,gender=?,email=? where id=?" ;
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, ub.getNickname());
+			pstmt.setString(2, ub.getBirth());
+			pstmt.setString(3, ub.getGender());
+			pstmt.setString(4, ub.getEmail());
+			pstmt.setString(5, ub.getId());
+			
+		check=pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		return check;
+	}
 }

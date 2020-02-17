@@ -41,7 +41,7 @@ public class commentDAO {
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()){
-				sql="insert into comment values(?,?,?,?,?,?)";
+				sql="insert into comment values(?,?,?,?,?,?,?)";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, rs.getInt(1)+1);
 				pstmt.setInt(2, cb.getBoard_num());
@@ -49,7 +49,7 @@ public class commentDAO {
 				pstmt.setString(4, cb.getUser_nickname());
 				pstmt.setString(5, cb.getContent());
 				pstmt.setTimestamp(6, cb.getReg_date());
-				
+				pstmt.setString(7, cb.getProfile());
 				check=pstmt.executeUpdate();
 			}
 		}catch (Exception e) {
@@ -79,6 +79,7 @@ public class commentDAO {
 			cb.setUser_nickname(rs.getString(4));
 			cb.setContent(rs.getString(5));
 			cb.setReg_date(rs.getTimestamp(6));
+			cb.setProfile(rs.getString(7));
 			cbList.add(cb);
 			System.out.println(cb.toString());
 			}

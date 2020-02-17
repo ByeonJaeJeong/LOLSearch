@@ -10,6 +10,9 @@
 <script>
 Kakao.init('e2464f1c7676015d97f020b788597014');
 $(document).ready(function(){
+		if(window.location.pathname=="/LOLSearch/main.kr"){
+			$(".SearchInput").css("display","none");
+		}
 	  $('.btn').click(function(){
 		  var number=(window.location.host+window.location.pathname).length+window.location.pathname.length;
 		  var param_num=window.location.href.indexOf("?");
@@ -39,34 +42,51 @@ $(document).ready(function(){
 	}
 %>
 <div class="header">
-<div class="family-site">
-<div class="container">
-<ul>
-<li><a href="/LOLSearch">리그오브 레전드</a></li>
-<li><a href="#">전략적팀전투TFT</a></li>
-<li><a href="#">리그오브룬테라</a></li>
-</ul>
-</div>
+	<div class="family-site">
+		<div class="container">
+			<ul>
+				<li><a href="/LOLSearch">리그오브 레전드</a></li>
+				<li><a href="#">전략적팀전투TFT</a></li>
+				<li><a href="#">리그오브룬테라</a></li>
+			</ul>
+		</div>
 
-</div>
-<%if(user_id!=null) {%>
-<div class="user_name"><%=usernickName %>님 반갑습니다.</div>
-<div class="ab_btn btn user_info" alt="./memberInfo.kr">회원정보</div>
-<div class="ab_btn btn logout" alt="./logOut.kr">로그아웃</div>
-<%}if(user_id==null){ %>
-<div class="ab_btn btn login" alt="./login.kr">로그인</div>
-<%} %>
+	</div>
+	<%
+		if (user_id != null) {
+	%>
+	<div class="user_name"><%=usernickName%>님 반갑습니다.
+	</div>
+	<div class="ab_btn btn user_info" alt="./memberInfo.kr">회원정보</div>
+	<div class="ab_btn btn logout" alt="./logOut.kr">로그아웃</div>
+	<%
+		}
+		if (user_id == null) {
+	%>
+	<div class="ab_btn btn login" alt="./login.kr">로그인</div>
+	<%
+		}
+	%>
 
 </div>
 <div class="gnb ">
-<div class="container">
-<ul>
-<li><a href="/LOLSearch">전적검색</a></li>
-<li><a href="#">챔피언 분석</a></li>
-<li><a href="#">아이템</a></li>
-<li><a href="#">랭킹</a></li>
-<li><a href="/LOLSearch/community.net">커뮤니티</a></li>
-</ul>
+	<div class="container">
+		<ul>
+			<li><a href="/LOLSearch">전적검색</a></li>
+			<li><a href="#">챔피언 분석</a></li>
+			<li><a href="#">아이템</a></li>
+			<li><a href="#">랭킹</a></li>
+			<li><a href="/LOLSearch/community.net">커뮤니티</a></li>
+			
+			<li class="SearchInput">
+				<form action="/LOLSearch/Search.kr" method="get">
+					<input type="text" name="userName" placeholder="소환사명 입력">
+					<button type="submit">검색</button>
+				</form>
+			</li>
+		</ul>
 
-</div>
+
+
+	</div>
 </div>

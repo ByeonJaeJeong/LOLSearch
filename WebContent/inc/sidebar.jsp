@@ -3,18 +3,27 @@
 <link rel="stylesheet" href="/LOLSearch/css/sidebar.css" type="text/css">
 <script src="./js/jquery-3.4.1.js"></script>
 <%
-String type=request.getParameter("type");
+String type="*";
+if(request.getParameter("type")!=null){
+type=request.getParameter("type");
+}
 String user_id = (String)session.getAttribute("user_id");
 String user_nickname=(String)session.getAttribute("usernickName");
 int postscount=0;
 int commentcount=0;
 String profileicon="";
+String pageNum="1";
+if(request.getParameter("pageNum")!=null){
+	pageNum=request.getParameter("pageNum");
+}
+
 if(session.getAttribute("userprofileicon")==null){
 	profileicon="./img/no-img.png";
 }else{
 	profileicon=(String)session.getAttribute("userprofileicon");
 }
 System.out.println(profileicon);
+
 %>
 
 <script>
@@ -49,7 +58,7 @@ $(document).ready(function() {
 	<p>덧글:<%=commentcount %>개</p>
 	</div>
 	<div class="btn_group">
-	<input type="button" value="글쓰기" class="mouse" >
+	<input type="button" value="글쓰기" class="mouse" onclick="location.href='write.net?pageNum=<%=pageNum %>&type=<%=type%>'">
 	</div>
 	</div>
 	<%} %>

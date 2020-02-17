@@ -12,6 +12,7 @@
 <%
 String id=(String)request.getParameter("id"); 
 String pass=id.substring(0,10);
+String profileicon=request.getParameter("profile");
 %>
 <script>
 function  checkz(){
@@ -103,6 +104,7 @@ $(document).ready(function(){
 <div class="row_group">
 <input type="hidden" value="<%=id%>" name="id">
 <input type="hidden" value="<%=pass%>" name="pass">
+<input type="hidden" value="<%=profileicon %>" name="profileicon">
 <label>*이름</label><br>
 <input type="text" id="name" name="name" class="table_cell " autocomplete="off"><br>
 </div>

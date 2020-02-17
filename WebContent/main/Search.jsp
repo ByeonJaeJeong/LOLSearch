@@ -5,10 +5,7 @@
 <html>
 <link href="./css/Search.css" rel="stylesheet">
 <head>
-<script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -24,11 +21,18 @@ var token="RGAPI-822ddabc-8aa1-4ee0-960a-7d0a41e8530e";
 var id="";
 var participantId="";
 var accountId="";
+$(document).ready(function() {
+	console.log("시작");
+	$("#Loading").hide();
+});
+
+
+
 $(document).ready(function(){
 var userName="<%=userName%>";
 var item_num=0;//index  
 var l=0;
-		////
+	$(".Loading").hide();
 	$.ajax({
 	    url:"./riotapi",
 	 	type:"GET",
@@ -38,6 +42,12 @@ var l=0;
 	    "X-Riot-Token": token
 	    },  
 	    success: function(json) {
+	    	if(json.status!=null &&json.status.message){
+	    		$(".cotainer").html("<div class='center' style='text-align:center'>"
+	    				+"<h2 class='title'>리그오브 레전드 에 등록되지 않은 소환사입니다. 오타를 확인 후 다시 검색해주세요.</h2>"
+	    				+"<h3 class='subtitle'>저희 LOLSearch 페이지는 한국서버를 제외한 다른서버는 검색기능이 불가능합니다</h3>"
+	    				+"</div>");
+	    	}else{
 	   		id=json.id;
 	 		accountId=json.accountId;
 	 		$("#summonerName").append("<span class='name'>"+json.name+"</span>");
@@ -93,17 +103,21 @@ var l=0;
 	 	 		    		 $('#subBox .tier_imgbox').append("<img class='image' src='https://raw.githubusercontent.com/ByeonJaeJeong/LOLSearch/master/WebContent/img/UNRANK.png'>");
 	 	 	 		 		$('#subBox .tier_Rank').append("<span>Unranked</span>");
 	 	 		    	  }//자랭default 
+	 		    	
 	 		    }//success
 	 		});//소환사 티어 전적
 	 		//ㅇㅇ
-	 		
-	Search(accountId, token);
-	    },error:function(request,status,error){
+	    	
+	    
+			Search(accountId, token);
+	    	}
+	    }//소환사 검색 success
+	    ,error:function(request,status,error){
 	        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 	    }
 	//
-
-	});//소환사 검색
+	    
+	});//소환사 검색 ajax
 	
 });
 	
@@ -264,7 +278,8 @@ function rune(mainRune,subRune,i){
 function Search(accountId,token){
 	var riot="https://kr.api.riotgames.com";
 	var userName="<%=userName%>";	
-	var warpNum=2;
+	var warpNum=10;
+	
 	$('.gameItemList').empty();
 	$.ajax({
 		url:"./riotapi",
@@ -418,7 +433,7 @@ function Search(accountId,token){
 		 		 		$('.Team.1:eq('+l+')').append(
 			 		 			"<div class='summoner' >"
 			 		 			+"<div class='ChamptionImage' >"+"</div>"
-			 		 			+"<div class='SummonerName' ><a href='Search.jsp?userName="+json.participantIdentities[j].player.summonerName+"'>"+textLengthOverCut(json.participantIdentities[j].player.summonerName,4,'..')+"</a></div>"
+			 		 			+"<div class='SummonerName' ><a href='Search.kr?userName="+json.participantIdentities[j].player.summonerName.replace("%20","") +"'>"+textLengthOverCut(json.participantIdentities[j].player.summonerName,4,'..')+"</a></div>"
 			 		 				+"</div>"
 		 		 				);
 			 		 				t1[t1_count]=json.participants[j].championId;
@@ -428,7 +443,7 @@ function Search(accountId,token){
 			 		 		$('.Team.2:eq('+l+')').append(
  			 		 			"<div class='summoner' >"
  			 		 			+"<div class='ChamptionImage'>"+"</div>"
- 			 		 			+"<div class='SummonerName' ><a href='Search.jsp?userName="+json.participantIdentities[j].player.summonerName+"'>"+textLengthOverCut(json.participantIdentities[j].player.summonerName,4,'..')+"</a></div>"
+ 			 		 			+"<div class='SummonerName' ><a href='Search.kr?userName="+json.participantIdentities[j].player.summonerName.replace("%20","")+"'>"+textLengthOverCut(json.participantIdentities[j].player.summonerName,4,'..')+"</a></div>"
  			 		 				+"</div>"
 			 		 				);
 			 		 				t2[t2_count]=json.participants[j].championId;
@@ -450,16 +465,24 @@ function Search(accountId,token){
 			 		 				item_num++;
 			 		 				
 		 		 	}//Matchlist success
-	 				
+		 		 	 
 	 			});//게임상세 
-	 				}); 
+	 		}); 
 	 				//}//for문 끝 [i]
-	
+					
 	 	}
+	 	,beforeSend:function(){
+			$("#Loading").show();
+			$(".menu").css("opacity","0.1");
+	    }
+	    ,complete:function(){
+	    	$("#Loading").hide();
+	    	$(".menu").css("opacity","1");
+	    }
 	});//전적20게임 
 	
 	
-}
+}//function 종료 
  /* $(function(){    
     var title_;
     var class_;
@@ -494,7 +517,6 @@ function Search(accountId,token){
  });  */
 
 
-
 	 		 				
 	 		 			
 	 		 				
@@ -504,7 +526,7 @@ function Search(accountId,token){
 
 </script>
 <jsp:include page="../inc/header.jsp"/>
-<div class="cotainer">
+<div class="cotainer" id="container">
 <div class="content-header">
 <div id="profileIcon" class="profileicon"></div>
 <div class="profile">
@@ -538,12 +560,15 @@ function Search(accountId,token){
 <div class="main_content">
 <div class="navigation"></div>
 <div class="gameItemList" id="gameItemList"></div>
-
 </div><!-- main_content -->
 </div><!-- content -->
 </div><!-- menu -->
 
 </div><!--container-->
+<div class="Loading" id="Loading">
+<p>로딩중 입니다.</p>
+<img src='./img/loading/loading-img.gif'>
+</div>
 
 <jsp:include page="../inc/footer.jsp"/>
 </body>

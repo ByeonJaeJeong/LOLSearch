@@ -52,7 +52,7 @@ String pageNum=request.getParameter("pageNum");
 			</div>
 			<div class="subject">
 			<label>제목:</label>
-			<input type="text" name="subject" >
+			<input type="text" name="subject" autocomplete="off">
 			</div>
 	<textarea name="content" id="ir1" rows="10" cols="100" style="width:762px; height:412px; display:none;"></textarea>
 	<!--textarea name="ir1" id="ir1" rows="10" cols="100" style="width:100%; height:412px; min-width:610px; display:none;"></textarea-->

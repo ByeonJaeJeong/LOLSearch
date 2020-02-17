@@ -17,6 +17,10 @@ public class InsertAction implements Action {
 		request.setCharacterEncoding("UTF-8");//utf-8인코딩
 		String birth=request.getParameter("year")+request.getParameter("month")+request.getParameter("day");
 		UserBean ub= new UserBean(); //userbean 객체에 파라메타 저장
+		String profileicon="./img/User-profileicon/no-img.gif";
+		if(request.getParameter("profileicon")!=null){
+			profileicon=request.getParameter("profileicon");
+		}
 		ub.setId(request.getParameter("id"));
 		ub.setPass(request.getParameter("pass"));
 		ub.setName(request.getParameter("name"));
@@ -25,6 +29,7 @@ public class InsertAction implements Action {
 		ub.setGender(request.getParameter("gender"));
 		ub.setEmail(request.getParameter("email"));
 		ub.setReg_date(new Timestamp(System.currentTimeMillis()));
+		ub.setProfileicon(profileicon);
 		UserDAO udao =new UserDAO();
 		System.out.println(ub.toString());
 		int check=udao.insertUser(ub);

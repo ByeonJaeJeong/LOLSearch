@@ -24,6 +24,8 @@ public class commentAction implements Action{
 		cb.setUser_nickname(request.getParameter("user_nickName"));
 		cb.setContent(request.getParameter("content"));
 		cb.setReg_date(new Timestamp(System.currentTimeMillis()));
+		cb.setProfile(request.getParameter("profile"));
+		System.out.println("profile="+request.getParameter("profile"));
 		commentDAO cdao=new commentDAO();
 		int check=cdao.insertcomment(cb);
 		if(check==1){

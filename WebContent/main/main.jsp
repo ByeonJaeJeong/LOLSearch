@@ -37,6 +37,7 @@
 	ArrayList<BoardBean> bbList=new ArrayList<BoardBean>();
 	bbList=(ArrayList<BoardBean>)request.getAttribute("bbList");
 	System.out.println(bbList.size());
+	int[] ccount_array=(int[])request.getAttribute("ccount_array");
 	for(int i=0;i<bbList.size();i++){
 		BoardBean bb=bbList.get(i);
 	
@@ -45,7 +46,7 @@
 <div class="rank"><%=i+1 %></div>
 <div class="title">
 <span><%=bb.getSubject() %></span>
-<em>[덧글수]</em>
+<em>[<%=ccount_array[i] %>]</em>
 </div>
 <div class="sub">
 <div class="sub_item"><%=bb.getBoardType()%></div>

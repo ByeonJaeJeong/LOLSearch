@@ -15,8 +15,14 @@
 
 <%
 	request.setCharacterEncoding("UTF-8");
-	String url=request.getParameter("url");
-	String param= request.getParameter("param");
+	String url="main.kr";
+	if(request.getParameter("url")!=null){
+	 url=request.getParameter("url");
+	}
+	String param="";
+	if(request.getParameter("param")!=null){
+	 param= request.getParameter("param");
+	}
 %>
 <div class="center">
 <div class="header">
@@ -55,7 +61,7 @@ var scope="";
 		                url: '/v2/user/me',
 		                success: function(res) {
 		                	
-		                  console.log(res);
+		                  $("#profile").attr("value",res.properties.profile_image);
 		                  $("#id").attr("value",res.id+"@kkao");
 		                  console.log($("#id").attr("value"));
 		                  $("#pass").attr("value",res.id);
@@ -93,6 +99,7 @@ var scope="";
 <form action="./kkaoLoginAction.kr?url=<%=url %>&param=<%=param %>" id="kkaojoin" method="post">
 <input type="hidden" name="id" id="id" >
 <input type="hidden" name="pass" id="pass">
+<input type="hidden" name="profile" id="profile">
 </form>
 </body>
 </html>

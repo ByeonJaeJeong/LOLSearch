@@ -19,7 +19,10 @@ public class LoginAction implements Action{
 		request.setCharacterEncoding("UTF-8");
 		String user_id=request.getParameter("id");
 		String user_pass=request.getParameter("pass");
-		String url=request.getParameter("url");
+		String url="";
+		if(request.getParameter("url")!=null){
+			url=request.getParameter("url");
+		}
 		String param_n=request.getParameter("param");
 		String param="";
 		
@@ -28,7 +31,6 @@ public class LoginAction implements Action{
 		}else{
 			param="";
 		}
-		System.out.println("인코딩한url->>"+url);
 		UserDAO udao=new UserDAO();
 		int check=udao.LoginUser(user_id, user_pass);
 		UserBean ub=udao.UserInfo(user_id);
@@ -38,9 +40,15 @@ public class LoginAction implements Action{
 			session.setAttribute("user_id", user_id);
 			session.setAttribute("usernickName", ub.getNickname());
 			session.setAttribute("userprofileicon",ub.getProfileicon());
-			System.out.println("ub:"+ub.getName());
-			forward.setPath(url+param);
-			forward.setRedirect(true);
+			System.out.println("url:"+url);
+			if(url==null){
+				System.out.println("발생");
+				forward.setPath("./main.kr");
+				forward.setRedirect(true);
+			}else{
+				forward.setPath(url+param);
+				forward.setRedirect(true);
+			}
 		}else if(check==0){
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out= response.getWriter();

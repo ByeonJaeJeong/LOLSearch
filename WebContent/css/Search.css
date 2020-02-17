@@ -14,6 +14,15 @@ body{
 	width:100px;
 	height:100px;
 }
+.Loading{
+	display: block;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    text-align: center;
+    font-size: 35px;
+}
+
 .summonerlevel{
 	position: absolute;
     top: 100%;
@@ -443,6 +452,9 @@ color: #ec9b07;
 .Rune .tip{
 	left: 28px;
 	top: 70px;
+}
+.Spell:hover>.tip{
+	display:block;
 }
 .Rune:hover>.tip{
 	display:block;

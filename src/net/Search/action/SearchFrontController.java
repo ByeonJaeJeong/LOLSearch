@@ -123,6 +123,27 @@ public class SearchFrontController extends HttpServlet{
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
+			}else if(command.equals("/deleteMember.kr")){
+				action=new deleteMember();
+				try{
+					forward=action.execute(request, response);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else if(command.equals("/passreplace.kr")){
+				action=new passreplace();
+				try{
+					forward=action.execute(request, response);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else if(command.equals("/updateUser.kr")){
+				action=new updateUser();
+				try{
+					forward=action.execute(request, response);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			
 			

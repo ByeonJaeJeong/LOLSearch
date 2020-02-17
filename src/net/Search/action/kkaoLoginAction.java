@@ -16,7 +16,11 @@ public class kkaoLoginAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");//utf-8인코딩
-		String url=request.getParameter("url");
+		
+		String url=null;
+				if(request.getParameter("url")!=null){
+					url=request.getParameter("url");
+				}
 		String param_n=request.getParameter("param");
 		String param="";
 		if(param_n==null || param_n.equals("null")){
@@ -35,8 +39,14 @@ public class kkaoLoginAction implements Action{
 		}else{//회원정보가 있을때
 			UserBean ub=udao.UserInfo(request.getParameter("id"));
 			System.out.println("check_id:"+ub.getProfileicon());
+			if(url!=null ){
 			forward.setPath(url+param);
 			forward.setRedirect(true);
+			}else{
+				forward.setPath("./main.kr");
+				forward.setRedirect(true);
+			}
+			
 			HttpSession session= request.getSession();
 			session.setAttribute("user_id",request.getParameter("id"));
 			session.setAttribute("usernickName", ub.getNickname());

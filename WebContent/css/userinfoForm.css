@@ -52,3 +52,6 @@
     width: 330px;
     background-color: #46cfa7;
 }
+.box #passreplace>p{
+	margin:0;
+}
